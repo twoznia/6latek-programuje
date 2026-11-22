@@ -5,7 +5,7 @@ Jedna osoba jest **Programistą** i układa z kart, co trzeba zrobić. Druga jes
 ## Czego potrzeba
 
 - Karty poleceń i liczb z poziomu 1, pola START, SKARB, LAWA i KAŁUŻA oraz dwie plakietki z następnej strony: **ROBOT** i **PROGRAMISTA**. Plakietkę można powiesić na szyi na sznurku albo przypiąć klamerką.
-- Plansza na podłodze: **5 × 5 pól** z taśmy malarskiej albo z kartek A4. Jedno pole to jeden krok dziecka. Na początek wystarczy 3 × 3.
+- Plansza na podłodze: **5 × 5 pól** z taśmy malarskiej albo z kartek A4. Jedno pole to jeden krok dziecka. Na początek wystarczy 3 × 3. Misje od 20. wzwyż są na dużej planszy **7 × 7** (około 3 × 3 m). Gdy brakuje miejsca, można je przejść figurką Lego na kartce.
 - **Ścieżka programu**: pas taśmy wzdłuż jednego boku planszy. Na nim Programista kładzie karty w rzędzie, od lewej do prawej.
 - **Wskaźnik**: figurka Lego, która pokazuje, którą kartę Robot właśnie wykonuje.
 - Garść klocków na wspólną wieżę z punktów.
@@ -56,7 +56,10 @@ Kiedy wieża ma **10 klocków**, wygrywacie oboje. Po każdej rundzie liczcie na
 ```karty
 ROBOT ×1
 PROGRAMISTA ×1
+LICZBY 1-6 ×2
 ```
+
+Dodatkowe karty liczb przydają się w dłuższych programach, gdzie ta sama liczba pojawia się 3 albo 4 razy.
 
 ---
 
@@ -186,6 +189,320 @@ K . . . .
 
 ---
 
+# Misje dla dwojga, część 3
+
+Te same znaki co na poprzednich stronach.
+
+### 9. Kałuża tuż przed nosem
+Programista ma tylko 2 karty. Wystarczy?
+```plansza
+. . . . .
+. . * . .
+. . . . .
+. . K . .
+. . ^ . .
+```
+
+
+### 10. W lewo!
+Robot czyta głośno każdą kartę. Uwaga na lewo i prawo.
+```plansza
+. . . . .
+* . . . .
+. . . . .
+. . . . .
+. . . ^ .
+```
+
+
+### 11. Korytarz z lawy
+Robot idzie korytarzem. Lawa po obu stronach!
+```plansza
+L . * L .
+L . L L .
+L . . . L
+L L L . L
+. . . ^ .
+```
+
+
+### 12. Trzy skarby
+Robot musi stanąć na wszystkich trzech skarbach.
+```plansza
+* . . . *
+. . . . .
+. . . . .
+. . . . .
+^ . . . *
+```
+
+
+---
+
+# Misje dla dwojga, część 4
+
+Te same znaki co na poprzednich stronach.
+
+### 13. Gdzie skończy robot?
+Programista kładzie figurkę Lego tam, gdzie według niego stanie robot. Potem Robot idzie i sprawdza.
+```plansza
+. . . . .
+. . . . .
+. . . . .
+. . . . .
+. ^ . . .
+```
+```program
+IDŹ ×3, SKRĘĆ W PRAWO, IDŹ ×2, SKRĘĆ W PRAWO, IDŹ
+```
+
+
+### 14. Znajdź błąd
+Program już leży, ale jest w nim jedna zła karta. Robot idzie, a Programista szuka błędu.
+```plansza
+. . . . *
+. . . . .
+L L L . .
+. . . . .
+^ . . . .
+```
+```program
+IDŹ, SKRĘĆ W PRAWO, IDŹ ×3, SKRĘĆ W PRAWO, IDŹ ×3
+```
+
+
+### 15. Dwie kałuże
+Programista ma tylko jedną kartę SKOCZ i jedną kartę liczby.
+```plansza
+* . . . .
+K . . . .
+. . . . .
+K . . . .
+^ . . . .
+```
+
+
+### 16. Wyspa
+Skarb leży na wyspie w lawie. Jest tylko jedno wejście.
+```plansza
+. . . . .
+. L L L .
+. L * L .
+. . . L .
+^ . . . .
+```
+
+
+---
+
+# Misje dla dwojga, część 5
+
+Te same znaki co wcześniej. Misje 20–30 są na dużej planszy 7 × 7.
+
+### 17. Dyktando
+Programista nie układa kart, tylko mówi program na głos. Robot sam układa karty i dopiero potem idzie.
+```plansza
+. . . . .
+. * . . .
+. . . . .
+. . . . .
+. . . . >
+```
+
+
+### 18. Znajdź błąd: kałuża
+W programie brakuje jednej karty. Robot wpada do kałuży: PLUSK! Którą kartę dołożyć?
+```plansza
+. . * . .
+. . . . .
+. . K . .
+. . . . .
+. . ^ . .
+```
+```program
+IDŹ, IDŹ ×2
+```
+
+
+### 19. Pułapka dla dorosłego
+Dziecko rozkłada 3 lawy, 1 kałużę i skarb. Dorosły jest Programistą, a dziecko sprawdza jego program jako Robot.
+```plansza
+. . . . .
+. . . . .
+. . . . .
+. . . . .
+. . ^ . .
+```
+
+
+### 20. Wielka rzeka
+Na planszy 7 × 7. Rzeka ma dwa rzędy kałuż. Czy jeden skok wystarczy?
+```plansza
+. . . . . * .
+. . . . . . .
+K K K K K K K
+. . . . . . .
+K K K K K K K
+. . . . . . .
+. ^ . . . . .
+```
+
+
+---
+
+# Misje dla dwojga, część 6
+
+Te same znaki co wcześniej. Misje 20–30 są na dużej planszy 7 × 7.
+
+### 21. Skoki po kałużach
+Kałuża, pole, kałuża, pole… Ile razy trzeba skoczyć? Robot liczy skoki na głos.
+```plansza
+. . . . . . *
+. . . . . . .
+. . . . . . .
+> K . K . K .
+. . . . . . .
+. . . . . . .
+. . . . . . .
+```
+
+
+### 22. Cztery skarby
+Zbierz wszystkie skarby. Kolejność dowolna. Kto ułoży program z mniejszej liczby kart?
+```plansza
+. . . . . . .
+. * . . . * .
+. . . . . . .
+. . . L . . .
+. . . . . . .
+. * . . . * .
+. . . ^ . . .
+```
+
+
+### 23. Pół na pół
+Pierwszy gracz programuje drogę do pierwszego skarbu. Potem zamiana ról: drugi programuje dalej, od miejsca, gdzie stoi robot.
+```plansza
+. . . . . . *
+. . . . . . .
+. # # # # . .
+. . . . . . .
+. * . . . . .
+. . . . . . .
+^ . . . . . .
+```
+
+
+### 24. Daleki skarb i powrót
+Weź skarb i wróć na START. Robot czyta karty na głos.
+```plansza
+. . . . . . *
+. . . . . . .
+. . L L L . .
+. . . . . . .
+. . . . . . .
+. . . . . . .
+^ . . . . . .
+```
+
+
+---
+
+# Misje dla dwojga, część 7
+
+Te same znaki co wcześniej. Misje 20–30 są na dużej planszy 7 × 7.
+
+### 25. Spirala
+Lawa zwija się jak ślimak. Skarb jest w środku.
+```plansza
+. . . . . . .
+. L L L L L .
+. L . . . L .
+. L . * . L .
+. L L . L L .
+. . . . . . .
+^ . . . . . .
+```
+
+
+### 26. Gdzie stanie robot?
+Programista kładzie figurkę tam, gdzie stanie robot. Potem zamiana ról.
+```plansza
+. . . . . . .
+. . . . . . .
+. . . . . . .
+. . . . . . .
+. . . . . . .
+. . . . . . .
+^ . . . . . .
+```
+```program
+IDŹ ×4, SKRĘĆ W PRAWO, IDŹ ×5, OBRÓĆ SIĘ, IDŹ ×2, SKRĘĆ W PRAWO, IDŹ
+```
+
+
+### 27. Długa droga czy skok?
+Są dwie drogi: dookoła lawy albo przez kałużę. Każdy układa swój program, a potem liczycie karty.
+```plansza
+. . . * . . .
+. . . . . . .
+L L L K L L .
+. . . . . . .
+. . . . . . .
+. . . . . . .
+. . . ^ . . .
+```
+
+
+### 28. Tylko 6 kart
+Programista może położyć najwyżej 6 kart. Robot sprawdza, czy to się uda.
+```plansza
+. . . . . . .
+. . . . . . *
+L L L L . L L
+. . . . . . .
+. . . . . . .
+. . . . . . .
+^ . . . . . .
+```
+
+
+---
+
+# Misje dla dwojga, część 8
+
+Te same znaki co wcześniej. Misje 20–30 są na dużej planszy 7 × 7.
+
+### 29. Znajdź błąd: zła liczba
+Jedna karta liczby jest zła. Robot uderza w ścianę: BUM! Którą liczbę zmienić?
+```plansza
+. . . . . . *
+. . . . . . .
+. . . . . . .
+. . . . . . .
+. . . . . . .
+. . . . . . .
+. ^ . . . . .
+```
+```program
+IDŹ ×6, SKRĘĆ W PRAWO, IDŹ ×6
+```
+
+
+### 30. Wielki finał
+Lawa, kałuże, klocki i dwa skarby. Układacie na zmianę: każdy kładzie jedną kartę, a Robot idzie dopiero na końcu.
+```plansza
+* . . # . . .
+. . . # . . .
+. . . K . . .
+L L . . . L L
+. . . L . . .
+. . . . . . .
+. . . ^ . . *
+```
+
+---
+
 # Rozwiązania dla dorosłego
 
 To przykładowe rozwiązania. Każdy program, który dojdzie do skarbu bez wchodzenia na klocek, lawę ani kałużę, jest dobry.
@@ -231,4 +548,148 @@ SKRĘĆ W PRAWO, IDŹ ×4, SKRĘĆ W LEWO, IDŹ ×4
 ### 8. Skrót przez kałużę
 ```program
 IDŹ, SKOCZ, IDŹ
+```
+
+---
+
+# Rozwiązania, ciąg dalszy
+
+### 9. Kałuża tuż przed nosem
+```program
+SKOCZ, IDŹ
+```
+
+
+### 10. W lewo!
+```program
+IDŹ ×3, SKRĘĆ W LEWO, IDŹ ×3
+```
+
+
+### 11. Korytarz z lawy
+```program
+IDŹ ×2, SKRĘĆ W LEWO, IDŹ ×2, SKRĘĆ W PRAWO, IDŹ ×2, SKRĘĆ W PRAWO, IDŹ
+```
+
+
+### 12. Trzy skarby
+```program
+IDŹ ×4, SKRĘĆ W PRAWO, IDŹ ×4, SKRĘĆ W PRAWO, IDŹ ×4
+```
+
+
+### 13. Gdzie skończy robot?
+W 3. rzędzie od góry, na 4. polu od lewej. Robot patrzy w dół.
+
+
+### 14. Znajdź błąd
+```program
+IDŹ, SKRĘĆ W PRAWO, IDŹ ×3, SKRĘĆ W LEWO, IDŹ ×3, SKRĘĆ W PRAWO, IDŹ
+```
+Druga karta SKRĘĆ powinna być W LEWO. Po poprawce robot dochodzi do prawego brzegu i trzeba jeszcze dołożyć SKRĘĆ W PRAWO i IDŹ.
+
+
+### 15. Dwie kałuże
+```program
+SKOCZ ×2
+```
+
+
+### 16. Wyspa
+```program
+SKRĘĆ W PRAWO, IDŹ ×2, SKRĘĆ W LEWO, IDŹ ×2
+```
+
+
+---
+
+# Rozwiązania, ciąg dalszy
+
+### 17. Dyktando
+```program
+SKRĘĆ W LEWO, IDŹ ×3, SKRĘĆ W LEWO, IDŹ ×3
+```
+
+
+### 18. Znajdź błąd: kałuża
+```program
+IDŹ, SKOCZ, IDŹ
+```
+Zamiast IDŹ ×2 robot musi skoczyć: IDŹ, SKOCZ, IDŹ.
+
+
+### 19. Pułapka dla dorosłego
+Tu nie ma jednego rozwiązania. Dziecko sprawdza program dorosłego, chodząc jako Robot.
+
+
+### 20. Wielka rzeka
+```program
+IDŹ, SKOCZ ×2, IDŹ, SKRĘĆ W PRAWO, IDŹ ×4
+```
+
+
+### 21. Skoki po kałużach
+```program
+SKOCZ ×3, SKRĘĆ W LEWO, IDŹ ×3
+```
+
+
+### 22. Cztery skarby
+```program
+SKRĘĆ W PRAWO, IDŹ ×2, SKRĘĆ W LEWO, IDŹ ×5, SKRĘĆ W LEWO, IDŹ ×4, SKRĘĆ W LEWO, IDŹ ×4
+```
+
+
+### 23. Pół na pół
+```program
+IDŹ ×2, SKRĘĆ W PRAWO, IDŹ ×6, SKRĘĆ W LEWO, IDŹ ×4
+```
+
+
+### 24. Daleki skarb i powrót
+```program
+IDŹ ×6, SKRĘĆ W PRAWO, IDŹ ×6, SKRĘĆ W PRAWO, IDŹ ×6, SKRĘĆ W PRAWO, IDŹ ×6
+```
+
+
+---
+
+# Rozwiązania, ciąg dalszy
+
+### 25. Spirala
+```program
+SKRĘĆ W PRAWO, IDŹ ×3, SKRĘĆ W LEWO, IDŹ ×3
+```
+
+
+### 26. Gdzie stanie robot?
+W 2. rzędzie od góry, na 4. polu od lewej. Robot patrzy w górę.
+
+
+### 27. Długa droga czy skok?
+```program
+IDŹ, SKOCZ ×2, IDŹ
+```
+Droga dookoła jest dłuższa (7 kart):
+```program
+IDŹ ×3, SKRĘĆ W PRAWO, IDŹ ×3, SKRĘĆ W LEWO, IDŹ ×3, SKRĘĆ W LEWO, IDŹ ×3
+```
+
+
+### 28. Tylko 6 kart
+```program
+SKRĘĆ W PRAWO, IDŹ ×4, SKRĘĆ W LEWO, IDŹ ×5, SKRĘĆ W PRAWO, IDŹ ×2
+```
+
+
+### 29. Znajdź błąd: zła liczba
+```program
+IDŹ ×6, SKRĘĆ W PRAWO, IDŹ ×5
+```
+Na końcu robot ma iść 5 pól, a nie 6. Policzcie pola palcem.
+
+
+### 30. Wielki finał
+```program
+SKRĘĆ W PRAWO, IDŹ ×3, OBRÓĆ SIĘ, IDŹ ×4, SKRĘĆ W PRAWO, IDŹ ×6, SKRĘĆ W LEWO, IDŹ ×2
 ```
