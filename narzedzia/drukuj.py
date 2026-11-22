@@ -117,6 +117,19 @@ def big_tile(kind):
         return f'<div class="card tile"><svg viewBox="0 0 100 90" width="70mm" height="63mm">{robot(50,45,32,"^")}</svg><div class="lbl" style="color:#2b6fd6">START</div></div>'
     if kind == "skarb":
         return f'<div class="card tile"><svg viewBox="0 0 100 90" width="70mm" height="63mm">{star(50,45,36)}</svg><div class="lbl" style="color:#b88f00">SKARB</div></div>'
+    if kind == "robot":
+        face = ('<rect x="47" y="4" width="6" height="12" fill="#2b6fd6"/><circle cx="50" cy="5" r="5" fill="#e03131"/>'
+                '<rect x="14" y="16" width="72" height="56" rx="12" fill="#2b6fd6"/>'
+                '<circle cx="35" cy="40" r="9" fill="#fff"/><circle cx="65" cy="40" r="9" fill="#fff"/>'
+                '<circle cx="35" cy="40" r="4" fill="#222"/><circle cx="65" cy="40" r="4" fill="#222"/>'
+                '<rect x="32" y="56" width="36" height="7" rx="3" fill="#fff"/>'
+                '<rect x="4" y="34" width="10" height="20" rx="3" fill="#2b6fd6"/><rect x="86" y="34" width="10" height="20" rx="3" fill="#2b6fd6"/>')
+        return f'<div class="card tile role"><svg viewBox="0 0 100 76" width="80mm" height="61mm">{face}</svg><div class="lbl" style="color:#2b6fd6">ROBOT</div><div class="motto">Robię dokładnie to, co jest na kartach.</div></div>'
+    if kind == "programista":
+        cards = "".join(f'<rect x="{10+i*4}" y="{8+i*22}" width="80" height="18" rx="4" fill="#fff" stroke="{c}" stroke-width="3"/>'
+                        f'<path d="M{20+i*4} {17+i*22} h14" stroke="{c}" stroke-width="5"/><rect x="{70+i*4}" y="{11+i*22}" width="14" height="12" rx="2" fill="none" stroke="{c}" stroke-width="1.5" stroke-dasharray="3 2"/>'
+                        for i, c in enumerate(("#2e9e4f", "#f08a1c", "#2b6fd6")))
+        return f'<div class="card tile role"><svg viewBox="0 0 100 76" width="80mm" height="61mm">{cards}</svg><div class="lbl" style="color:#2e9e4f">PROGRAMISTA</div><div class="motto">Układam program. Gdy robot rusza, milczę.</div></div>'
     bg, fg, wc, word = (("#e03131","#fff","#ffa94d","LAWA") if kind == "lawa" else ("#a5d8ff","#0b4f8a","#1c7ed6","KAŁUŻA"))
     w = "".join(f'<path d="M5 {y} q11 -9 22.5 0 t22.5 0 t22.5 0 t22.5 0" stroke="{wc}" stroke-width="4" fill="none"/>' for y in (15,40,65,90))
     return (f'<div class="card tile" style="background:{bg};border-color:{bg}"><svg viewBox="0 0 100 100" width="76mm" height="76mm">{w}</svg>'
@@ -128,6 +141,8 @@ COUNT_RE = re.compile(r'^(.*?)\s*[×x]\s*(\d+|∞)\s*$')
 def split_count(t):
     m = COUNT_RE.match(t.strip())
     return (m.group(1).strip(), m.group(2)) if m else (t.strip(), None)
+
+TILES = {"START":"start","SKARB":"skarb","LAWA":"lawa","KAŁUŻA":"kaluza","ROBOT":"robot","PROGRAMISTA":"programista"}
 
 def block_karty(lines):
     cmds, smalls, tiles = [], [], []
@@ -147,8 +162,8 @@ def block_karty(lines):
             smalls += [yesno_card(name == "TAK")] * n
         elif name in ("ZAWSZE", "∞"):
             smalls += [inf_card()] * n
-        elif name in ("START", "SKARB", "LAWA", "KAŁUŻA"):
-            tiles += [big_tile({"START":"start","SKARB":"skarb","LAWA":"lawa","KAŁUŻA":"kaluza"}[name])] * n
+        elif name in TILES:
+            tiles += [big_tile(TILES[name])] * n
         else:
             sys.exit(f"Nieznana karta: {name!r}")
     out = []
