@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Zamienia pliki poziomy/*.md na strony do druku (HTML, a jeśli jest Chrome, to też PDF).
+"""Zamienia pliki tresc/*.md na strony do druku (HTML, a jeśli jest Chrome, to też PDF).
 
 Użycie:
-    python3 narzedzia/drukuj.py              # wszystkie poziomy
-    python3 narzedzia/drukuj.py poziomy/poziom-1.md
+    python3 narzedzia/drukuj.py                      # wszystkie pliki
+    python3 narzedzia/drukuj.py tresc/instrukcja.md
     python3 narzedzia/drukuj.py --bez-pdf    # tylko HTML (wydrukuj z przeglądarki: Ctrl+P)
 
 Wymaga tylko Pythona 3 (bez dodatkowych pakietów). PDF powstaje, jeśli na komputerze
@@ -15,7 +15,9 @@ Specjalne bloki w plikach .md (w ```):
     legenda    "NAZWA: opis" - legenda poleceń z ikonami
     plansza    siatka pól: . puste, ^ > v < robot, * skarb, # klocek, L lawa, K kałuża, ? niewiadoma
     program    program; wcięcie 2 spacje = wnętrze POWTÓRZ/JEŚLI; "A, B, C" w jednej linii = karty w rzędzie
-Linia "---" zaczyna nową stronę. Strona z tytułem "Misje..." układa sekcje ### w ramki misji.
+    rozwiazanie  jak program, ale rysowane na dole karty gry jako rozwiązanie
+Linia "---" zaczyna nową stronę. Strona z tytułem "Plansze..." (albo "Misje...") układa sekcje ### w karty gier.
+Na karcie gry wszystko od bloku "rozwiazanie" albo akapitu "**Rozwiązanie:** ..." trafia na dół karty.
 """
 import html, math, os, re, shutil, subprocess, sys
 
@@ -186,7 +188,8 @@ def block_plansza(lines):
     rows = [l.split() for l in lines if l.strip()]
     s, o = 20, 4
     h, w = len(rows), max(len(r) for r in rows)
-    out = [f'<svg class="plansza" viewBox="0 0 {w*s+2*o} {h*s+2*o}" width="{50*w/5:.0f}mm" height="{50*h/5:.0f}mm">']
+    cell = 10 if w <= 5 else 8.2
+    out = [f'<svg class="plansza" viewBox="0 0 {w*s+2*o} {h*s+2*o}" width="{w*cell:.0f}mm" height="{h*cell:.0f}mm">']
     for r in range(h):
         for c in range(w):
             out.append(f'<rect x="{o+c*s}" y="{o+r*s}" width="{s}" height="{s}" fill="#fafafa" stroke="#999" stroke-width="0.8"/>')
@@ -242,9 +245,10 @@ def block_program(lines, title=""):
             html_ = ynchip(t.startswith("TAK")) + "".join(item_chip(x) for x in t[4:].split(",") if x.strip())
         else:
             html_ = "".join(item_chip(x) for x in t.split(","))
-        rows.append(f'<div class="pl" style="margin-left:{ind*9}mm">{html_}</div>')
+        rows.append(f'<div class="pl" style="--ind:{ind}">{html_}</div>')
     head = f'<b class="ptitle">{html.escape(title)}</b>' if title else ""
-    return f'<div class="given">{head}{"".join(rows)}</div>'
+    cls = "given long" if len(rows) > 8 else "given"
+    return f'<div class="{cls}">{head}{"".join(rows)}</div>'
 
 # ------------------------------------------------------------------ prosty Markdown
 def inline(t):
@@ -279,6 +283,8 @@ def render_blocks(lines):
                 out.append(("plansza", block_plansza(body)))
             elif kind == "program":
                 out.append(("program", block_program(body, arg)))
+            elif kind == "rozwiazanie":
+                out.append(("rozw", block_program(body, arg)))
             else:
                 out.append(("special", f'<pre>{html.escape(chr(10).join(body))}</pre>'))
             continue
@@ -317,7 +323,7 @@ def render_page(lines):
     blocks = render_blocks(lines)
     sections, cur = [], []
     heads = [h for k, h in blocks if k in ("h1", "h2")]
-    missions = bool(heads) and re.sub('<[^>]+>', '', heads[0]).startswith("Misje")
+    missions = bool(heads) and re.sub('<[^>]+>', '', heads[0]).startswith(("Misje", "Plansze"))
 
     def flush():
         if cur:
@@ -343,12 +349,18 @@ def render_page(lines):
         elif box is None:
             pre.append(h)
         else:
-            box.append((k, h) if k in ("plansza", "program") else h)
+            box.append((k, h) if k in ("plansza", "program", "rozw") else h)
     html_boxes = []
     for b in boxes:
-        parts, progs, has_plansza = [b[0]], [], False
+        parts, progs, rozw, has_plansza = [b[0]], [], None, False
         for x in b[1:]:
-            if isinstance(x, tuple):
+            if rozw is not None:
+                rozw.append(x[1] if isinstance(x, tuple) else x)
+            elif isinstance(x, tuple) and x[0] == "rozw":
+                rozw = [x[1]]
+            elif not isinstance(x, tuple) and x.startswith("<p><b>Rozwiązanie"):
+                rozw = [x.replace("<b>Rozwiązanie:</b> ", "", 1)]
+            elif isinstance(x, tuple):
                 if x[0] == "program":
                     progs.append(x[1])
                 else:
@@ -359,8 +371,10 @@ def render_page(lines):
             parts.append(f'<div class="two">{"".join(progs)}</div>')
         elif progs:
             parts.append(progs[0])
-        elif has_plansza:
+        elif has_plansza and rozw is None:
             parts.append(BOXES)
+        if rozw is not None:
+            parts.append(f'<div class="rozw"><span class="rl">Rozwiązanie</span>{"".join(rozw)}</div>')
         html_boxes.append(f'<div class="mis">{"".join(parts)}</div>')
     sections.append(f'<section class="page">{"".join(pre)}<div class="misgrid">{"".join(html_boxes)}</div>{"".join(post or [])}</section>')
     return sections
@@ -397,7 +411,7 @@ def main(argv):
     want_pdf = "--bez-pdf" not in argv
     files = [a for a in argv if not a.startswith("--")]
     if not files:
-        d = os.path.join(ROOT, "poziomy")
+        d = os.path.join(ROOT, "tresc")
         files = sorted(os.path.join(d, f) for f in os.listdir(d) if f.endswith(".md"))
     out_dir = os.path.join(ROOT, "druk")
     os.makedirs(out_dir, exist_ok=True)
