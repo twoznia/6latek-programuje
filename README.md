@@ -1,39 +1,46 @@
 # 6latek programuje
 
-**Robot i Programista** to zabawa ruchowa na podłodze, bez komputera. Uczy 6-latka myślenia jak programista: najpierw sekwencji poleceń, potem pętli, warunków (if / then / else) oraz przerywania (break / return). Przy okazji dziecko ćwiczy czytanie krótkich słów i liczenie.
+**Robot i Programista** to zabawa ruchowa na podłodze, bez komputera, dla dwóch osób. Jedna osoba (**Programista**) układa program z wydrukowanych kart, a druga (**Robot**) chodzi po planszy z taśmy malarskiej i wykonuje polecenia. Potem zamiana ról. Gra uczy 6-latka myślenia jak programista: sekwencji, pętli, warunków (if / then / else) i przerywania (break / return). Przy okazji dziecko czyta krótkie słowa i liczy.
 
-To gra dla dwojga: jedna osoba (**Programista**) układa program z wydrukowanych kart, a druga (**Robot**) chodzi po podłodze i wykonuje polecenia. Potem zamiana ról. Planszą jest siatka 5 × 5 pól z taśmy malarskiej. Zasady gry są w [gra-dla-dwojga.md](poziomy/gra-dla-dwojga.md), a poziomy dodają nowe karty.
+## Pliki
 
-## Poziomy
+Każdy plik ma źródło w Markdown w katalogu [`tresc/`](tresc/) i gotowy wydruk (PDF i HTML) w katalogu [`druk/`](druk/), pod tą samą nazwą.
 
-| Poziom | Czego uczy | Treść | Do druku |
-|---|---|---|---|
-| Zasady | gra dla dwojga: role, przebieg rundy, błędy, punkty, 30 misji na podłogę (5 × 5 i 7 × 7) | [gra-dla-dwojga.md](poziomy/gra-dla-dwojga.md) | [PDF](druk/gra-dla-dwojga.pdf) · [HTML](druk/gra-dla-dwojga.html) |
-| Duża plansza | 30 trudniejszych gier dla dwojga na planszy 7 × 7 (karty z poziomu 1) | [gra-dla-dwojga-7x7.md](poziomy/gra-dla-dwojga-7x7.md) | [PDF](druk/gra-dla-dwojga-7x7.pdf) · [HTML](druk/gra-dla-dwojga-7x7.html) |
-| 1 | sekwencja, kierunki, „ile razy”, lawa i kałuża | [poziom-1.md](poziomy/poziom-1.md) | [PDF](druk/poziom-1.pdf) · [HTML](druk/poziom-1.html) |
-| 1+ | duża plansza 7 × 7: dłuższe programy, większe liczby, labirynty | [poziom-1-plus.md](poziomy/poziom-1-plus.md) | [PDF](druk/poziom-1-plus.pdf) · [HTML](druk/poziom-1-plus.html) |
-| 2 | pętla POWTÓRZ … KONIEC, czytanie kodu, szukanie błędu | [poziom-2.md](poziomy/poziom-2.md) | [PDF](druk/poziom-2.pdf) · [HTML](druk/poziom-2.html) |
-| 3 | JEŚLI / TAK / NIE, pętla ∞, STOP (break) i META (return) | [poziom-3.md](poziomy/poziom-3.md) | [PDF](druk/poziom-3.pdf) · [HTML](druk/poziom-3.html) |
+| Plik | Co zawiera | Strony | Źródło | Do druku |
+|---|---|---|---|---|
+| instrukcja | zasady gry dla dwojga, poziomy 1–3, rodzaje gier, zabawy bez przygotowania, matematyka | 7 | [instrukcja.md](tresc/instrukcja.md) | [PDF](druk/instrukcja.pdf) · [HTML](druk/instrukcja.html) |
+| karty | wszystkie karty: polecenia, liczby, pola na podłogę, plakietki ról, karty poziomów 2 i 3 | 16 | [karty.md](tresc/karty.md) | [PDF](druk/karty.pdf) · [HTML](druk/karty.html) |
+| plansze-poziom-1-5x5-a | gry 1–16, poziom 1, plansza 5 × 5 | 4 | [md](tresc/plansze-poziom-1-5x5-a.md) | [PDF](druk/plansze-poziom-1-5x5-a.pdf) · [HTML](druk/plansze-poziom-1-5x5-a.html) |
+| plansze-poziom-1-5x5-b | gry 17–32, poziom 1, plansza 5 × 5 | 4 | [md](tresc/plansze-poziom-1-5x5-b.md) | [PDF](druk/plansze-poziom-1-5x5-b.pdf) · [HTML](druk/plansze-poziom-1-5x5-b.html) |
+| plansze-poziom-1-5x5-c | gry 33–48, poziom 1, plansza 5 × 5 | 4 | [md](tresc/plansze-poziom-1-5x5-c.md) | [PDF](druk/plansze-poziom-1-5x5-c.pdf) · [HTML](druk/plansze-poziom-1-5x5-c.html) |
+| plansze-poziom-1-7x7-a | gry 1–16, poziom 1, plansza 7 × 7 | 4 | [md](tresc/plansze-poziom-1-7x7-a.md) | [PDF](druk/plansze-poziom-1-7x7-a.pdf) · [HTML](druk/plansze-poziom-1-7x7-a.html) |
+| plansze-poziom-1-7x7-b | gry 17–32, poziom 1, plansza 7 × 7 | 4 | [md](tresc/plansze-poziom-1-7x7-b.md) | [PDF](druk/plansze-poziom-1-7x7-b.pdf) · [HTML](druk/plansze-poziom-1-7x7-b.html) |
+| plansze-poziom-1-7x7-c | gry 33–48, poziom 1, plansza 7 × 7 | 4 | [md](tresc/plansze-poziom-1-7x7-c.md) | [PDF](druk/plansze-poziom-1-7x7-c.pdf) · [HTML](druk/plansze-poziom-1-7x7-c.html) |
+| plansze-poziom-2-3-5x5 | gry 1–11 z pętlą POWTÓRZ, gry 12–15 z JEŚLI, STOP i META, gra 16 do wymyślenia | 4 | [md](tresc/plansze-poziom-2-3-5x5.md) | [PDF](druk/plansze-poziom-2-3-5x5.pdf) · [HTML](druk/plansze-poziom-2-3-5x5.html) |
 
-Każdy poziom zawiera instrukcję dla dorosłego, karty do wycięcia, misje z planszami, rozwiązania oraz zabawy, które nie wymagają przygotowania.
+Pliki z planszami mają zawsze 4 strony po 4 gry. W każdym zestawie gry idą od najłatwiejszej. Na dole każdej karty gry jest rozwiązanie dla dorosłego (przed grą można je zagiąć). Rozwiązania gier poziomu 1 zostały sprawdzone programem, który symuluje robota.
+
+Konwencja nazw: `instrukcja`, `karty` i `plansze-poziom-<poziom>-<plansza>[-<zestaw>]`, małymi literami, bez polskich znaków.
+
+W katalogu [`archiwum/`](archiwum/) leżą pierwsze wersje kart.
 
 ## Drukowanie
 
-Gotowe pliki PDF i HTML leżą w katalogu [`druk/`](druk/). Plik HTML można otworzyć w przeglądarce i wydrukować (Ctrl+P, marginesy: brak). Strony z kartami poleceń są poziome. W oknie drukowania wybierz „dopasuj automatycznie” albo „orientacja automatyczna”.
+Otwórz PDF albo HTML z katalogu `druk/` i wydrukuj (w HTML: Ctrl+P, marginesy: brak). Strony z kartami poleceń są poziome. W oknie drukowania wybierz „dopasuj automatycznie” albo „orientacja automatyczna”.
 
 ## Zmiana treści i ponowne wygenerowanie
 
-Treść każdego poziomu jest w zwykłym pliku Markdown w katalogu `poziomy/`. Po zmianie uruchom:
+Po zmianie pliku w `tresc/` uruchom:
 
 ```sh
-python3 narzedzia/drukuj.py              # wszystkie poziomy
-python3 narzedzia/drukuj.py poziomy/poziom-2.md
-python3 narzedzia/drukuj.py --bez-pdf    # tylko HTML
+python3 narzedzia/drukuj.py                       # wszystkie pliki
+python3 narzedzia/drukuj.py tresc/instrukcja.md   # jeden plik
+python3 narzedzia/drukuj.py --bez-pdf             # tylko HTML
 ```
 
 albo po prostu `make`.
 
-Wystarczy Python 3, bez żadnych dodatkowych pakietów. Jeśli na komputerze jest Chrome, Chromium albo Edge, skrypt od razu zrobi PDF. Jeśli nie, otwórz plik `druk/poziom-N.html` w przeglądarce i wydrukuj go (Ctrl+P, marginesy: brak).
+Wystarczy Python 3, bez żadnych dodatkowych pakietów. Jeśli na komputerze jest Chrome, Chromium albo Edge, skrypt od razu zrobi PDF. Jeśli nie, zrobi tylko HTML.
 
 ### Specjalne bloki w plikach .md
 
@@ -64,4 +71,5 @@ KONIEC
 - **plansza**: `.` to puste pole, `^ > v <` to robot patrzący w daną stronę, `*` to skarb, `#` to klocek, `L` to lawa, `K` to kałuża, a `?` to pole z niespodzianką.
 - **program**: wcięcie o 2 spacje oznacza wnętrze POWTÓRZ albo JEŚLI. Linie `TAK: …` i `NIE: …` to rzędy pod JEŚLI. Kilka kart w jednej linii oddziela się przecinkami. Po słowie `program` można dodać podpis, np. `program A`.
 - **legenda**: linie `NAZWA: opis` dają legendę z ikonami.
-- Linia `---` zaczyna nową stronę. Na stronie, której tytuł zaczyna się od „Misje”, każda sekcja `###` staje się osobną ramką misji.
+- **rozwiazanie**: tak samo jak `program`, ale rysuje się na dole karty gry jako rozwiązanie dla dorosłego. Rozwiązanie bez programu zapisuje się akapitem `**Rozwiązanie:** …`.
+- Linia `---` zaczyna nową stronę. Na stronie, której tytuł zaczyna się od „Plansze”, każda sekcja `###` staje się osobną kartą gry (4 karty na stronę).
