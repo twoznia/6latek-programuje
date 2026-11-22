@@ -9,6 +9,7 @@ Jedna osoba jest **Programistą** i układa z kart, co trzeba zrobić. Druga jes
 - **Ścieżka programu**: pas taśmy wzdłuż jednego boku planszy. Na nim Programista kładzie karty w rzędzie, od lewej do prawej.
 - **Wskaźnik**: figurka Lego, która pokazuje, którą kartę Robot właśnie wykonuje.
 - Garść klocków na wspólną wieżę z punktów.
+- Dodatkowe karty liczb (dalej w tym pliku) przydadzą się w dłuższych programach.
 
 ## Role
 
@@ -58,8 +59,6 @@ ROBOT ×1
 PROGRAMISTA ×1
 LICZBY 1-6 ×2
 ```
-
-Dodatkowe karty liczb przydają się w dłuższych programach, gdzie ta sama liczba pojawia się 3 albo 4 razy.
 
 ---
 
