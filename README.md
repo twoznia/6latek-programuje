@@ -9,6 +9,7 @@ Dziecko jest robotem albo programistą. Program układa się z wydrukowanych kar
 | Poziom | Czego uczy | Treść | Do druku |
 |---|---|---|---|
 | 1 | sekwencja, kierunki, „ile razy”, lawa i kałuża | [poziom-1.md](poziomy/poziom-1.md) | [poziom-1.pdf](druk/poziom-1.pdf) |
+| 1+ | duża plansza 7 × 7: dłuższe programy, większe liczby, labirynty | [poziom-1-plus.md](poziomy/poziom-1-plus.md) | [poziom-1-plus.pdf](druk/poziom-1-plus.pdf) |
 | 2 | pętla POWTÓRZ … KONIEC, czytanie kodu, szukanie błędu | [poziom-2.md](poziomy/poziom-2.md) | [poziom-2.pdf](druk/poziom-2.pdf) |
 | 3 | JEŚLI / TAK / NIE, pętla ∞, STOP (break) i META (return) | [poziom-3.md](poziomy/poziom-3.md) | [poziom-3.pdf](druk/poziom-3.pdf) |
 
