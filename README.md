@@ -42,6 +42,14 @@ albo po prostu `make`.
 
 Wystarczy Python 3, bez żadnych dodatkowych pakietów. Jeśli na komputerze jest Chrome, Chromium albo Edge, skrypt od razu zrobi PDF. Jeśli nie, zrobi tylko HTML.
 
+### Sprawdzanie rozwiązań
+
+`make sprawdz` (albo `python3 narzedzia/sprawdz.py tresc/plansze-*.md`) przepuszcza każde rozwiązanie z bloku `rozwiazanie` przez symulator robota. Symulator zgłasza wejście na lawę, kałużę, klocek albo poza planszę, skok nad lawą lub klockiem i niezebrane skarby. Gry z polami `?` i zadania bez bloku `rozwiazanie` trzeba sprawdzić ręcznie.
+
+### Skille do tworzenia kolejnych gier
+
+W katalogu `.claude/skills/` są dwa skille dla Claude: `nowa-gra-offline` (jak projektować nowe gry i poziomy) oraz `robot-programista-plansze` (jak dodać plansze i karty do repo, sprawdzić je i wydrukować).
+
 ### Specjalne bloki w plikach .md
 
 W blokach kodu z odpowiednią nazwą można opisać karty, plansze i programy. Skrypt narysuje je jako obrazki.
