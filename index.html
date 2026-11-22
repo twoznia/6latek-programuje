@@ -84,6 +84,13 @@ header .spacer{flex:1}
 .chip svg{width:28px;height:28px;flex:none}
 .chip .n{color:var(--num);font-size:17px}
 .chip.teraz{background:currentColor}
+.chip.wybrana{box-shadow:0 0 0 4px currentColor inset,0 0 0 3px #fff,0 0 0 6px #1f2937;transform:translateY(-2px)}
+.poczatek{border:0;border-radius:12px;width:34px;height:40px;background:#fff;color:#6b7280;font-size:16px;box-shadow:0 0 0 2px #cbd5e1 inset}
+.poczatek.wybrana{color:#1f2937;box-shadow:0 0 0 3px #1f2937 inset}
+.usun{border:0;width:34px;height:40px;border-radius:12px;background:#e03131;color:#fff;font-size:18px;font-weight:800;margin-left:-4px}
+.kursor{align-self:stretch;width:4px;min-height:40px;border-radius:2px;background:#1f2937;animation:mrug 1s steps(2) infinite}
+@keyframes mrug{50%{opacity:.15}}
+@media (prefers-reduced-motion:reduce){.kursor{animation:none}}
 .chip.teraz span,.chip.teraz .n{color:#fff}
 .chip.teraz svg{filter:brightness(0) invert(1)}
 .karty{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
@@ -159,7 +166,7 @@ footer{margin-top:28px;color:var(--muted);font-size:14px}
         <div class="box">
           <h3>Twój program</h3>
           <div class="program" id="program"></div>
-          <p class="male">Dotknij karty w programie, żeby ją usunąć.</p>
+          <p class="male">Dotknij karty w programie, żeby ją wybrać. Nowa karta wstawi się za nią (▶ to sam początek), liczba zmieni się w wybranej karcie, a ✕ ją usuwa.</p>
         </div>
         <div class="box">
           <h3>Karty</h3>
