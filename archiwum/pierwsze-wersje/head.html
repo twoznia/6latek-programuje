@@ -1,0 +1,33 @@
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><style>
+@page{size:A4;margin:0}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,"DejaVu Sans",sans-serif;color:#222}
+.page{width:210mm;height:297mm;padding:12mm;page-break-after:always;overflow:hidden}
+.cards6{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,1fr);gap:0}
+.cards12{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(4,1fr)}
+.cards4{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+.card{display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+.cmd{border:2.5mm solid;border-radius:6mm;margin:2.5mm;background:#fff}
+.cmd .lbl{font-weight:800;font-size:30pt;line-height:1.05;text-align:center;letter-spacing:1px}
+.cmd .hint{font-size:10pt;color:#888;margin-top:2mm}
+.num{border:1.5mm solid #444;border-radius:5mm;margin:2.5mm}
+.num .big{font-size:58pt;font-weight:800;line-height:1}
+.num .x{position:absolute;top:3mm;font-size:9pt;color:#888}
+.num .word{font-size:16pt;font-weight:700;margin-top:2mm;letter-spacing:1px}
+.tile{border:1.5mm solid #ddd;border-radius:6mm;margin:3mm}
+.tile .lbl{font-size:40pt;font-weight:800;letter-spacing:2px}
+h1{font-size:24pt;margin:0 0 2mm} h2{font-size:13pt;margin:5mm 0 1.5mm;color:#2b6fd6}
+p,li{font-size:10.5pt;line-height:1.42;margin:1mm 0} ul,ol{margin:1mm 0;padding-left:6mm}
+.lead{font-size:11.5pt;color:#555}
+.legs{display:grid;grid-template-columns:1fr 1fr;gap:2mm 6mm;margin-top:2mm}
+.leg{display:flex;gap:3mm;align-items:center;font-size:10pt}
+.mh{font-size:20pt}.sub{color:#555;margin-bottom:4mm}
+.misgrid{display:grid;grid-template-columns:1fr 1fr;gap:3mm 6mm}
+.mis{border:1px solid #ddd;border-radius:4mm;padding:3mm 4mm;display:flex;flex-direction:column;align-items:center}
+.mis h3{margin:0;font-size:13pt;align-self:flex-start}.mis p{align-self:flex-start;font-size:9.5pt;color:#555;margin:0 0 1mm}
+.prog{display:flex;gap:1.5mm;margin-top:2mm}.box{width:9mm;height:9mm;border:1px solid #aaa;border-radius:2mm}
+.ans{border-bottom:1px solid #eee;padding:2.5mm 0}.ans>b{display:block;margin-bottom:1.5mm}
+.chip{display:inline-flex;align-items:center;gap:1mm;border:1px solid #ddd;border-radius:2mm;padding:.5mm 2mm;margin:0 1.5mm 1.5mm 0;font-size:9.5pt;font-weight:700}
+.chip .n{color:#e23b3b}
+.tip{background:#f3f7ff;border-left:1.5mm solid #2b6fd6;padding:2mm 4mm;margin-top:3mm}
+</style></head><body>
