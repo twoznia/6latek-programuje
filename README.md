@@ -2,6 +2,12 @@
 
 **Robot i Programista** to zabawa ruchowa na podłodze, bez komputera, dla dwóch osób. Jedna osoba (**Programista**) układa program z wydrukowanych kart, a druga (**Robot**) chodzi po planszy z taśmy malarskiej i wykonuje polecenia. Potem zamiana ról. Gra uczy 6-latka myślenia jak programista: sekwencji, pętli, warunków (if / then / else) i przerywania (break / return). Przy okazji dziecko czyta krótkie słowa i liczy.
 
+## Gra online
+
+Otwórz [`index.html`](index.html) w przeglądarce (wystarczy podwójne kliknięcie, internet nie jest potrzebny). To strona startowa gry na ekranie: wybór planszy 5 × 5 albo 7 × 7, lista gier poziomu 1 i gra. Dziecko dotyka kart IDŹ, SKRĘĆ W PRAWO, SKRĘĆ W LEWO, OBRÓĆ SIĘ i SKOCZ, dokłada liczbę „ile razy” i naciska START. Robot idzie po planszy, a przy błędzie mówi, co się stało (lawa, kałuża, klocek, koniec planszy). Za każdą rozwiązaną grę jest gwiazdka, zapamiętywana w przeglądarce. Karty można też czytać na głos.
+
+Gry pochodzą z plików `tresc/plansze-poziom-1-*.md`. Po zmianie plansz uruchom `make online` (albo `python3 narzedzia/eksport_gry.py`), żeby odświeżyć `gra/gry.js`. Skrypt pomija gry, których nie da się zagrać na ekranie (pola „?”, program podany z góry), a każde rozwiązanie sprawdza symulatorem.
+
 ## Pliki
 
 Każdy plik ma źródło w Markdown w katalogu [`tresc/`](tresc/) i gotowy wydruk (PDF i HTML) w katalogu [`druk/`](druk/), pod tą samą nazwą.

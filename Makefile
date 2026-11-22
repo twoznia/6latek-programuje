@@ -7,4 +7,7 @@ html:
 sprawdz:
 	python3 narzedzia/sprawdz.py tresc/plansze-*.md
 
-.PHONY: druk html sprawdz
+online:
+	python3 narzedzia/eksport_gry.py
+
+.PHONY: druk html sprawdz online
