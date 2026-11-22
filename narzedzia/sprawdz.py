@@ -56,7 +56,7 @@ def cmds(text):
         out.append(("cmd", m.group(1), int(m.group(2))) if m else ("cmd", part, 1))
     return out
 
-def run(board, prog):
+def run(board, prog, skarby=True):
     g = [r.split() for r in board]
     h, w = len(g), len(g[0])
     (r, c), d = next(((y, x), g[y][x]) for y in range(h) for x in range(w) if g[y][x] in DIRS)
@@ -121,7 +121,7 @@ def run(board, prog):
         exe(prog)
     except Meta:
         pass
-    if stars - got:
+    if skarby and stars - got:
         raise Fail(f"nie zebrano skarbów {sorted((y+1, x+1) for y, x in stars - got)}; koniec w {(r+1, c+1)}")
     return (r + 1, c + 1), d
 

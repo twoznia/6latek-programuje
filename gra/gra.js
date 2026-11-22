@@ -97,7 +97,7 @@
     gry.forEach(function (g) { (zest[g.zestaw] = zest[g.zestaw] || []).push(g); });
     var html = "";
     Object.keys(zest).sort().forEach(function (z) {
-      html += '<div class="zestaw"><h3>Zestaw ' + z + "</h3><div class=\"lista\">";
+      html += '<div class="zestaw">' + (z ? "<h3>Zestaw " + z + "</h3>" : "") + '<div class="lista">';
       zest[z].forEach(function (g) {
         var done = gw.indexOf(g.id) >= 0;
         html += '<button class="kafel' + (done ? " done" : "") + '" data-id="' + g.id + '"><span class="nr">' + g.nr + '</span><span class="t">' + g.tytul + '</span><span class="s">' + (done ? "★ zrobione" : "") + "</span></button>";
@@ -109,6 +109,7 @@
     $("postep").textContent = "Gwiazdki: " + zrobione + " z " + wszystkie;
     $("tab5").setAttribute("aria-selected", stan.rozmiar === 5);
     $("tab7").setAttribute("aria-selected", stan.rozmiar === 7);
+    $("tab9").setAttribute("aria-selected", stan.rozmiar === 9);
   }
 
   // ---------- gra ----------
@@ -296,6 +297,7 @@
     $("lista").addEventListener("click", function (e) { var b = e.target.closest(".kafel"); if (b) location.hash = "gra-" + b.dataset.id; });
     $("tab5").addEventListener("click", function () { stan.rozmiar = 5; rysujListe(); });
     $("tab7").addEventListener("click", function () { stan.rozmiar = 7; rysujListe(); });
+    $("tab9").addEventListener("click", function () { stan.rozmiar = 9; rysujListe(); });
     $("doListy").addEventListener("click", function () { location.hash = ""; });
     $("grajTeraz").addEventListener("click", function () {
       var gw = wczytajGw();

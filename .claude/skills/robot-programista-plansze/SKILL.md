@@ -9,7 +9,7 @@ Repo: `twoznia/6latek-programuje`. Najpierw pobierz aktualny `main`, bo inne wą
 
 ## Układ repo
 
-- `tresc/*.md` to źródła: `instrukcja.md`, `karty.md` oraz `plansze-poziom-<poziom>-<plansza>[-<zestaw>].md`, np. `plansze-poziom-1-5x5-a.md` albo `plansze-poziom-2-3-5x5.md`.
+- `tresc/*.md` to źródła: `instrukcja.md`, `karty.md` oraz `plansze-poziom-<poziom>-<plansza>[-<zestaw>].md`, np. `plansze-poziom-1-5x5-a.md`, `plansze-poziom-2-3-5x5.md` albo `plansze-poziom-4-9x9.md`. Plansze są 5 × 5, 7 × 7 i 9 × 9.
 - `druk/` zawiera wygenerowane PDF i HTML pod tą samą nazwą. Oba commitujemy.
 - `narzedzia/drukuj.py` zamienia `.md` na HTML i PDF (sam Python 3; PDF przez Chrome lub Chromium). `narzedzia/styl.css` to wygląd.
 - `narzedzia/sprawdz.py` to symulator robota, który sprawdza rozwiązania.
@@ -41,7 +41,7 @@ IDŹ, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO, IDŹ ×2
 
 - Tytuł strony zaczyna się od „Plansze”. Wtedy każde `###` jest osobną kartą gry, po 4 na stronę. Plik ma 4 strony oddzielone `---`, czyli 16 gier. Gry są numerowane dalej w obrębie danej planszy i poziomu.
 - Symbole planszy: `.` to puste pole, `^ > v <` to robot patrzący w daną stronę, `*` to skarb, `#` to klocek, `L` to lawa, `K` to kałuża, a `?` to pole z niespodzianką.
-- Polecenia: IDŹ, SKRĘĆ W PRAWO, SKRĘĆ W LEWO, OBRÓĆ SIĘ, SKOCZ, POWTÓRZ ×n lub ×∞, KONIEC, JEŚLI <LAWA?|KAŁUŻA?|SKARB?|ŚCIANA?>, TAK:, NIE:, STOP, META. Liczba ×1 się nie pojawia, bo puste okienko oznacza „raz”.
+- Polecenia: IDŹ, SKRĘĆ W PRAWO, SKRĘĆ W LEWO, OBRÓĆ SIĘ, SKOCZ, POWTÓRZ ×n lub ×∞, KONIEC, JEŚLI <LAWA?|KAŁUŻA?|SKARB?|ŚCIANA?>, TAK:, NIE:, STOP, META, PRZEPIS A/B … KONIEC (definicja przepisu, poziom 4) i ZRÓB A/B ×n (wywołanie). META w przepisie kończy tylko przepis. Liczba ×1 się nie pojawia, bo puste okienko oznacza „raz”.
 - Program z pętlą lub warunkiem zapisuje się w osobnych liniach z wcięciem o 2 spacje:
   ```
   POWTÓRZ ×∞
@@ -66,7 +66,7 @@ IDŹ, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO, IDŹ ×2
 ## Kroki
 
 1. Pobierz `main` i utwórz gałąź.
-2. Zaprojektuj gry od najłatwiejszej. Mieszaj rodzaje zadań: dojście, kilka skarbów, lawa, kałuża, robot patrzący w różne strony, „gdzie skończy robot?”, „znajdź błąd”, najkrótszy program i jedna gra do wymyślenia przez dziecko na końcu zestawu. Na planszy 5 × 5 programy mają 1–8 kart, a na 7 × 7 do ok. 11 kart. Liczby w okienkach są od 1 do 6.
+2. Zaprojektuj gry od najłatwiejszej. Mieszaj rodzaje zadań: dojście, kilka skarbów, lawa, kałuża, robot patrzący w różne strony, „gdzie skończy robot?”, „znajdź błąd”, najkrótszy program i jedna gra do wymyślenia przez dziecko na końcu zestawu. Na planszy 5 × 5 programy mają 1–8 kart, na 7 × 7 do ok. 11 kart, a na 9 × 9 do ok. 14 kart (8 kroków to IDŹ ×6, IDŹ ×2). Liczby w okienkach są od 1 do 6.
 3. Uruchom `make sprawdz`. Każde `BŁĄD` popraw. Gry pominięte (`pomijam`: pola `?`, zadania bez bloku `rozwiazanie`) prześledź ręcznie, pole po polu, i zapisz wynik w `**Rozwiązanie:**`.
 4. Uruchom `make` i obejrzyj wydruki jako obrazki: `pdftoppm -r 50 -png druk/<plik>.pdf /tmp/podglad`. Sprawdź, czy:
    - każda strona z grami ma 4 gry i nic nie wychodzi poza stronę;

@@ -25,12 +25,14 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # ------------------------------------------------------------------ karty i ikony
 COL = {"idz":"#2e9e4f","lewo":"#2b6fd6","prawo":"#f08a1c","obroc":"#8a4fd1","skocz":"#0c8599",
-       "powtorz":"#d6336c","koniec":"#495057","jesli":"#b08900","stop":"#e03131","meta":"#212529"}
+       "powtorz":"#d6336c","koniec":"#495057","jesli":"#b08900","stop":"#e03131","meta":"#212529",
+       "przepis_a":"#364fc7","zrob_a":"#364fc7","przepis_b":"#8d5524","zrob_b":"#8d5524"}
 LABEL = {"idz":("IDŹ",""),"prawo":("SKRĘĆ","W PRAWO"),"lewo":("SKRĘĆ","W LEWO"),"obroc":("OBRÓĆ","SIĘ"),
          "skocz":("SKOCZ",""),"powtorz":("POWTÓRZ",""),"koniec":("KONIEC",""),"jesli":("JEŚLI",""),
-         "stop":("STOP",""),"meta":("META","")}
+         "stop":("STOP",""),"meta":("META",""),
+         "przepis_a":("PRZEPIS","A"),"zrob_a":("ZRÓB","A"),"przepis_b":("PRZEPIS","B"),"zrob_b":("ZRÓB","B")}
 CMD = {" ".join(x for x in v if x): k for k, v in LABEL.items()}
-SLOT = {"koniec":None, "stop":None, "meta":None, "jesli":"?"}
+SLOT = {"koniec":None, "stop":None, "meta":None, "jesli":"?", "przepis_a":None, "przepis_b":None}
 COND = {"lawa":("LAWA?","#e03131"),"kaluza":("KAŁUŻA?","#1c7ed6"),"skarb":("SKARB?","#b88f00"),"sciana":("ŚCIANA?","#a0522d")}
 COND_BY_NAME = {v[0]: k for k, v in COND.items()}
 
@@ -42,6 +44,8 @@ ICON = {
  "powtorz":'<path d="M80 52 A30 30 0 1 1 66 26" stroke="currentColor" stroke-width="13" fill="none"/><path d="M52 6 L84 26 L54 44 Z" fill="currentColor"/>',
  "koniec":'<path d="M28 12 L68 12 L68 88 L28 88" stroke="currentColor" stroke-width="14" fill="none" stroke-linejoin="round"/>',
  "jesli":'<text x="50" y="84" text-anchor="middle" font-size="96" font-weight="800" font-family="Inter,DejaVu Sans,Arial" fill="currentColor">?</text>',
+ "przepis":'<rect x="18" y="6" width="64" height="88" rx="9" fill="none" stroke="currentColor" stroke-width="9"/><path d="M33 30 H67 M33 48 H67 M33 66 H55" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>',
+ "zrob":'<rect x="18" y="6" width="64" height="88" rx="9" fill="none" stroke="currentColor" stroke-width="9"/><polygon points="38,28 72,50 38,72" fill="currentColor"/>',
  "stop":'<polygon points="30,6 70,6 94,30 94,70 70,94 30,94 6,70 6,30" fill="currentColor"/><rect x="24" y="44" width="52" height="12" rx="3" fill="#fff"/>',
  "meta":'<rect x="14" y="6" width="7" height="90" fill="currentColor"/>' + "".join(
      f'<rect x="{21+c*17}" y="{8+r*14}" width="17" height="14" fill="{"currentColor" if (r+c)%2==0 else "#fff"}" stroke="currentColor" stroke-width="1.5"/>'
@@ -49,7 +53,7 @@ ICON = {
 }
 
 def icon(kind, size):
-    body = ICON["prawo" if kind == "lewo" else kind]
+    body = ICON["prawo" if kind == "lewo" else kind.split("_")[0]]
     tr = ' transform="translate(100,0) scale(-1,1)"' if kind == "lewo" else ''
     return f'<svg viewBox="0 0 100 100" width="{size}" height="{size}" style="color:{COL[kind]}"><g{tr}>{body}</g></svg>'
 
@@ -188,7 +192,7 @@ def block_plansza(lines):
     rows = [l.split() for l in lines if l.strip()]
     s, o = 20, 4
     h, w = len(rows), max(len(r) for r in rows)
-    cell = 10 if w <= 5 else 8.2
+    cell = 10 if w <= 5 else (8.2 if w <= 7 else 6.2)
     out = [f'<svg class="plansza" viewBox="0 0 {w*s+2*o} {h*s+2*o}" width="{w*cell:.0f}mm" height="{h*cell:.0f}mm">']
     for r in range(h):
         for c in range(w):
@@ -247,7 +251,7 @@ def block_program(lines, title=""):
             html_ = "".join(item_chip(x) for x in t.split(","))
         rows.append(f'<div class="pl" style="--ind:{ind}">{html_}</div>')
     head = f'<b class="ptitle">{html.escape(title)}</b>' if title else ""
-    cls = "given long" if len(rows) > 8 else "given"
+    cls = "given long" if len(rows) > 5 else "given"
     return f'<div class="{cls}">{head}{"".join(rows)}</div>'
 
 # ------------------------------------------------------------------ prosty Markdown

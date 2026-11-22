@@ -53,7 +53,7 @@ Cel projektu: dziecko uczy się logicznego myślenia i programowania (sekwencja,
 
 ## Pomysły na kolejne poziomy
 
-- **Poziom 4, funkcje („przepisy”):** dziecko nazywa kawałek programu (np. TANIEC), rysuje go na osobnej karcie i używa jak jednej karty. META w przepisie oznacza „wróć z przepisu” (return).
+- **Poziom 4, funkcje („przepisy”), już zrobiony:** karty PRZEPIS A/B (granatowy i brązowy) i ZRÓB A/B. Dobre zadania: przepis powtarzany ZRÓB A ×n (kwadrat, schody, ząbki), dwa przepisy na zmianę, przepis z pętlą albo z JEŚLI w środku, przepis wywołujący przepis, przepis „idź do ściany/lawy/skarbu” z META (return), „popraw raz, działa wszędzie” i liczenie zaoszczędzonych kart. Dalsze pomysły: przepis z liczbą (parametr), własne nazwy przepisów.
 - **Zmienne („kieszeń”):** robot zbiera klocki i liczy je w kieszeni. JEŚLI w kieszeni są 3 klocki, to META.
 - **Dwa roboty:** dwoje dzieci, dwa programy, a roboty nie mogą wejść na to samo pole (kolejność, synchronizacja).
 - **Sortowanie klocków:** pętla z JEŚLI na kolorach Lego (algorytmy).

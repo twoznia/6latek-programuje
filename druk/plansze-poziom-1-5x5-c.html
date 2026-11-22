@@ -85,8 +85,8 @@ code{background:#f1f3f5;padding:0 1mm;border-radius:1mm}
 .mis .given .chip svg{width:4.5mm;height:4.5mm}
 .mis .given .pl{margin:0}
 .mis:has(> .given) .plansza,.mis:has(> .two) .plansza{width:40mm;height:40mm}
-.rozw .given.long{column-count:2;column-gap:3mm}
-.rozw .given.long .pl{break-inside:avoid}
+.rozw .given.long,.mis > .given.long{column-count:2;column-gap:3mm}
+.rozw .given.long .pl,.mis > .given.long .pl{break-inside:avoid}
 .mis:has(.rozw .long) .plansza,.mis:has(> .two) .plansza{width:34mm;height:34mm}
 .pl{margin-left:calc(var(--ind,0)*9mm)}
 .mis .pl{margin-left:calc(var(--ind,0)*4mm)}

@@ -14,8 +14,8 @@ import sprawdz  # noqa: E402
 def main():
     games, skipped = [], 0
     for path in sorted(glob.glob(os.path.join(ROOT, "tresc", "plansze-poziom-1-*.md"))):
-        m = re.search(r"plansze-poziom-1-(\d)x\d-([a-z])\.md$", path)
-        size, zestaw = int(m.group(1)), m.group(2).upper()
+        m = re.search(r"plansze-poziom-1-(\d)x\d(?:-([a-z]))?\.md$", path)
+        size, zestaw = int(m.group(1)), (m.group(2) or "").upper()
         text = open(path, encoding="utf-8").read()
         for sec in re.split(r"^### ", text, flags=re.M)[1:]:
             head = sec.splitlines()[0].strip()
