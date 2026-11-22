@@ -70,3 +70,5 @@ code{background:#f1f3f5;padding:0 1mm;border-radius:1mm}
 .page > .given .pl{margin:0}
 .page > .given .chip{margin-bottom:.8mm;padding:.3mm 2mm}
 .page > h3{margin:3mm 0 1mm}
+.role .lbl{font-size:30pt;letter-spacing:1px}
+.role .motto{font-size:12pt;font-weight:700;color:#555;margin-top:2mm;text-align:center;padding:0 6mm}

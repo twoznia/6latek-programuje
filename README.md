@@ -2,12 +2,13 @@
 
 **Robot i Programista** to zabawa ruchowa na podłodze, bez komputera. Uczy 6-latka myślenia jak programista: najpierw sekwencji poleceń, potem pętli, warunków (if / then / else) oraz przerywania (break / return). Przy okazji dziecko ćwiczy czytanie krótkich słów i liczenie.
 
-Dziecko jest robotem albo programistą. Program układa się z wydrukowanych kart na podłodze, na siatce 5 × 5 pól zrobionej z taśmy malarskiej.
+To gra dla dwojga: jedna osoba (**Programista**) układa program z wydrukowanych kart, a druga (**Robot**) chodzi po podłodze i wykonuje polecenia. Potem zamiana ról. Planszą jest siatka 5 × 5 pól z taśmy malarskiej. Zasady gry są w [gra-dla-dwojga.md](poziomy/gra-dla-dwojga.md), a poziomy dodają nowe karty.
 
 ## Poziomy
 
 | Poziom | Czego uczy | Treść | Do druku |
 |---|---|---|---|
+| Zasady | gra dla dwojga: role, przebieg rundy, błędy, punkty, misje na podłogę | [gra-dla-dwojga.md](poziomy/gra-dla-dwojga.md) | [gra-dla-dwojga.pdf](druk/gra-dla-dwojga.pdf) |
 | 1 | sekwencja, kierunki, „ile razy”, lawa i kałuża | [poziom-1.md](poziomy/poziom-1.md) | [poziom-1.pdf](druk/poziom-1.pdf) |
 | 1+ | duża plansza 7 × 7: dłuższe programy, większe liczby, labirynty | [poziom-1-plus.md](poziomy/poziom-1-plus.md) | [poziom-1-plus.pdf](druk/poziom-1-plus.pdf) |
 | 2 | pętla POWTÓRZ … KONIEC, czytanie kodu, szukanie błędu | [poziom-2.md](poziomy/poziom-2.md) | [poziom-2.pdf](druk/poziom-2.pdf) |
@@ -58,7 +59,7 @@ KONIEC
 ```
 ````
 
-- **karty**: lista kart do wycięcia. Dostępne są polecenia (IDŹ, SKRĘĆ W PRAWO, SKRĘĆ W LEWO, OBRÓĆ SIĘ, SKOCZ, POWTÓRZ, KONIEC, JEŚLI, STOP, META), karty liczb `LICZBY a-b`, pytania (LAWA?, KAŁUŻA?, SKARB?, ŚCIANA?), TAK, NIE i ZAWSZE oraz pola na podłogę (START, SKARB, LAWA, KAŁUŻA).
+- **karty**: lista kart do wycięcia. Dostępne są polecenia (IDŹ, SKRĘĆ W PRAWO, SKRĘĆ W LEWO, OBRÓĆ SIĘ, SKOCZ, POWTÓRZ, KONIEC, JEŚLI, STOP, META), karty liczb `LICZBY a-b`, pytania (LAWA?, KAŁUŻA?, SKARB?, ŚCIANA?), TAK, NIE i ZAWSZE oraz pola na podłogę (START, SKARB, LAWA, KAŁUŻA) i plakietki ról (ROBOT, PROGRAMISTA).
 - **plansza**: `.` to puste pole, `^ > v <` to robot patrzący w daną stronę, `*` to skarb, `#` to klocek, `L` to lawa, `K` to kałuża, a `?` to pole z niespodzianką.
 - **program**: wcięcie o 2 spacje oznacza wnętrze POWTÓRZ albo JEŚLI. Linie `TAK: …` i `NIE: …` to rzędy pod JEŚLI. Kilka kart w jednej linii oddziela się przecinkami. Po słowie `program` można dodać podpis, np. `program A`.
 - **legenda**: linie `NAZWA: opis` dają legendę z ikonami.
