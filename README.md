@@ -8,17 +8,18 @@ To gra dla dwojga: jedna osoba (**Programista**) układa program z wydrukowanych
 
 | Poziom | Czego uczy | Treść | Do druku |
 |---|---|---|---|
-| Zasady | gra dla dwojga: role, przebieg rundy, błędy, punkty, 30 misji na podłogę (5 × 5 i 7 × 7) | [gra-dla-dwojga.md](poziomy/gra-dla-dwojga.md) | [gra-dla-dwojga.pdf](druk/gra-dla-dwojga.pdf) |
-| 1 | sekwencja, kierunki, „ile razy”, lawa i kałuża | [poziom-1.md](poziomy/poziom-1.md) | [poziom-1.pdf](druk/poziom-1.pdf) |
-| 1+ | duża plansza 7 × 7: dłuższe programy, większe liczby, labirynty | [poziom-1-plus.md](poziomy/poziom-1-plus.md) | [poziom-1-plus.pdf](druk/poziom-1-plus.pdf) |
-| 2 | pętla POWTÓRZ … KONIEC, czytanie kodu, szukanie błędu | [poziom-2.md](poziomy/poziom-2.md) | [poziom-2.pdf](druk/poziom-2.pdf) |
-| 3 | JEŚLI / TAK / NIE, pętla ∞, STOP (break) i META (return) | [poziom-3.md](poziomy/poziom-3.md) | [poziom-3.pdf](druk/poziom-3.pdf) |
+| Zasady | gra dla dwojga: role, przebieg rundy, błędy, punkty, 30 misji na podłogę (5 × 5 i 7 × 7) | [gra-dla-dwojga.md](poziomy/gra-dla-dwojga.md) | [PDF](druk/gra-dla-dwojga.pdf) · [HTML](druk/gra-dla-dwojga.html) |
+| Duża plansza | 30 trudniejszych gier dla dwojga na planszy 7 × 7 (karty z poziomu 1) | [gra-dla-dwojga-7x7.md](poziomy/gra-dla-dwojga-7x7.md) | [PDF](druk/gra-dla-dwojga-7x7.pdf) · [HTML](druk/gra-dla-dwojga-7x7.html) |
+| 1 | sekwencja, kierunki, „ile razy”, lawa i kałuża | [poziom-1.md](poziomy/poziom-1.md) | [PDF](druk/poziom-1.pdf) · [HTML](druk/poziom-1.html) |
+| 1+ | duża plansza 7 × 7: dłuższe programy, większe liczby, labirynty | [poziom-1-plus.md](poziomy/poziom-1-plus.md) | [PDF](druk/poziom-1-plus.pdf) · [HTML](druk/poziom-1-plus.html) |
+| 2 | pętla POWTÓRZ … KONIEC, czytanie kodu, szukanie błędu | [poziom-2.md](poziomy/poziom-2.md) | [PDF](druk/poziom-2.pdf) · [HTML](druk/poziom-2.html) |
+| 3 | JEŚLI / TAK / NIE, pętla ∞, STOP (break) i META (return) | [poziom-3.md](poziomy/poziom-3.md) | [PDF](druk/poziom-3.pdf) · [HTML](druk/poziom-3.html) |
 
 Każdy poziom zawiera instrukcję dla dorosłego, karty do wycięcia, misje z planszami, rozwiązania oraz zabawy, które nie wymagają przygotowania.
 
 ## Drukowanie
 
-Gotowe pliki PDF leżą w katalogu [`druk/`](druk/). Strony z kartami poleceń są poziome. W oknie drukowania wybierz „dopasuj automatycznie” albo „orientacja automatyczna”.
+Gotowe pliki PDF i HTML leżą w katalogu [`druk/`](druk/). Plik HTML można otworzyć w przeglądarce i wydrukować (Ctrl+P, marginesy: brak). Strony z kartami poleceń są poziome. W oknie drukowania wybierz „dopasuj automatycznie” albo „orientacja automatyczna”.
 
 ## Zmiana treści i ponowne wygenerowanie
 
