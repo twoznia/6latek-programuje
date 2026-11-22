@@ -8,7 +8,7 @@ To gra dla dwojga: jedna osoba (**Programista**) układa program z wydrukowanych
 
 | Poziom | Czego uczy | Treść | Do druku |
 |---|---|---|---|
-| Zasady | gra dla dwojga: role, przebieg rundy, błędy, punkty, misje na podłogę | [gra-dla-dwojga.md](poziomy/gra-dla-dwojga.md) | [gra-dla-dwojga.pdf](druk/gra-dla-dwojga.pdf) |
+| Zasady | gra dla dwojga: role, przebieg rundy, błędy, punkty, 30 misji na podłogę (5 × 5 i 7 × 7) | [gra-dla-dwojga.md](poziomy/gra-dla-dwojga.md) | [gra-dla-dwojga.pdf](druk/gra-dla-dwojga.pdf) |
 | 1 | sekwencja, kierunki, „ile razy”, lawa i kałuża | [poziom-1.md](poziomy/poziom-1.md) | [poziom-1.pdf](druk/poziom-1.pdf) |
 | 1+ | duża plansza 7 × 7: dłuższe programy, większe liczby, labirynty | [poziom-1-plus.md](poziomy/poziom-1-plus.md) | [poziom-1-plus.pdf](druk/poziom-1-plus.pdf) |
 | 2 | pętla POWTÓRZ … KONIEC, czytanie kodu, szukanie błędu | [poziom-2.md](poziomy/poziom-2.md) | [poziom-2.pdf](druk/poziom-2.pdf) |
