@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Symulator robota: sprawdza, czy rozwiązania z plików tresc/*.md dochodzą do skarbów.
+Obsługuje poziomy 1-4: polecenia, POWTÓRZ, JEŚLI, STOP, META oraz PRZEPIS X / ZRÓB X (META w przepisie = powrót z przepisu).
 Użycie: python3 narzedzia/sprawdz.py tresc/plansze-*.md   (albo: make sprawdz)
 Pomija gry bez rozwiązania w bloku rozwiazanie i plansze z polami "?" - te sprawdź ręcznie."""
 import re, sys
@@ -13,7 +14,7 @@ class Stop(Exception): pass
 class Meta(Exception): pass
 
 def parse_program(lines):
-    """Zwraca listę węzłów: ("cmd", nazwa, n) | ("loop", n, body) | ("if", warunek, tak, nie)."""
+    """Zwraca listę węzłów: ("cmd", nazwa, n) | ("loop", n, body) | ("if", warunek, tak, nie) | ("def", nazwa, body)."""
     rows = [((len(l) - len(l.lstrip(" "))) // 2, l.strip()) for l in lines if l.strip()]
     pos = 0
     def block(ind):
@@ -29,6 +30,10 @@ def parse_program(lines):
                 body = block(i + 1)
                 if pos < len(rows) and rows[pos][1] == "KONIEC": pos += 1
                 out.append(("loop", None if n == "∞" else int(n), body))
+            elif t.startswith("PRZEPIS "):
+                body = block(i + 1)
+                if pos < len(rows) and rows[pos][1] == "KONIEC": pos += 1
+                out.append(("def", t[8:].strip(), body))
             elif t.startswith("JEŚLI "):
                 cond, tak, nie = t[6:].strip(), [], []
                 while pos < len(rows) and rows[pos][0] > i:
@@ -64,15 +69,31 @@ def run(board, prog):
         dy, dx = DIRS[d]
         if k == 2:
             mid = cell(r + dy, c + dx)
-            if mid in ("L", "#", "WALL"): raise Fail(f"skok nad {mid} z {(r+1, c+1)}")
+            if mid != "K": raise Fail(f"skok bez kałuży (nad {'.' if mid in '^>v<*' else mid}) z {(r+1, c+1)}")
         y, x = r + k * dy, c + k * dx
         t = cell(y, x)
         if t in ("L", "K", "#", "WALL"): raise Fail(f"wejście na {t} w {(y+1, x+1)}")
         r, c = y, x
         if (r, c) in stars: got.add((r, c))
+    defs = {nd[1]: nd[2] for nd in prog if nd[0] == "def"}
+    depth = [0]
     def exe(nodes):
         nonlocal d
         for nd in nodes:
+            if nd[0] == "def":
+                continue
+            if nd[0] == "cmd" and nd[1].startswith("ZRÓB "):
+                name = nd[1][5:].strip()
+                if name not in defs: raise Fail(f"brak przepisu {name}")
+                for _ in range(nd[2]):
+                    depth[0] += 1
+                    if depth[0] > 20: raise Fail("przepis wywołuje sam siebie bez końca")
+                    try:
+                        exe(defs[name])
+                    except Meta:
+                        pass  # META w przepisie = wróć z przepisu (return)
+                    depth[0] -= 1
+                continue
             if nd[0] == "cmd":
                 name, n = nd[1], nd[2]
                 for _ in range(n):

@@ -4,7 +4,7 @@
 
 ## Gra online
 
-Otwórz [`index.html`](index.html) w przeglądarce (wystarczy podwójne kliknięcie, internet nie jest potrzebny). To strona startowa gry na ekranie: wybór planszy 5 × 5 albo 7 × 7, lista gier poziomu 1 i gra. Dziecko dotyka kart IDŹ, SKRĘĆ W PRAWO, SKRĘĆ W LEWO, OBRÓĆ SIĘ i SKOCZ, dokłada liczbę „ile razy” i naciska START. Robot idzie po planszy, a przy błędzie mówi, co się stało (lawa, kałuża, klocek, koniec planszy). Za każdą rozwiązaną grę jest gwiazdka, zapamiętywana w przeglądarce. Karty można też czytać na głos.
+Otwórz [`index.html`](index.html) w przeglądarce (wystarczy podwójne kliknięcie, internet nie jest potrzebny). To strona startowa gry na ekranie: wybór planszy 5 × 5 albo 7 × 7, lista gier poziomu 1 i gra. Dziecko dotyka kart IDŹ, SKRĘĆ W PRAWO, SKRĘĆ W LEWO, OBRÓĆ SIĘ i SKOCZ, dokłada liczbę „ile razy” i naciska START. Robot idzie po planszy, a przy błędzie mówi, co się stało (lawa, kałuża, klocek, koniec planszy, skok bez kałuży). Za każdą rozwiązaną grę jest gwiazdka, zapamiętywana w przeglądarce. Karty można też czytać na głos.
 
 Gry pochodzą z plików `tresc/plansze-poziom-1-*.md`. Po zmianie plansz uruchom `make online` (albo `python3 narzedzia/eksport_gry.py`), żeby odświeżyć `gra/gry.js`. Skrypt pomija gry, których nie da się zagrać na ekranie (pola „?”, program podany z góry), a każde rozwiązanie sprawdza symulatorem.
 
@@ -50,7 +50,7 @@ Wystarczy Python 3, bez żadnych dodatkowych pakietów. Jeśli na komputerze jes
 
 ### Sprawdzanie rozwiązań
 
-`make sprawdz` (albo `python3 narzedzia/sprawdz.py tresc/plansze-*.md`) przepuszcza każde rozwiązanie z bloku `rozwiazanie` przez symulator robota. Symulator zgłasza wejście na lawę, kałużę, klocek albo poza planszę, skok nad lawą lub klockiem i niezebrane skarby. Gry z polami `?` i zadania bez bloku `rozwiazanie` trzeba sprawdzić ręcznie.
+`make sprawdz` (albo `python3 narzedzia/sprawdz.py tresc/plansze-*.md`) przepuszcza każde rozwiązanie z bloku `rozwiazanie` przez symulator robota. Symulator zgłasza wejście na lawę, kałużę, klocek albo poza planszę, skok bez kałuży pod spodem (skakać można tylko przez kałużę) i niezebrane skarby. Gry z polami `?` i zadania bez bloku `rozwiazanie` trzeba sprawdzić ręcznie.
 
 ### Skille do tworzenia kolejnych gier
 

@@ -79,7 +79,7 @@ Programista kładzie figurkę tam, gdzie stanie robot. Robot sprawdza.
 . . . . .
 . . . . .
 . . . . .
-. . . . .
+. K . . .
 ^ . . . .
 ```
 ```program

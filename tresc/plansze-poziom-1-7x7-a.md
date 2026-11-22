@@ -59,7 +59,7 @@ L L L K L L .
 . . . ^ . . .
 ```
 ```rozwiazanie
-IDŹ, SKOCZ ×2, IDŹ
+IDŹ ×3, SKOCZ, IDŹ
 ```
 Droga dookoła jest dłuższa (7 kart):
 ```rozwiazanie
@@ -116,7 +116,7 @@ Skarb jest w pokoju z lawy. Do środka trzeba wskoczyć przez kałużę.
 . . . ^ . . .
 ```
 ```rozwiazanie
-SKOCZ ×2, SKRĘĆ W LEWO, IDŹ
+SKOCZ, IDŹ ×2, SKRĘĆ W LEWO, IDŹ
 ```
 
 ### 8. Wyścig na liczby
@@ -180,7 +180,7 @@ K K K K K K K
 . . . ^ . . .
 ```
 ```rozwiazanie
-SKRĘĆ W PRAWO, IDŹ ×3, SKRĘĆ W LEWO, SKOCZ ×3
+SKRĘĆ W PRAWO, IDŹ ×3, SKRĘĆ W LEWO, SKOCZ, IDŹ ×2, SKOCZ
 ```
 
 ### 12. Labirynt z klocków

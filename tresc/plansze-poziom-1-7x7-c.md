@@ -14,7 +14,7 @@ Weź skarb i wróć na START. Kałuży nie wolno dotknąć.
 . . . ^ . . .
 ```
 ```rozwiazanie
-IDŹ, SKOCZ ×2, IDŹ, OBRÓĆ SIĘ, IDŹ, SKOCZ, IDŹ ×3
+IDŹ ×3, SKOCZ, IDŹ, OBRÓĆ SIĘ, IDŹ, SKOCZ, IDŹ ×3
 ```
 
 ### 34. Gdzie stanie robot? Długi spacer
@@ -38,14 +38,14 @@ Program ma skoki. Robot liczy na głos.
 ```plansza
 . . . . . . .
 . . . . . . .
-. . . . . . .
+. . . K . . .
 . . . . . . .
 . . . K . . .
 . . . . . . .
 . ^ . . . . .
 ```
 ```program
-IDŹ, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO, SKOCZ ×2, SKRĘĆ W PRAWO, IDŹ ×3
+IDŹ, SKRĘĆ W PRAWO, IDŹ ×2, SKRĘĆ W LEWO, SKOCZ ×2, SKRĘĆ W PRAWO, IDŹ ×2
 ```
 **Rozwiązanie:** W 2. rzędzie od góry, na 6. polu od lewej. Robot patrzy w prawo.
 
@@ -223,7 +223,7 @@ L L . . . L L
 . . . ^ . . .
 ```
 ```rozwiazanie
-SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO, IDŹ ×4, SKRĘĆ W LEWO, SKOCZ ×2, OBRÓĆ SIĘ, SKOCZ ×3, SKRĘĆ W LEWO, IDŹ ×2
+SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO, IDŹ ×4, SKRĘĆ W LEWO, SKOCZ, IDŹ ×2, OBRÓĆ SIĘ, IDŹ ×2, SKOCZ, IDŹ ×2, SKRĘĆ W LEWO, IDŹ ×2
 ```
 
 ### 47. Wąż

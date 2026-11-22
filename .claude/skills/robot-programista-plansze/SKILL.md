@@ -56,8 +56,8 @@ IDŹ, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO, IDŹ ×2
 
 ## Zasady ruchu (tak działa symulator)
 
-- IDŹ: 1 pole do przodu. SKOCZ: 2 pola do przodu, nad jednym polem.
-- Nie wolno wejść na klocek, lawę, kałużę ani poza planszę. Nie wolno przeskoczyć lawy ani klocka. Kałużę można przeskoczyć.
+- IDŹ: 1 pole do przodu. SKOCZ: 2 pola do przodu, tylko nad kałużą (pole tuż przed robotem musi być `K`).
+- Nie wolno wejść na klocek, lawę, kałużę ani poza planszę. Skok nad pustym polem, skarbem, lawą albo klockiem to błąd. Kałużę można (i trzeba) przeskoczyć.
 - SKRĘĆ i OBRÓĆ SIĘ to obrót w miejscu, bez kroku.
 - Warunek JEŚLI dotyczy pola tuż przed robotem. ŚCIANA oznacza koniec planszy.
 - STOP przerywa najbliższą pętlę (break), a META kończy cały program (return).

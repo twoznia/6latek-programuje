@@ -234,6 +234,7 @@
       if (srodek === "L") return "Lawy nie da się przeskoczyć. Trzeba ją obejść.";
       if (srodek === "#") return "Klocka nie da się przeskoczyć.";
       if (srodek === "SCIANA") return BLAD.SCIANA;
+      if (srodek !== "K") return "HOP? Tu nie ma kałuży! Skaczemy tylko przez kałużę.";
     }
     var y = r.y + ile * d[0], x = r.x + ile * d[1], t = pole(y, x);
     if (BLAD[t]) {

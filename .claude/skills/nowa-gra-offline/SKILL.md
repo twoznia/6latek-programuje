@@ -22,7 +22,7 @@ Cel projektu: dziecko uczy się logicznego myślenia i programowania (sekwencja,
 4. **Czytanie wbudowane w grę.** Na kartach są krótkie słowa WIELKIMI LITERAMI (IDŹ, SKOCZ, JEŚLI, TAK, NIE). Liczby mają kropki jak na kostce i słowo (TRZY).
 5. **Matematyka wbudowana w grę.** Liczby w okienku „×”, liczenie pól i kroków, dodawanie powtórzeń (2 + 2 + 2), porównywanie („więcej niż 3”).
 6. **Dwa warianty.** Każda gra ma wersję z wydrukiem i wersję bez przygotowania: z klockami Lego (kolor to polecenie, wysokość wieży to liczba), mówioną albo z torami czy Clicks.
-7. **Rodzaje zadań do mieszania:** dojdź do skarbu; zbierz kilka skarbów; omiń lawę (nie wolno jej przeskoczyć); przeskocz kałużę; gdzie skończy robot? (czytanie kodu); znajdź błąd; najkrótszy program; zadanie do wymyślenia przez dziecko („pułapka dla dorosłego”).
+7. **Rodzaje zadań do mieszania:** dojdź do skarbu; zbierz kilka skarbów; omiń lawę (nie wolno jej przeskoczyć); przeskocz kałużę (SKOCZ działa tylko nad kałużą); gdzie skończy robot? (czytanie kodu); znajdź błąd; najkrótszy program; zadanie do wymyślenia przez dziecko („pułapka dla dorosłego”).
 8. **Kolejność trudności.** W zestawie zadania idą od najłatwiejszego. Robot najpierw patrzy w górę, a dopiero później w lewo, w prawo i w dół.
 
 ## Wygląd kart (zasady Tomka)

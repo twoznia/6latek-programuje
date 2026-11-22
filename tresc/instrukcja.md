@@ -48,6 +48,7 @@ Zabawa ruchowa na podłodze, bez komputera. Jedna osoba jest **Programistą** i 
 - **Robot stoi na SKARBIE** po ostatniej karcie: brawo! Do wspólnej wieży trafiają klocki.
 - **Robot wchodzi na LAWĘ**: mówi „BZZZT!”, zamiera i program się kończy.
 - **Robot wchodzi na KAŁUŻĘ** zamiast ją przeskoczyć: mówi „PLUSK!” i program się kończy.
+- **Robot ma skoczyć, a przed nim nie ma kałuży**: mówi „HOP? Tu nie ma kałuży!” i program się kończy. Skaczemy tylko przez kałużę.
 - **Robot ma wyjść poza planszę**: mówi „BUM, ściana!”, zostaje na swoim polu i program się kończy.
 - **Karty się skończyły, a skarbu nie ma**: Robot mówi „KONIEC PROGRAMU” i stoi.
 
@@ -93,7 +94,7 @@ IDŹ: 1 krok do przodu
 SKRĘĆ W PRAWO: obrót w miejscu
 SKRĘĆ W LEWO: obrót w miejscu
 OBRÓĆ SIĘ: obrót tyłem do przodu
-SKOCZ: przeskok nad jednym polem
+SKOCZ: przeskok nad jedną kałużą
 ```
 
 Każda karta polecenia ma z boku okienko z ×. Wkładamy tam kartę liczby, która mówi, ile razy wykonać polecenie. Na przykład **IDŹ 3** to trzy kroki. Puste okienko oznacza: raz. Program układamy w rzędzie od lewej do prawej, tak jak się czyta.
@@ -103,7 +104,7 @@ Każda karta polecenia ma z boku okienko z ×. Wkładamy tam kartę liczby, któ
 - **START** (niebieskie kółko): tu stoi Robot. Trójkąt pokazuje, gdzie patrzy.
 - **SKARB** (gwiazdka): na skarb można położyć klocek, figurkę albo cukierek.
 - **LAWA** (czerwone pole): nie wolno na nią wejść ani jej przeskoczyć. Trzeba ją obejść.
-- **KAŁUŻA** (niebieskie pole): nie wolno na nią wejść, ale można ją przeskoczyć kartą SKOCZ.
+- **KAŁUŻA** (niebieskie pole): nie wolno na nią wejść, ale można ją przeskoczyć kartą SKOCZ. SKOCZ działa tylko wtedy, gdy tuż przed robotem jest kałuża. Nad pustym polem, lawą ani klockiem skakać nie wolno.
 - **Klocek** (brązowy kwadrat): nie wolno na niego wejść ani go przeskoczyć. Na podłodze może to być prawdziwy klocek albo pudełko.
 - Na lawę i kałuże wystarczą też czerwone i niebieskie kartki.
 
@@ -188,7 +189,7 @@ Najpierw Programista układa program, a **dopiero potem** Robot rzuca monetą al
 
 - **Kolorowe komendy.** Dorosły pokazuje klocek. „JEŚLI zielony, to podskocz, INACZEJ klaśnij.” Potem dziecko wymyśla zasady dla dorosłego.
 - **Szukanie skarbu w worku.** „POWTARZAJ ZAWSZE: wyciągnij klocek. JEŚLI żółty: STOP.” Policzcie, ile razy trzeba było losować.
-- **Kostka i warunek.** Rzuć kostką. „JEŚLI wypadło więcej niż 3, TAK: IDŹ tyle kroków, NIE: SKOCZ.”
+- **Kostka i warunek.** Rzuć kostką. „JEŚLI wypadło więcej niż 3, TAK: IDŹ tyle kroków, NIE: OBRÓĆ SIĘ.”
 - **Tor z rozjazdem.** Zwrotnica w torze to JEŚLI: „JEŚLI wagon jest niebieski, jedzie w lewo, INACZEJ w prawo”.
 
 ## Matematyka przy okazji
@@ -196,7 +197,7 @@ Najpierw Programista układa program, a **dopiero potem** Robot rzuca monetą al
 - **Ile kroków razem?** W programie IDŹ 2, SKRĘĆ, IDŹ 3 robot zrobi 2 + 3 = 5 kroków.
 - **Skróć program.** Dwie karty IDŹ 2 i IDŹ 1 obok siebie można zamienić na jedną IDŹ 3.
 - **Najkrótszy program.** Kto ułoży program z najmniejszej liczby kart? Policzcie je.
-- **Ile pól?** Program IDŹ ×2, SKRĘĆ W LEWO, IDŹ ×3, SKOCZ. Ile pól przejdzie robot, jeśli skok to 2 pola? (2 + 3 + 2 = 7)
+- **Ile pól?** Program IDŹ ×2, SKRĘĆ W LEWO, IDŹ ×3, SKOCZ. Ile pól przejdzie robot, jeśli skok nad kałużą to 2 pola? (2 + 3 + 2 = 7)
 - **Pętla i dodawanie.** POWTÓRZ ×3 (IDŹ ×2): ile kroków? (2 + 2 + 2 = 6). POWTÓRZ ×2 (IDŹ ×3)? (3 + 3 = 6, ten sam wynik, inny program!)
 - **Obroty.** POWTÓRZ ×4 (SKRĘĆ W PRAWO): gdzie patrzy robot na końcu? (Tam gdzie na początku, bo obrócił się dookoła.)
 
