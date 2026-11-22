@@ -165,6 +165,122 @@ Robot patrzy w prawo.
 
 ---
 
+# Misje — więcej zadań
+
+Uwaga na robota: nie zawsze patrzy w górę! Biały trójkąt pokazuje, w którą stronę patrzy.
+
+### 11. Dwa skarby
+Zbierz oba skarby.
+```plansza
+. . . . .
+. . . . .
+* . . * .
+. . . . .
+^ . . . .
+```
+
+### 12. Robot patrzy w lewo
+Gdzie jest jego prawa ręka?
+```plansza
+. * . . .
+. . . . .
+. . . . <
+. . . . .
+. . . . .
+```
+
+### 13. Robot patrzy w dół
+Podpowiedź: stań tak jak robot.
+```plansza
+. . v . .
+. . . . .
+. . . . .
+. . . . *
+. . . . .
+```
+
+### 14. Gdzie skończy robot?
+Przeczytaj program i połóż skarb tam, gdzie robot się zatrzyma.
+```plansza
+. . . . .
+. . . . .
+. . . . .
+. . . . .
+^ . . . .
+```
+```program
+IDŹ ×2, SKRĘĆ W PRAWO, IDŹ ×3, SKRĘĆ W LEWO, IDŹ
+```
+
+---
+
+# Misje — więcej zadań, ciąg dalszy
+
+### 15. Znajdź błąd
+Robot nie trafił do skarbu. Która karta jest zła?
+```plansza
+. . . . .
+. . . * .
+. . . . .
+. . . . .
+. ^ . . .
+```
+```program
+IDŹ ×3, SKRĘĆ W LEWO, IDŹ ×2
+```
+
+### 16. Literka U
+Przejdź dookoła ściany z klocków.
+```plansza
+. . . . .
+. # . . .
+. # . . .
+. # . . .
+^ # * . .
+```
+
+### 17. Kałuża i lawa
+Kałużę można przeskoczyć, lawy nie.
+```plansza
+. . * . .
+. . L . .
+. . . . .
+. . K . .
+. . ^ . .
+```
+
+### 18. Trzy skarby
+Robot patrzy w prawo. Zbierz wszystkie skarby.
+```plansza
+. . . . .
+. . . . .
+. . * . *
+. . . L .
+> . * . .
+```
+
+---
+
+# Misje — jeszcze więcej
+
+### 19. Ile pól?
+Ile pól przejdzie robot? SKOK to 2 pola. Sprawdź na podłodze.
+```program
+IDŹ ×2, SKRĘĆ W LEWO, IDŹ ×3, SKOCZ
+```
+
+### 20. Twoja misja
+Narysuj planszę dla dorosłego. Niech dorosły ułoży program, a ty sprawdź, czy robot dojdzie do skarbu.
+```plansza
+. . . . .
+. . . . .
+. . . . .
+. . . . .
+. . . . .
+```
+
+---
+
 # Rozwiązania dla dorosłego
 
 To przykładowe rozwiązania. Każdy program, który dojdzie do skarbu bez wchodzenia na klocek, lawę ani kałużę, jest dobry.
@@ -218,6 +334,51 @@ SKOCZ ×2
 ```program
 SKOCZ, SKRĘĆ W LEWO, IDŹ ×2, SKRĘĆ W PRAWO, IDŹ ×2
 ```
+
+---
+
+# Rozwiązania: więcej zadań
+
+### 11. Dwa skarby
+```program
+IDŹ ×2, SKRĘĆ W PRAWO, IDŹ ×3
+```
+
+### 12. Robot patrzy w lewo
+```program
+IDŹ ×3, SKRĘĆ W PRAWO, IDŹ ×2
+```
+Robot patrzy w lewo, więc jego prawa ręka wskazuje w górę.
+
+### 13. Robot patrzy w dół
+```program
+IDŹ ×3, SKRĘĆ W LEWO, IDŹ ×2
+```
+Robot patrzy w dół, więc „w lewo” dla niego to w prawo na kartce. Niech dziecko stanie na podłodze tak jak robot.
+
+### 14. Gdzie skończy robot?
+W drugim rzędzie od góry, na czwartym polu od lewej.
+
+### 15. Znajdź błąd
+Zamiast SKRĘĆ W LEWO powinno być SKRĘĆ W PRAWO.
+
+### 16. Literka U
+```program
+IDŹ ×4, SKRĘĆ W PRAWO, IDŹ ×2, SKRĘĆ W PRAWO, IDŹ ×4
+```
+
+### 17. Kałuża i lawa
+```program
+SKOCZ, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO, IDŹ ×2, SKRĘĆ W LEWO, IDŹ
+```
+
+### 18. Trzy skarby
+```program
+IDŹ ×2, SKRĘĆ W LEWO, IDŹ ×2, SKRĘĆ W PRAWO, IDŹ ×2
+```
+
+### 19. Ile pól?
+2 + 3 + 2 = 7 pól.
 
 ---
 
