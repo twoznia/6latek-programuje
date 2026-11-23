@@ -62,7 +62,14 @@ def lab(k):
 
 def cmd_card(k):
     a, b = LABEL[k]; c = COL[k]; slot = SLOT.get(k, "×")
-    s = (f'<div class="slot" style="border-color:{c};background:{c}14"><span style="color:{c}">{slot}</span></div>' if slot else '')
+    if slot == "×" and k != "powtorz":
+        # domyślnie kostka z jednym oczkiem i napis ×1: bez karty liczby polecenie wykonuje się raz
+        die = (f'<svg viewBox="0 0 100 100" width="26mm" height="26mm"><rect x="5" y="5" width="90" height="90" rx="16" fill="#fff" stroke="{c}" stroke-width="5"/>'
+               f'<circle cx="50" cy="50" r="12" fill="{c}"/></svg>')
+        inner = f'<div class="die">{die}<span style="color:{c}">×1</span></div>'
+    else:
+        inner = f'<span style="color:{c}">{slot}</span>'
+    s = (f'<div class="slot" style="border-color:{c};background:{c}14">{inner}</div>' if slot else '')
     return (f'<div class="card cmd2{" noslot" if not slot else ""}" style="border-color:{c}">'
             f'<div class="op">{icon(k,"50mm")}<div class="lbl" style="color:{c}">{a}<br>{b or "&nbsp;"}</div></div>{s}</div>')
 
