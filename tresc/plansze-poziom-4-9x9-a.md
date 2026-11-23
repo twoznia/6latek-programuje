@@ -1,4 +1,4 @@
-# Plansze 9 × 9, poziom 4 (1/4)
+# Plansze 9 × 9, poziom 4, zestaw A (1/4)
 
 Kółko to START, a trójkąt pokazuje, gdzie Robot patrzy. Rozwiązanie na dole karty można przed grą zagiąć. PRZEPIS A … KONIEC robot tylko zapamiętuje. Karta ZRÓB A znaczy: zrób teraz cały przepis A. META w przepisie kończy tylko przepis.
 
@@ -86,7 +86,7 @@ ZRÓB A ×4
 
 ---
 
-# Plansze 9 × 9, poziom 4 (2/4)
+# Plansze 9 × 9, poziom 4, zestaw A (2/4)
 
 ### 5. Znajdź błąd w przepisie
 Robot wypadł z planszy na pierwszym schodku: BUM! Popraw przepis.
@@ -193,7 +193,7 @@ ZRÓB B ×3
 
 ---
 
-# Plansze 9 × 9, poziom 4 (3/4)
+# Plansze 9 × 9, poziom 4, zestaw A (3/4)
 
 ### 9. Wielki grzebień
 Przepis to jeden ząbek. Zbierz wszystkie skarby.
@@ -294,7 +294,7 @@ Na końcu przepisu brakuje SKRĘĆ W PRAWO. Wróć na START, żeby sprawdzić.
 
 ---
 
-# Plansze 9 × 9, poziom 4 (4/4)
+# Plansze 9 × 9, poziom 4, zestaw A (4/4)
 
 ### 13. Wielki kwiatek
 A to płatek, B to płatek i obrót. Zbierz skarby i wróć na START.

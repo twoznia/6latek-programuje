@@ -1,4 +1,4 @@
-# Plansze 9 × 9, poziom 1 (1/4)
+# Plansze 9 × 9, poziom 1, zestaw A (1/4)
 
 Kółko to START, a trójkąt pokazuje, gdzie Robot patrzy. Rozwiązanie na dole karty można przed grą zagiąć. Karty liczb są do 6, więc 8 kroków to IDŹ ×6 i IDŹ ×2.
 
@@ -73,7 +73,7 @@ IDŹ ×6, IDŹ ×2
 
 ---
 
-# Plansze 9 × 9, poziom 1 (2/4)
+# Plansze 9 × 9, poziom 1, zestaw A (2/4)
 
 ### 5. Robot patrzy w dół
 Uwaga: gdy robot patrzy w dół, jego prawo jest po naszej lewej!
@@ -146,7 +146,7 @@ IDŹ ×6, SKRĘĆ W PRAWO, IDŹ ×3, SKRĘĆ W PRAWO, IDŹ ×4, SKRĘĆ W LEWO, 
 
 ---
 
-# Plansze 9 × 9, poziom 1 (3/4)
+# Plansze 9 × 9, poziom 1, zestaw A (3/4)
 
 ### 9. Znajdź błąd: zły skręt
 Robot miał dojść do skarbu, ale uderzył w ścianę: BUM! Którą kartę zmienić?
@@ -222,7 +222,7 @@ IDŹ, SKOCZ, IDŹ, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO, IDŹ ×4
 
 ---
 
-# Plansze 9 × 9, poziom 1 (4/4)
+# Plansze 9 × 9, poziom 1, zestaw A (4/4)
 
 ### 13. Mur z lawy
 W murze z lawy jest jedna dziura. Znajdź ją!
