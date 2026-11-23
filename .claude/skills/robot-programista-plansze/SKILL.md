@@ -14,6 +14,7 @@ Repo: `twoznia/6latek-programuje`. Najpierw pobierz aktualny `main`, bo inne wą
 - `narzedzia/drukuj.py` zamienia `.md` na HTML i PDF (sam Python 3; PDF przez Chrome lub Chromium). `narzedzia/styl.css` to wygląd.
 - `narzedzia/sprawdz.py` to symulator robota, który sprawdza rozwiązania.
 - `Makefile`: `make` tworzy wszystkie wydruki, `make sprawdz` sprawdza rozwiązania.
+- Gra online: `index.html` + `gra/gra.js`. Dane w `gra/gry.js` robi `make online` z `tresc/plansze-poziom-1-*.md` (poziom 1) i `gra/poziom-2.md` (poziom 2: POWTÓRZ, klucz `@` i drzwi `D`, monety `1`–`6` z sumą, limit kart, JEŚLI z polami `?` i wariantami, przepis A). Po zmianie gier uruchom `make online` i `make test-online` (każde rozwiązanie musi dać BRAWO w prawdziwej grze).
 - README ma tabelę plików. Przy nowym pliku dopisz wiersz.
 
 ## Format pliku z planszami

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Symulator robota: sprawdza, czy rozwiązania z plików tresc/*.md dochodzą do skarbów.
 Obsługuje poziomy 1-4: polecenia, POWTÓRZ, JEŚLI, STOP, META oraz PRZEPIS X / ZRÓB X (META w przepisie = powrót z przepisu).
+Gra online ma też klucze (@), drzwi (D, wejście zabiera jeden klucz) i monety z liczbami 1-6 (suma w info["suma"]).
 Użycie: python3 narzedzia/sprawdz.py tresc/plansze-*.md   (albo: make sprawdz)
 Pomija gry bez rozwiązania w bloku rozwiazanie i plansze z polami "?" - te sprawdź ręcznie."""
 import re, sys
@@ -56,8 +57,9 @@ def cmds(text):
         out.append(("cmd", m.group(1), int(m.group(2))) if m else ("cmd", part, 1))
     return out
 
-def run(board, prog, skarby=True):
+def run(board, prog, skarby=True, info=None):
     g = [r.split() for r in board]
+    keys, suma = 0, 0
     h, w = len(g), len(g[0])
     (r, c), d = next(((y, x), g[y][x]) for y in range(h) for x in range(w) if g[y][x] in DIRS)
     stars = {(y, x) for y in range(h) for x in range(w) if g[y][x] == "*"}
@@ -65,7 +67,7 @@ def run(board, prog, skarby=True):
     def cell(y, x):
         return "WALL" if not (0 <= y < h and 0 <= x < w) else g[y][x]
     def step(k):
-        nonlocal r, c
+        nonlocal r, c, keys, suma
         dy, dx = DIRS[d]
         if k == 2:
             mid = cell(r + dy, c + dx)
@@ -73,6 +75,13 @@ def run(board, prog, skarby=True):
         y, x = r + k * dy, c + k * dx
         t = cell(y, x)
         if t in ("L", "K", "#", "WALL"): raise Fail(f"wejście na {t} w {(y+1, x+1)}")
+        if t == "D":
+            if not keys: raise Fail(f"drzwi bez klucza w {(y+1, x+1)}")
+            keys -= 1; g[y][x] = "."
+        elif t == "@":
+            keys += 1; g[y][x] = "."
+        elif t in "123456":
+            suma += int(t); g[y][x] = "."
         r, c = y, x
         if (r, c) in stars: got.add((r, c))
     defs = {nd[1]: nd[2] for nd in prog if nd[0] == "def"}
@@ -121,6 +130,8 @@ def run(board, prog, skarby=True):
         exe(prog)
     except Meta:
         pass
+    if info is not None:
+        info.update(suma=suma, klucze=keys)
     if skarby and stars - got:
         raise Fail(f"nie zebrano skarbów {sorted((y+1, x+1) for y, x in stars - got)}; koniec w {(r+1, c+1)}")
     return (r + 1, c + 1), d

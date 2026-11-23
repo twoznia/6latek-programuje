@@ -10,4 +10,7 @@ sprawdz:
 online:
 	python3 narzedzia/eksport_gry.py
 
-.PHONY: druk html sprawdz online
+test-online:
+	node narzedzia/test_online.js
+
+.PHONY: druk html sprawdz online test-online

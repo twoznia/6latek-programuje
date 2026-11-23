@@ -4,9 +4,19 @@
 
 ## Gra online
 
-Otwórz [`index.html`](index.html) w przeglądarce (wystarczy podwójne kliknięcie, internet nie jest potrzebny). To strona startowa gry na ekranie: wybór planszy 5 × 5, 7 × 7 albo 9 × 9, lista gier poziomu 1 i gra. Dziecko dotyka kart IDŹ, SKRĘĆ W PRAWO, SKRĘĆ W LEWO, OBRÓĆ SIĘ i SKOCZ, dokłada liczbę „ile razy” i naciska START. Program można poprawiać: dotknięcie karty w programie ją zaznacza, nowa karta wstawia się za zaznaczoną (▶ to początek), liczba zmienia się w zaznaczonej karcie, a ✕ ją usuwa. Robot idzie po planszy, a przy błędzie mówi, co się stało (lawa, kałuża, klocek, koniec planszy, skok bez kałuży). Za każdą rozwiązaną grę jest gwiazdka, zapamiętywana w przeglądarce. Karty można też czytać na głos.
+Otwórz [`index.html`](index.html) w przeglądarce (wystarczy podwójne kliknięcie, internet nie jest potrzebny). To strona startowa gry na ekranie: wybór poziomu (1 albo 2) i planszy 5 × 5, 7 × 7 albo 9 × 9, lista gier i gra. Dziecko dotyka kart IDŹ, SKRĘĆ W PRAWO, SKRĘĆ W LEWO, OBRÓĆ SIĘ i SKOCZ, dokłada liczbę „ile razy” i naciska START. Program można poprawiać: dotknięcie karty w programie ją zaznacza, nowa karta wstawia się za zaznaczoną (▶ to początek), liczba zmienia się w zaznaczonej karcie, a ✕ ją usuwa. Robot idzie po planszy, a przy błędzie mówi, co się stało (lawa, kałuża, klocek, koniec planszy, skok bez kałuży). Za każdą rozwiązaną grę jest gwiazdka, zapamiętywana w przeglądarce. Karty można też czytać na głos.
 
-Gry pochodzą z plików `tresc/plansze-poziom-1-*.md`. Po zmianie plansz uruchom `make online` (albo `python3 narzedzia/eksport_gry.py`), żeby odświeżyć `gra/gry.js`. Skrypt pomija gry, których nie da się zagrać na ekranie (pola „?”, program podany z góry), a każde rozwiązanie sprawdza symulatorem.
+**Poziom 2** ma 26 gier na każdą planszę, w pięciu zestawach. Każdy zestaw uczy jednej nowej rzeczy, od najłatwiejszej gry:
+
+- **A. Pętla POWTÓRZ**: karta POWTÓRZ od razu dokłada KONIEC, a karty między nimi robot robi tyle razy, ile mówi liczba. Limit kart („Masz tylko 4 karty”) sprawia, że bez pętli się nie da.
+- **B. Klucz i drzwi**: robot bierze klucz, gdy na nim stanie. Drzwi otwiera tylko klucz, a każdy klucz otwiera jedne drzwi.
+- **C. Monety i liczenie**: monety mają liczby 1–6. Trzeba zebrać monety, które dają dokładnie podaną sumę. Licznik nad planszą pokazuje sumę i liczbę kart.
+- **D. Pytanie JEŚLI**: na polu ? za każdym razem jest coś innego (kałuża, lawa, skarb albo nic). JEŚLI pyta o pole przed robotem (LAWA?, KAŁUŻA?, SKARB?, ŚCIANA?), a karty przed NIE robot robi, gdy odpowiedź to TAK. Po START robot sprawdza program na każdym wariancie pola ?, więc program musi działać za każdym razem.
+- **E. Przepis A**: w górnym rzędzie dziecko układa przepis A, a karta ZRÓB A w programie robi cały przepis (ZRÓB A ×3 to trzy razy).
+
+Tryb debug (krok po kroku, ✓ zostaw albo ✗ usuń kartę), czytanie kart na głos i rozwiązanie dla dorosłego po 2 nieudanych próbach działają na obu poziomach. ✕ przy karcie POWTÓRZ, JEŚLI, NIE albo KONIEC zdejmuje całą ramkę, a karty ze środka zostają.
+
+Gry poziomu 1 pochodzą z plików `tresc/plansze-poziom-1-*.md`, a gry poziomu 2 z pliku [`gra/poziom-2.md`](gra/poziom-2.md) (opis formatu jest na jego początku). Po zmianie uruchom `make online` (albo `python3 narzedzia/eksport_gry.py`), żeby odświeżyć `gra/gry.js`. Skrypt pomija gry poziomu 1, których nie da się zagrać na ekranie (pola „?”, program podany z góry), a każde rozwiązanie sprawdza symulatorem, przy polach ? na każdym wariancie. `make test-online` (Node i Playwright) gra każde rozwiązanie w prawdziwej grze i sprawdza, czy kończy się BRAWO.
 
 ## Pliki
 
@@ -20,12 +30,15 @@ Każdy plik ma źródło w Markdown w katalogu [`tresc/`](tresc/) i gotowy wydru
 | plansze-poziom-1-5x5-b | gry 17–32, poziom 1, plansza 5 × 5 | 4 | [md](tresc/plansze-poziom-1-5x5-b.md) | [PDF](druk/plansze-poziom-1-5x5-b.pdf) · [HTML](druk/plansze-poziom-1-5x5-b.html) |
 | plansze-poziom-1-5x5-c | gry 33–48, poziom 1, plansza 5 × 5 | 4 | [md](tresc/plansze-poziom-1-5x5-c.md) | [PDF](druk/plansze-poziom-1-5x5-c.pdf) · [HTML](druk/plansze-poziom-1-5x5-c.html) |
 | plansze-poziom-1-5x5-d | gry 49–64, poziom 1, plansza 5 × 5 | 4 | [md](tresc/plansze-poziom-1-5x5-d.md) | [PDF](druk/plansze-poziom-1-5x5-d.pdf) · [HTML](druk/plansze-poziom-1-5x5-d.html) |
+| plansze-poziom-1-5x5-e | gry 65–80, poziom 1, plansza 5 × 5 | 4 | [md](tresc/plansze-poziom-1-5x5-e.md) | [PDF](druk/plansze-poziom-1-5x5-e.pdf) · [HTML](druk/plansze-poziom-1-5x5-e.html) |
 | plansze-poziom-1-7x7-a | gry 1–16, poziom 1, plansza 7 × 7 | 4 | [md](tresc/plansze-poziom-1-7x7-a.md) | [PDF](druk/plansze-poziom-1-7x7-a.pdf) · [HTML](druk/plansze-poziom-1-7x7-a.html) |
 | plansze-poziom-1-7x7-b | gry 17–32, poziom 1, plansza 7 × 7 | 4 | [md](tresc/plansze-poziom-1-7x7-b.md) | [PDF](druk/plansze-poziom-1-7x7-b.pdf) · [HTML](druk/plansze-poziom-1-7x7-b.html) |
 | plansze-poziom-1-7x7-c | gry 33–48, poziom 1, plansza 7 × 7 | 4 | [md](tresc/plansze-poziom-1-7x7-c.md) | [PDF](druk/plansze-poziom-1-7x7-c.pdf) · [HTML](druk/plansze-poziom-1-7x7-c.html) |
 | plansze-poziom-1-7x7-d | gry 49–64, poziom 1, plansza 7 × 7 | 4 | [md](tresc/plansze-poziom-1-7x7-d.md) | [PDF](druk/plansze-poziom-1-7x7-d.pdf) · [HTML](druk/plansze-poziom-1-7x7-d.html) |
+| plansze-poziom-1-7x7-e | gry 65–80, poziom 1, plansza 7 × 7 | 4 | [md](tresc/plansze-poziom-1-7x7-e.md) | [PDF](druk/plansze-poziom-1-7x7-e.pdf) · [HTML](druk/plansze-poziom-1-7x7-e.html) |
 | plansze-poziom-1-9x9-a | gry 1–16, poziom 1, plansza 9 × 9 | 4 | [md](tresc/plansze-poziom-1-9x9-a.md) | [PDF](druk/plansze-poziom-1-9x9-a.pdf) · [HTML](druk/plansze-poziom-1-9x9-a.html) |
 | plansze-poziom-1-9x9-b | gry 17–32, poziom 1, plansza 9 × 9 | 4 | [md](tresc/plansze-poziom-1-9x9-b.md) | [PDF](druk/plansze-poziom-1-9x9-b.pdf) · [HTML](druk/plansze-poziom-1-9x9-b.html) |
+| plansze-poziom-1-9x9-c | gry 33–48, poziom 1, plansza 9 × 9 | 4 | [md](tresc/plansze-poziom-1-9x9-c.md) | [PDF](druk/plansze-poziom-1-9x9-c.pdf) · [HTML](druk/plansze-poziom-1-9x9-c.html) |
 | plansze-poziom-2-3-5x5 | gry 1–11 z pętlą POWTÓRZ, gry 12–15 z JEŚLI, STOP i META, gra 16 do wymyślenia | 4 | [md](tresc/plansze-poziom-2-3-5x5.md) | [PDF](druk/plansze-poziom-2-3-5x5.pdf) · [HTML](druk/plansze-poziom-2-3-5x5.html) |
 | plansze-poziom-2-5x5-b | gry 17–32, poziom 2 (POWTÓRZ), plansza 5 × 5 | 4 | [md](tresc/plansze-poziom-2-5x5-b.md) | [PDF](druk/plansze-poziom-2-5x5-b.pdf) · [HTML](druk/plansze-poziom-2-5x5-b.html) |
 | plansze-poziom-2-9x9-a | gry 1–16, poziom 2 (POWTÓRZ, pętla w pętli), plansza 9 × 9 | 4 | [md](tresc/plansze-poziom-2-9x9-a.md) | [PDF](druk/plansze-poziom-2-9x9-a.pdf) · [HTML](druk/plansze-poziom-2-9x9-a.html) |
