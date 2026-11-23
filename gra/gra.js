@@ -18,7 +18,7 @@
   var MAX = 24;
 
   var $ = function (id) { return document.getElementById(id); };
-  var stan = { gra: null, program: [], wybrana: -1, biegnie: false, robot: null, rozmiar: 5 };
+  var stan = { przebieg: 0, odpowiedz: null, gra: null, program: [], wybrana: -1, biegnie: false, robot: null, rozmiar: 5 };
 
   // ---------- zapamiętane gwiazdki ----------
   function wczytajGw() { try { return JSON.parse(localStorage.getItem("rip-gwiazdki") || "[]"); } catch (e) { return []; } }
@@ -125,7 +125,8 @@
   function otworz(id) {
     var gra = GRY.filter(function (g) { return g.id === id; })[0];
     if (!gra) { pokazStart(); return; }
-    stan.gra = gra; stan.program = []; stan.wybrana = -1; stan.biegnie = false;
+    przerwij();
+    stan.gra = gra; stan.program = []; stan.wybrana = -1;
     $("ekranStart").hidden = true; $("ekranGra").hidden = false; $("doListy").hidden = false; document.body.classList.add("w-grze");
     $("graTytul").textContent = "Gra " + gra.nr + ": " + gra.tytul + " (" + gra.size + " × " + gra.size + ")";
     $("graOpis").textContent = gra.opis;
@@ -215,19 +216,38 @@
     stan.biegnie = true; $("start").disabled = true;
     komunikat("Robot rusza…", "");
     await czekaj(350);
-    var chips = $("program").querySelectorAll(".chip");
+    var przebieg = ++stan.przebieg;
+    var debug = $("debug").checked;
     var blad = null;
-    outer:
     for (var i = 0; i < stan.program.length; i++) {
       var c = stan.program[i];
-      chips[i].classList.add("teraz"); pokazWProgramie(chips[i]);
+      var chipy = $("program").querySelectorAll(".chip");
+      chipy[i].classList.add("teraz"); pokazWProgramie(chipy[i]);
+      var przed = { robot: Object.assign({}, stan.robot), zebrane: Object.assign({}, stan.zebrane) };
       await powiedz(c.k + (c.n > 1 ? " " + SLOWO[c.n] + " razy" : ""));
+      if (przebieg !== stan.przebieg) return;
       for (var k = 0; k < c.n; k++) {
         blad = krok(c.k);
         await czekaj(c.k === "SKOCZ" ? 560 : 430);
-        if (blad) break outer;
+        if (blad) break;
       }
-      chips[i].classList.remove("teraz");
+      if (przebieg !== stan.przebieg) return;
+      if (debug) {
+        // tryb debug: po każdej karcie pytamy, czy ją zostawić, czy usunąć
+        if (blad) komunikat(blad + " Usunąć tę kartę?", "zle");
+        else komunikat("Dobrze? Zostaw ✓ albo usuń ✗", "");
+        var dobrze = await zapytaj();
+        if (przebieg !== stan.przebieg) return;
+        komunikat("", "");
+        if (!dobrze) {
+          cofnij(przed);
+          stan.program.splice(i, 1); stan.wybrana = Math.min(stan.wybrana, stan.program.length - 1);
+          rysujProgram();
+          blad = null; i--; continue;
+        }
+      }
+      if (blad) break;
+      chipy[i].classList.remove("teraz");
     }
     stan.biegnie = false; $("start").disabled = false;
     if (blad) {
@@ -244,6 +264,30 @@
     if (mam < gw) { komunikat(mam ? "Jest " + mam + " z " + gw + " skarbów. Robot musi iść dalej!" : "Robot stanął, ale skarb jest dalej.", "zle"); return; }
     if (stan.gra.powrot && !naStarcie) { komunikat("Masz skarb! Teraz wróć na START.", "zle"); return; }
     sukces();
+  }
+  // ---------- tryb debug ----------
+  function zapytaj() {
+    $("debugPytanie").hidden = false;
+    $("debugTak").focus();
+    return new Promise(function (r) { stan.odpowiedz = r; });
+  }
+  function odpowiedz(tak) {
+    $("debugPytanie").hidden = true;
+    var r = stan.odpowiedz; stan.odpowiedz = null;
+    if (r) r(tak);
+  }
+  // robot wraca tam, gdzie był przed usuniętą kartą
+  function cofnij(przed) {
+    Object.keys(stan.zebrane).forEach(function (k) {
+      if (!przed.zebrane[k]) { var s = document.getElementById("gw-" + k); if (s) s.classList.remove("zebrany"); }
+    });
+    stan.zebrane = przed.zebrane;
+    stan.robot = przed.robot;
+    ustawRobota(false);
+  }
+  function przerwij() {
+    stan.przebieg++; stan.biegnie = false; $("start").disabled = false;
+    $("debugPytanie").hidden = true; stan.odpowiedz = null;
   }
   function krok(nazwa) {
     var r = stan.robot;
@@ -318,8 +362,10 @@
       var b = e.target.closest("[data-i]"); if (b) wybierz(+b.dataset.i);
     });
     $("start").addEventListener("click", uruchom);
-    $("odNowa").addEventListener("click", function () { if (!stan.biegnie) { naStart(); komunikat("", ""); } });
-    $("wyczysc").addEventListener("click", function () { if (!stan.biegnie) { stan.program = []; stan.wybrana = -1; rysujProgram(); naStart(); komunikat("", ""); } });
+    $("debugTak").addEventListener("click", function () { odpowiedz(true); });
+    $("debugNie").addEventListener("click", function () { odpowiedz(false); });
+    $("odNowa").addEventListener("click", function () { if (stan.odpowiedz) przerwij(); if (!stan.biegnie) { naStart(); rysujProgram(); komunikat("", ""); } });
+    $("wyczysc").addEventListener("click", function () { if (stan.odpowiedz) przerwij(); if (!stan.biegnie) { stan.program = []; stan.wybrana = -1; rysujProgram(); naStart(); komunikat("", ""); } });
     $("pokazRozw").addEventListener("click", function () { $("rozw").hidden = !$("rozw").hidden; });
     $("lista").addEventListener("click", function (e) { var b = e.target.closest(".kafel"); if (b) location.hash = "gra-" + b.dataset.id; });
     $("tab5").addEventListener("click", function () { stan.rozmiar = 5; rysujListe(); });
