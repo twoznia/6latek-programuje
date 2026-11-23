@@ -22,7 +22,7 @@ Cel projektu: dziecko uczy się logicznego myślenia i programowania (sekwencja,
 4. **Czytanie wbudowane w grę.** Na kartach są krótkie słowa WIELKIMI LITERAMI (IDŹ, SKOCZ, JEŚLI, TAK, NIE). Liczby mają kropki jak na kostce i słowo (TRZY).
 5. **Matematyka wbudowana w grę.** Liczby w okienku „×”, liczenie pól i kroków, dodawanie powtórzeń (2 + 2 + 2), porównywanie („więcej niż 3”).
 6. **Dwa warianty.** Każda gra ma wersję z wydrukiem i wersję bez przygotowania: z klockami Lego (kolor to polecenie, wysokość wieży to liczba), mówioną albo z torami czy Clicks.
-7. **Rodzaje zadań do mieszania:** dojdź do skarbu; zbierz kilka skarbów; omiń lawę (nie wolno jej przeskoczyć); przeskocz kałużę; gdzie skończy robot? (czytanie kodu); znajdź błąd; najkrótszy program; zadanie do wymyślenia przez dziecko („pułapka dla dorosłego”).
+7. **Rodzaje zadań do mieszania:** dojdź do skarbu; zbierz kilka skarbów; omiń lawę (nie wolno jej przeskoczyć); przeskocz kałużę (SKOCZ działa tylko nad kałużą); gdzie skończy robot? (czytanie kodu); znajdź błąd; najkrótszy program; zadanie do wymyślenia przez dziecko („pułapka dla dorosłego”).
 8. **Kolejność trudności.** W zestawie zadania idą od najłatwiejszego. Robot najpierw patrzy w górę, a dopiero później w lewo, w prawo i w dół.
 
 ## Wygląd kart (zasady Tomka)
@@ -53,7 +53,7 @@ Cel projektu: dziecko uczy się logicznego myślenia i programowania (sekwencja,
 
 ## Pomysły na kolejne poziomy
 
-- **Poziom 4, funkcje („przepisy”):** dziecko nazywa kawałek programu (np. TANIEC), rysuje go na osobnej karcie i używa jak jednej karty. META w przepisie oznacza „wróć z przepisu” (return).
+- **Poziom 4, funkcje („przepisy”), już zrobiony:** karty PRZEPIS A/B (granatowy i brązowy) i ZRÓB A/B. Dobre zadania: przepis powtarzany ZRÓB A ×n (kwadrat, schody, ząbki), dwa przepisy na zmianę, przepis z pętlą albo z JEŚLI w środku, przepis wywołujący przepis, przepis „idź do ściany/lawy/skarbu” z META (return), „popraw raz, działa wszędzie” i liczenie zaoszczędzonych kart. Dalsze pomysły: przepis z liczbą (parametr), własne nazwy przepisów.
 - **Zmienne („kieszeń”):** robot zbiera klocki i liczy je w kieszeni. JEŚLI w kieszeni są 3 klocki, to META.
 - **Dwa roboty:** dwoje dzieci, dwa programy, a roboty nie mogą wejść na to samo pole (kolejność, synchronizacja).
 - **Sortowanie klocków:** pętla z JEŚLI na kolorach Lego (algorytmy).

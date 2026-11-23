@@ -7,21 +7,23 @@ Zabawa ruchowa na podłodze, bez komputera. Jedna osoba jest **Programistą** i 
 - **Poziom 1: program to lista kroków.** Kolejność ma znaczenie, a robot robi dokładnie to, co jest napisane. Liczba w okienku karty („ile razy”) to pierwszy krok do pętli.
 - **Poziom 2: pętla.** Karta POWTÓRZ powtarza cały kawałek programu. Dziecko szuka wzorów i dodaje te same liczby (2 + 2 + 2), czyli poznaje wstęp do mnożenia.
 - **Poziom 3: warunki i przerywanie.** JEŚLI / TAK / NIE (if / then / else), STOP (break) i META (return). Robot sam sprawdza, co ma przed sobą.
+- **Poziom 4: przepisy.** PRZEPIS to nazwany kawałek programu, a karta ZRÓB go uruchamia (funkcja i jej wywołanie). META w przepisie kończy tylko przepis.
 - **Na każdym poziomie: szukanie błędów.** Gdy robot nie trafi, szukamy złej karty. To prawdziwe debugowanie.
 
 ## Co jest w zestawie
 
 - **Instrukcja**, czyli ten plik.
 - **Karty**: polecenia, liczby, pola na podłogę i plakietki ROBOT i PROGRAMISTA.
-- **Plansze**: 128 gier na kartach, po 4 gry na stronie i po 4 strony w pliku. Na dole każdej karty jest rozwiązanie dla dorosłego.
-  - Poziom 1 na planszy 5 × 5: zestawy A, B i C (48 gier).
-  - Poziom 1 na planszy 7 × 7: zestawy A, B i C (48 gier, trochę trudniejsze).
-  - Poziomy 2 i 3 na planszy 5 × 5: jeden zestaw (16 gier).
+- **Plansze**: 208 gier na kartach, po 4 gry na stronie i po 4 strony w pliku. Na dole każdej karty jest rozwiązanie dla dorosłego.
+  - Poziom 1: plansza 5 × 5 (zestawy A, B, C), 7 × 7 (zestawy A, B, C) i 9 × 9.
+  - Poziom 2: plansza 5 × 5 (razem z poziomem 3) i 9 × 9.
+  - Poziom 3: plansza 5 × 5 (razem z poziomem 2 i osobno) i 9 × 9.
+  - Poziom 4: plansza 5 × 5 i 9 × 9.
 
 ## Przygotowanie (10 minut)
 
 - Wydrukuj karty i potnij je. Na grubszym papierze albo zalaminowane przetrwają dłużej.
-- Na podłodze zrób siatkę **5 × 5 pól** z taśmy malarskiej albo z kartek A4. Jedno pole to jeden krok dziecka (40–50 cm). Na początek wystarczy 3 × 3. Do gier 7 × 7 potrzeba około 3 × 3 m albo kredy na chodniku.
+- Na podłodze zrób siatkę **5 × 5 pól** z taśmy malarskiej albo z kartek A4. Jedno pole to jeden krok dziecka (40–50 cm). Na początek wystarczy 3 × 3. Do gier 7 × 7 potrzeba około 3 × 3 m, a do 9 × 9 około 4 × 4 m (korytarz, ogród, kreda na chodniku).
 - Wzdłuż jednego boku planszy przyklej **ścieżkę programu**, czyli pas taśmy, na którym Programista kładzie karty.
 - Przygotuj figurkę Lego jako **wskaźnik** (pokazuje kartę, którą Robot właśnie wykonuje) i garść klocków na wspólną wieżę z punktów.
 
@@ -48,6 +50,7 @@ Zabawa ruchowa na podłodze, bez komputera. Jedna osoba jest **Programistą** i 
 - **Robot stoi na SKARBIE** po ostatniej karcie: brawo! Do wspólnej wieży trafiają klocki.
 - **Robot wchodzi na LAWĘ**: mówi „BZZZT!”, zamiera i program się kończy.
 - **Robot wchodzi na KAŁUŻĘ** zamiast ją przeskoczyć: mówi „PLUSK!” i program się kończy.
+- **Robot ma skoczyć, a przed nim nie ma kałuży**: mówi „HOP? Tu nie ma kałuży!” i program się kończy. Skaczemy tylko przez kałużę.
 - **Robot ma wyjść poza planszę**: mówi „BUM, ściana!”, zostaje na swoim polu i program się kończy.
 - **Karty się skończyły, a skarbu nie ma**: Robot mówi „KONIEC PROGRAMU” i stoi.
 
@@ -93,7 +96,7 @@ IDŹ: 1 krok do przodu
 SKRĘĆ W PRAWO: obrót w miejscu
 SKRĘĆ W LEWO: obrót w miejscu
 OBRÓĆ SIĘ: obrót tyłem do przodu
-SKOCZ: przeskok nad jednym polem
+SKOCZ: przeskok nad jedną kałużą
 ```
 
 Każda karta polecenia ma z boku okienko z ×. Wkładamy tam kartę liczby, która mówi, ile razy wykonać polecenie. Na przykład **IDŹ 3** to trzy kroki. Puste okienko oznacza: raz. Program układamy w rzędzie od lewej do prawej, tak jak się czyta.
@@ -103,7 +106,7 @@ Każda karta polecenia ma z boku okienko z ×. Wkładamy tam kartę liczby, któ
 - **START** (niebieskie kółko): tu stoi Robot. Trójkąt pokazuje, gdzie patrzy.
 - **SKARB** (gwiazdka): na skarb można położyć klocek, figurkę albo cukierek.
 - **LAWA** (czerwone pole): nie wolno na nią wejść ani jej przeskoczyć. Trzeba ją obejść.
-- **KAŁUŻA** (niebieskie pole): nie wolno na nią wejść, ale można ją przeskoczyć kartą SKOCZ.
+- **KAŁUŻA** (niebieskie pole): nie wolno na nią wejść, ale można ją przeskoczyć kartą SKOCZ. SKOCZ działa tylko wtedy, gdy tuż przed robotem jest kałuża. Nad pustym polem, lawą ani klockiem skakać nie wolno.
 - **Klocek** (brązowy kwadrat): nie wolno na niego wejść ani go przeskoczyć. Na podłodze może to być prawdziwy klocek albo pudełko.
 - Na lawę i kałuże wystarczą też czerwone i niebieskie kartki.
 
@@ -112,6 +115,10 @@ Każda karta polecenia ma z boku okienko z ×. Wkładamy tam kartę liczby, któ
 ## Duża plansza 7 × 7
 
 Na dużej planszy programy są dłuższe (7–11 kart), a w okienkach pojawiają się 4, 5 i 6. Labirynty i mury z lawy mają często tylko jedną dobrą drogę. Najpierw trzeba ją znaleźć palcem na karcie gry, a dopiero potem ułożyć program.
+
+## Wielka plansza 9 × 9
+
+Gry 9 × 9 są na każdym poziomie. Robot chodzi daleko, więc 8 kroków to dwie karty: IDŹ ×6 i IDŹ ×2 (8 = 6 + 2). Gdy brakuje miejsca na podłodze, grajcie na stole: plansza na kartce w kratkę, a Robotem jest figurka Lego.
 
 > **Sprawdzaj po kawałku.** Przy długim programie można zatrzymać się w połowie, położyć klocek w miejscu robota i sprawdzić, czy wszystko się zgadza.
 
@@ -166,7 +173,31 @@ Robot patrzy na pole przed sobą i odpowiada na pytanie. Jeśli odpowiedź to TA
 
 ## Jak grać we dwoje
 
-Najpierw Programista układa program, a **dopiero potem** Robot rzuca monetą albo kostką i rozkłada lawę lub kałuże na polach ze znakiem ?. Programista nie wie, gdzie co będzie, więc jego program musi działać na każdą planszę. Kolejność gier: najpierw samo JEŚLI (gra 12), potem JEŚLI w pętli ∞ (gry 13 i 15), a na końcu różnica między STOP a METĄ (gra 14).
+Najpierw Programista układa program, a **dopiero potem** Robot rzuca monetą albo kostką i rozkłada lawę lub kałuże na polach ze znakiem ?. Programista nie wie, gdzie co będzie, więc jego program musi działać na każdą planszę. Kolejność gier: najpierw samo JEŚLI (gra 12), potem JEŚLI w pętli ∞ (gry 13 i 15), a na końcu różnica między STOP a METĄ (gra 14). Kolejne 32 gry są w plikach z planszami poziomu 3 (5 × 5 i 9 × 9).
+
+---
+
+# Poziom 4: przepisy
+
+```legenda
+PRZEPIS A: początek przepisu, robot go tylko zapamiętuje
+ZRÓB A: zrób teraz cały przepis A, okienko na liczbę
+```
+
+Przepis to kawałek programu z nazwą, jak przepis na ciasto. Programista układa go nad programem: PRZEPIS A, karty, KONIEC. Robot czyta przepis, ale jeszcze nie idzie. Idzie dopiero przy karcie **ZRÓB A**, a ZRÓB A ×4 robi cały przepis 4 razy. Są dwa przepisy: A (granatowy) i B (brązowy), a przepis B może używać przepisu A.
+
+```program
+PRZEPIS A
+  IDŹ ×2, SKRĘĆ W PRAWO
+KONIEC
+ZRÓB A ×4
+```
+
+- **Popraw raz, działa wszędzie.** Błąd w przepisie poprawiamy w jednym miejscu, a naprawiają się wszystkie karty ZRÓB.
+- **META w przepisie** kończy tylko przepis. Robot wraca do programu i robi kartę za ZRÓB (to prawdziwe *return*).
+- **Liczymy karty.** Ile kart oszczędził przepis? Policzcie program z przepisem i bez niego.
+
+> **Robot mówi na głos.** „Zapamiętuję przepis A… ZRÓB A! Idę, idę, skręcam. Koniec przepisu, wracam do programu.”
 
 ---
 
@@ -188,18 +219,21 @@ Najpierw Programista układa program, a **dopiero potem** Robot rzuca monetą al
 
 - **Kolorowe komendy.** Dorosły pokazuje klocek. „JEŚLI zielony, to podskocz, INACZEJ klaśnij.” Potem dziecko wymyśla zasady dla dorosłego.
 - **Szukanie skarbu w worku.** „POWTARZAJ ZAWSZE: wyciągnij klocek. JEŚLI żółty: STOP.” Policzcie, ile razy trzeba było losować.
-- **Kostka i warunek.** Rzuć kostką. „JEŚLI wypadło więcej niż 3, TAK: IDŹ tyle kroków, NIE: SKOCZ.”
+- **Kostka i warunek.** Rzuć kostką. „JEŚLI wypadło więcej niż 3, TAK: IDŹ tyle kroków, NIE: OBRÓĆ SIĘ.”
 - **Tor z rozjazdem.** Zwrotnica w torze to JEŚLI: „JEŚLI wagon jest niebieski, jedzie w lewo, INACZEJ w prawo”.
+
+## Poziom 4
+
+- **Przepis na taniec.** Dziecko wymyśla przepis TANIEC (podskok, obrót, klaśnięcie). Dorosły woła „ZRÓB TANIEC 3 razy”, a dziecko sprawdza, czy taniec się zgadza.
+- **Przepis na wieżę.** Przepis A: czerwony, żółty. „ZRÓB A 3 razy” i jest wieża w paski. Jeden zły klocek w przepisie psuje każde piętro.
 
 ## Matematyka przy okazji
 
 - **Ile kroków razem?** W programie IDŹ 2, SKRĘĆ, IDŹ 3 robot zrobi 2 + 3 = 5 kroków.
 - **Skróć program.** Dwie karty IDŹ 2 i IDŹ 1 obok siebie można zamienić na jedną IDŹ 3.
 - **Najkrótszy program.** Kto ułoży program z najmniejszej liczby kart? Policzcie je.
-- **Ile pól?** Program IDŹ ×2, SKRĘĆ W LEWO, IDŹ ×3, SKOCZ. Ile pól przejdzie robot, jeśli skok to 2 pola? (2 + 3 + 2 = 7)
+- **Ile pól?** Program IDŹ ×2, SKRĘĆ W LEWO, IDŹ ×3, SKOCZ. Ile pól przejdzie robot, jeśli skok nad kałużą to 2 pola? (2 + 3 + 2 = 7)
 - **Pętla i dodawanie.** POWTÓRZ ×3 (IDŹ ×2): ile kroków? (2 + 2 + 2 = 6). POWTÓRZ ×2 (IDŹ ×3)? (3 + 3 = 6, ten sam wynik, inny program!)
 - **Obroty.** POWTÓRZ ×4 (SKRĘĆ W PRAWO): gdzie patrzy robot na końcu? (Tam gdzie na początku, bo obrócił się dookoła.)
 
-### Co dalej (poziom 4)
-
-Własne „przepisy”, czyli funkcje. Dziecko nazywa kawałek programu, na przykład TANIEC, i używa go jak jednej karty. Wtedy META w przepisie oznacza „wróć z przepisu”, czyli prawdziwe *return*.
+- **Przepis i mnożenie.** Przepis A to IDŹ ×3, a program to ZRÓB A ×2. Ile kroków? (3 + 3 = 6)

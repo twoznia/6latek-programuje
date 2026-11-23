@@ -18,7 +18,7 @@
   var MAX = 24;
 
   var $ = function (id) { return document.getElementById(id); };
-  var stan = { gra: null, program: [], biegnie: false, robot: null, rozmiar: 5 };
+  var stan = { gra: null, program: [], wybrana: -1, biegnie: false, robot: null, rozmiar: 5 };
 
   // ---------- zapamiętane gwiazdki ----------
   function wczytajGw() { try { return JSON.parse(localStorage.getItem("rip-gwiazdki") || "[]"); } catch (e) { return []; } }
@@ -97,7 +97,7 @@
     gry.forEach(function (g) { (zest[g.zestaw] = zest[g.zestaw] || []).push(g); });
     var html = "";
     Object.keys(zest).sort().forEach(function (z) {
-      html += '<div class="zestaw"><h3>Zestaw ' + z + "</h3><div class=\"lista\">";
+      html += '<div class="zestaw">' + (z ? "<h3>Zestaw " + z + "</h3>" : "") + '<div class="lista">';
       zest[z].forEach(function (g) {
         var done = gw.indexOf(g.id) >= 0;
         html += '<button class="kafel' + (done ? " done" : "") + '" data-id="' + g.id + '"><span class="nr">' + g.nr + '</span><span class="t">' + g.tytul + '</span><span class="s">' + (done ? "★ zrobione" : "") + "</span></button>";
@@ -109,13 +109,14 @@
     $("postep").textContent = "Gwiazdki: " + zrobione + " z " + wszystkie;
     $("tab5").setAttribute("aria-selected", stan.rozmiar === 5);
     $("tab7").setAttribute("aria-selected", stan.rozmiar === 7);
+    $("tab9").setAttribute("aria-selected", stan.rozmiar === 9);
   }
 
   // ---------- gra ----------
   function otworz(id) {
     var gra = GRY.filter(function (g) { return g.id === id; })[0];
     if (!gra) { pokazStart(); return; }
-    stan.gra = gra; stan.program = []; stan.biegnie = false;
+    stan.gra = gra; stan.program = []; stan.wybrana = -1; stan.biegnie = false;
     $("ekranStart").hidden = true; $("ekranGra").hidden = false; $("doListy").hidden = false;
     $("graTytul").textContent = "Gra " + gra.nr + ": " + gra.tytul + " (" + gra.size + " × " + gra.size + ")";
     $("graOpis").textContent = gra.opis;
@@ -134,30 +135,49 @@
     var g = $("robot"); g.style.transition = "none"; ustawRobota(false);
     g.getBoundingClientRect(); g.style.transition = "";
   }
-  function chip(nazwa, n, idx) {
-    return '<button class="chip"' + (idx !== undefined ? ' data-i="' + idx + '"' : ' tabindex="-1"') + ' style="color:' + KOLOR[nazwa] + '">' + ikona(nazwa) +
+  function chip(nazwa, n, idx, wybrana) {
+    return '<button class="chip' + (wybrana ? " wybrana" : "") + '"' + (idx !== undefined ? ' data-i="' + idx + '" aria-pressed="' + !!wybrana + '"' : ' tabindex="-1"') +
+           ' style="color:' + KOLOR[nazwa] + '">' + ikona(nazwa) +
            "<span>" + nazwa + "</span>" + (n > 1 ? '<b class="n">×' + n + "</b>" : "") + "</button>";
   }
+  // stan.wybrana: numer karty, za którą wstawiamy nową kartę i której zmieniamy liczbę (-1 = przed pierwszą kartą)
   function rysujProgram() {
-    var p = stan.program;
-    $("program").innerHTML = p.length ? p.map(function (c, i) { return chip(c.k, c.n, i); }).join("")
-      : '<span class="pusto">Dotknij karty poniżej, żeby dodać polecenie.</span>';
+    var p = stan.program, w = stan.wybrana;
+    var kursor = '<span class="kursor" aria-hidden="true"></span>';
+    var html = '<button class="poczatek' + (w < 0 ? " wybrana" : "") + '" data-i="-1" aria-label="Wstaw na początek">▶</button>' + (w < 0 && p.length ? kursor : "");
+    p.forEach(function (c, i) {
+      html += chip(c.k, c.n, i, i === w);
+      if (i === w) html += '<button class="usun" data-usun="' + i + '" aria-label="Usuń kartę ' + c.k + '">✕</button>' + (i < p.length - 1 ? kursor : "");
+    });
+    if (!p.length) html += '<span class="pusto">Dotknij karty poniżej, żeby dodać polecenie.</span>';
+    $("program").innerHTML = html;
+  }
+  function wybierz(i) {
+    stan.wybrana = Math.max(-1, Math.min(i, stan.program.length - 1));
+    rysujProgram();
+  }
+  function usun(i) {
+    stan.program.splice(i, 1);
+    stan.wybrana = Math.min(i - 1 < 0 && stan.program.length ? 0 : i - 1, stan.program.length - 1);
+    rysujProgram(); naStart(); komunikat("", "");
   }
   function komunikat(t, typ) { var k = $("komunikat"); k.textContent = t; k.className = "komunikat " + (typ || ""); }
 
   function dodaj(nazwa) {
     if (stan.biegnie) return;
     if (stan.program.length >= MAX) { komunikat("Program jest już bardzo długi.", "zle"); return; }
-    stan.program.push({ k: nazwa, n: 1 });
-    powiedz(nazwa); rysujProgram(); komunikat("", "");
+    stan.wybrana += 1;
+    stan.program.splice(stan.wybrana, 0, { k: nazwa, n: 1 });
+    powiedz(nazwa); rysujProgram(); naStart(); komunikat("", "");
   }
   function liczba(n) {
     if (stan.biegnie) return;
     var p = stan.program;
     if (!p.length) { komunikat("Najpierw wybierz kartę polecenia.", "zle"); return; }
-    p[p.length - 1].n = n;
+    if (stan.wybrana < 0) { komunikat("Dotknij karty w programie, której chcesz zmienić liczbę.", "zle"); return; }
+    p[stan.wybrana].n = n;
     powiedz(SLOWO[n] + (n > 1 ? " razy" : ""));
-    rysujProgram();
+    rysujProgram(); naStart();
   }
 
   var tempo = 1; // 0 = bez animacji (do testów)
@@ -215,6 +235,7 @@
       if (srodek === "L") return "Lawy nie da się przeskoczyć. Trzeba ją obejść.";
       if (srodek === "#") return "Klocka nie da się przeskoczyć.";
       if (srodek === "SCIANA") return BLAD.SCIANA;
+      if (srodek !== "K") return "HOP? Tu nie ma kałuży! Skaczemy tylko przez kałużę.";
     }
     var y = r.y + ile * d[0], x = r.x + ile * d[1], t = pole(y, x);
     if (BLAD[t]) {
@@ -265,16 +286,18 @@
     $("karty").addEventListener("click", function (e) { var b = e.target.closest(".karta"); if (b) dodaj(b.dataset.k); });
     $("liczby").addEventListener("click", function (e) { var b = e.target.closest(".liczba"); if (b) liczba(+b.dataset.n); });
     $("program").addEventListener("click", function (e) {
-      var b = e.target.closest(".chip"); if (!b || stan.biegnie) return;
-      stan.program.splice(+b.dataset.i, 1); rysujProgram(); naStart(); komunikat("", "");
+      if (stan.biegnie) return;
+      var u = e.target.closest(".usun"); if (u) { usun(+u.dataset.usun); return; }
+      var b = e.target.closest("[data-i]"); if (b) wybierz(+b.dataset.i);
     });
     $("start").addEventListener("click", uruchom);
     $("odNowa").addEventListener("click", function () { if (!stan.biegnie) { naStart(); komunikat("", ""); } });
-    $("wyczysc").addEventListener("click", function () { if (!stan.biegnie) { stan.program = []; rysujProgram(); naStart(); komunikat("", ""); } });
+    $("wyczysc").addEventListener("click", function () { if (!stan.biegnie) { stan.program = []; stan.wybrana = -1; rysujProgram(); naStart(); komunikat("", ""); } });
     $("pokazRozw").addEventListener("click", function () { $("rozw").hidden = !$("rozw").hidden; });
     $("lista").addEventListener("click", function (e) { var b = e.target.closest(".kafel"); if (b) location.hash = "gra-" + b.dataset.id; });
     $("tab5").addEventListener("click", function () { stan.rozmiar = 5; rysujListe(); });
     $("tab7").addEventListener("click", function () { stan.rozmiar = 7; rysujListe(); });
+    $("tab9").addEventListener("click", function () { stan.rozmiar = 9; rysujListe(); });
     $("doListy").addEventListener("click", function () { location.hash = ""; });
     $("grajTeraz").addEventListener("click", function () {
       var gw = wczytajGw();

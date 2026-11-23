@@ -41,16 +41,25 @@ PROGRAMISTA ×1
 ---
 
 ```karty
-POWTÓRZ ×3
-KONIEC ×5
-JEŚLI ×2
-STOP ×1
+POWTÓRZ ×4
+KONIEC ×6
+JEŚLI ×3
+STOP ×2
 META ×1
 LAWA? ×2
-KAŁUŻA? ×2
+KAŁUŻA? ×1
 SKARB? ×1
-ŚCIANA? ×1
-TAK ×2
-NIE ×2
+ŚCIANA? ×2
+TAK ×3
+NIE ×1
 ZAWSZE ×2
+```
+
+---
+
+```karty
+PRZEPIS A ×1
+PRZEPIS B ×1
+ZRÓB A ×4
+ZRÓB B ×2
 ```

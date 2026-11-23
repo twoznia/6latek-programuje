@@ -127,7 +127,7 @@ K . . . . . .
 . . . ^ . . .
 ```
 ```rozwiazanie
-SKRĘĆ W PRAWO, IDŹ ×3, SKRĘĆ W LEWO, SKOCZ ×3, SKRĘĆ W LEWO, IDŹ ×6
+SKRĘĆ W PRAWO, IDŹ ×3, SKRĘĆ W LEWO, SKOCZ, IDŹ ×4, SKRĘĆ W LEWO, IDŹ ×6
 ```
 
 ---
@@ -223,16 +223,16 @@ Przeczytaj program i połóż skarb tam, gdzie robot się zatrzyma.
 ```plansza
 . . . . . . .
 . . . . . . .
-. . . . . . .
+. K . . . . .
 . . . . . . .
 . . . . . . .
 . . . . . . .
 . . . ^ . . .
 ```
 ```program
-IDŹ ×3, SKRĘĆ W LEWO, IDŹ ×2, SKRĘĆ W PRAWO, SKOCZ, OBRÓĆ SIĘ, IDŹ
+IDŹ ×3, SKRĘĆ W LEWO, IDŹ ×2, SKRĘĆ W PRAWO, SKOCZ, SKRĘĆ W PRAWO, IDŹ
 ```
-**Rozwiązanie:** W trzecim rzędzie od góry, na drugim polu od lewej. Robot patrzy wtedy w dół.
+**Rozwiązanie:** W drugim rzędzie od góry, na trzecim polu od lewej. Robot patrzy wtedy w prawo.
 
 ### 31. Daleki skarb i powrót
 Weź skarb i wróć na START. Robot czyta karty na głos.
