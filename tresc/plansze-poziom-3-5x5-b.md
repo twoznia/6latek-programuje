@@ -241,3 +241,131 @@ POWTÓRZ ×∞
 KONIEC
 ```
 Brakuje rzędu NIE: IDŹ. Bez niego robot idzie tylko wtedy, gdy przed nim jest kałuża.
+
+### 27. Gdzie stanie robot? Do ściany i w bok
+Pętla kończy się przy ścianie. Co robot zrobi potem?
+```plansza
+. . . . .
+. > . . .
+. . . . .
+. . . . .
+. . . . .
+```
+```program
+POWTÓRZ ×∞
+  JEŚLI ŚCIANA?
+    TAK: STOP
+  KONIEC
+  IDŹ
+KONIEC
+SKRĘĆ W PRAWO, IDŹ ×2
+```
+**Rozwiązanie:** Robot dojdzie do prawej ściany i zejdzie 2 pola w dół. Stanie w 4. rzędzie od góry, na 5. polu od lewej. Robot patrzy w dół.
+
+### 28. Gdzie jest kałuża?
+Dorosły kładzie kałużę na jednym polu ?. Robot ją przeskakuje i staje na skarbie.
+```plansza
+* . . . .
+. . . . .
+? . . . .
+? . . . .
+^ . . . .
+```
+```rozwiazanie
+POWTÓRZ ×∞
+  JEŚLI SKARB?
+    TAK: IDŹ, META
+  KONIEC
+  JEŚLI KAŁUŻA?
+    TAK: SKOCZ
+    NIE: IDŹ
+  KONIEC
+KONIEC
+```
+Po skoku robot zawsze ma jeszcze pole przed skarbem, więc pytanie o skarb go zatrzyma.
+
+---
+
+# Plansze 5 × 5, poziom 3, zestaw B (4/4)
+
+### 29. STOP w pętli z liczbą
+Pętla ma liczbę 4, ale STOP może ją skończyć wcześniej. Zbierz skarb.
+```plansza
+. . * . .
+. . . . .
+> . . L .
+. . . . .
+. . . . .
+```
+```rozwiazanie
+POWTÓRZ ×4
+  JEŚLI LAWA?
+    TAK: STOP
+  KONIEC
+  IDŹ
+KONIEC
+SKRĘĆ W LEWO, IDŹ ×2
+```
+Robot zrobi tylko 2 kroki. Przy lawie STOP kończy pętlę, chociaż w okienku jest 4.
+
+### 30. Znajdź błąd: za duży krok
+Robot miał stanąć przy ścianie, a wypadł z planszy: BUM! Co zmienić?
+```plansza
+. . * . .
+. . . . .
+. . . . .
+. . ^ . .
+. . . . .
+```
+```program
+POWTÓRZ ×∞
+  JEŚLI ŚCIANA?
+    TAK: STOP
+  KONIEC
+  IDŹ ×2
+KONIEC
+```
+```rozwiazanie
+POWTÓRZ ×∞
+  JEŚLI ŚCIANA?
+    TAK: STOP
+  KONIEC
+  IDŹ
+KONIEC
+```
+Robot pyta tylko o pole tuż przed sobą. Po pytaniu może zrobić tylko 1 krok.
+
+### 31. Trzy pytania
+W pętli robot pyta o skarb, lawę i kałużę. Dojdź do skarbu.
+```plansza
+L . . . .
+. . K . *
+K . . . .
+. . . . .
+^ . . . .
+```
+```rozwiazanie
+POWTÓRZ ×∞
+  JEŚLI SKARB?
+    TAK: IDŹ, META
+  KONIEC
+  JEŚLI LAWA?
+    TAK: SKRĘĆ W PRAWO
+  KONIEC
+  JEŚLI KAŁUŻA?
+    TAK: SKOCZ
+    NIE: IDŹ
+  KONIEC
+KONIEC
+```
+
+### 32. Twoja misja z niespodzianką
+Dziecko kładzie pola ? i w tajemnicy wybiera, co na nich będzie. Dorosły układa program z JEŚLI. Potem zamiana!
+```plansza
+. . . . .
+. . . . .
+. . . . .
+. . . . .
+. . . . .
+```
+**Rozwiązanie:** Tu nie ma jednego rozwiązania. Sprawdźcie program na dwóch różnych ułożeniach.

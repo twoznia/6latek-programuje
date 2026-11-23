@@ -145,3 +145,91 @@ K . . . .
 ```rozwiazanie
 SKOCZ, SKRĘĆ W PRAWO, IDŹ ×2, SKRĘĆ W LEWO, SKOCZ
 ```
+
+### 59. Kałuża pod nosem
+Robot patrzy w dół, a kałuża jest tuż przed nim.
+```plansza
+. . v . .
+. . K . .
+. . . . .
+. . . . .
+. . * . .
+```
+```rozwiazanie
+SKOCZ, IDŹ ×2
+```
+
+### 60. Skarby po bokach
+Robot stoi w środku. Skarb jest po lewej i po prawej.
+```plansza
+. . . . .
+. . L . .
+* . ^ . *
+. . L . .
+. . . . .
+```
+```rozwiazanie
+SKRĘĆ W LEWO, IDŹ ×2, OBRÓĆ SIĘ, IDŹ ×4
+```
+
+---
+
+# Plansze 5 × 5, poziom 1, zestaw D (4/4)
+
+### 61. Gdzie stanie robot? Skok i schody
+Przeczytaj program i połóż skarb tam, gdzie robot stanie.
+```plansza
+. . . . .
+. . . . .
+. . . . .
+. . . . .
+> K . . .
+```
+```program
+SKOCZ, SKRĘĆ W LEWO, IDŹ ×3, SKRĘĆ W PRAWO, IDŹ
+```
+**Rozwiązanie:** W 2. rzędzie od góry, na 4. polu od lewej. Robot patrzy w prawo.
+
+### 62. Znajdź błąd: za dużo kroków
+Robot wszedł na lawę. Którą liczbę zmienić?
+```plansza
+. L . . .
+. * . . .
+. . . . .
+. . . . .
+. ^ . . .
+```
+```program
+IDŹ ×4
+```
+```rozwiazanie
+IDŹ ×3
+```
+Do skarbu są 3 kroki. Czwarty krok prowadzi na lawę.
+
+### 63. Za murem
+Robot patrzy w dół. Mur z klocków ma przejście dopiero na dole.
+```plansza
+. v # * .
+. K # . .
+. . . . .
+. . . . .
+. . . . .
+```
+```rozwiazanie
+SKOCZ, SKRĘĆ W LEWO, IDŹ ×2, SKRĘĆ W LEWO, IDŹ ×2
+```
+
+### 64. Kwadrat bez pętli
+Zbierz trzy skarby. Co się powtarza w programie?
+```plansza
+. . . . .
+. * . * .
+. . L . .
+. ^ . * .
+. . . . .
+```
+```rozwiazanie
+IDŹ ×2, SKRĘĆ W PRAWO, IDŹ ×2, SKRĘĆ W PRAWO, IDŹ ×2
+```
+IDŹ ×2 i SKRĘĆ W PRAWO powtarzają się. Na poziomie 2 zrobi to karta POWTÓRZ.
