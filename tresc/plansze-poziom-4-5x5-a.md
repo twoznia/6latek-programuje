@@ -1,4 +1,4 @@
-# Plansze 5 × 5, poziom 4 (1/4)
+# Plansze 5 × 5, poziom 4, zestaw A (1/4)
 
 Kółko to START, a trójkąt pokazuje, gdzie Robot patrzy. Rozwiązanie na dole karty można przed grą zagiąć. PRZEPIS A … KONIEC robot tylko zapamiętuje. Karta ZRÓB A znaczy: zrób teraz cały przepis A. META w przepisie kończy tylko przepis.
 
@@ -69,7 +69,7 @@ ZRÓB A ×4
 
 ---
 
-# Plansze 5 × 5, poziom 4 (2/4)
+# Plansze 5 × 5, poziom 4, zestaw A (2/4)
 
 ### 5. Znajdź błąd w przepisie
 Robot schodzi po schodach, ale wypadł z planszy: BUM! Popraw przepis.
@@ -153,7 +153,7 @@ ZRÓB A, IDŹ ×2, ZRÓB A
 
 ---
 
-# Plansze 5 × 5, poziom 4 (3/4)
+# Plansze 5 × 5, poziom 4, zestaw A (3/4)
 
 ### 9. Przepis: do ściany
 Przepis A idzie do ściany. META w przepisie kończy tylko przepis!
@@ -238,7 +238,7 @@ Bez przepisu to 13 kart poleceń, z przepisem 10.
 
 ---
 
-# Plansze 5 × 5, poziom 4 (4/4)
+# Plansze 5 × 5, poziom 4, zestaw A (4/4)
 
 ### 13. Bezpieczny krok
 Przepis pyta o kałużę. Na polach ? dorosły kładzie kałuże albo nic.

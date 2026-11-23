@@ -1,4 +1,4 @@
-# Plansze 5 × 5, poziom 3 (1/4)
+# Plansze 5 × 5, poziom 3, zestaw A (1/4)
 
 Kółko to START, a trójkąt pokazuje, gdzie Robot patrzy. Rozwiązanie na dole karty można przed grą zagiąć. Pole ? to niespodzianka: dorosły kładzie na nim kałużę, lawę albo skarb dopiero po ułożeniu programu. Program musi działać za każdym razem.
 
@@ -76,7 +76,7 @@ META kończy cały program, gdy robot stanie na skarbie.
 
 ---
 
-# Plansze 5 × 5, poziom 3 (2/4)
+# Plansze 5 × 5, poziom 3, zestaw A (2/4)
 
 ### 5. Dwie monety
 Dorosły rzuca monetą dla każdego pola ?. Kałuża albo nic. Pętla z pytaniem w środku.
@@ -160,7 +160,7 @@ Wewnętrzna pętla idzie do ściany, a zewnętrzna robi to 2 razy.
 
 ---
 
-# Plansze 5 × 5, poziom 3 (3/4)
+# Plansze 5 × 5, poziom 3, zestaw A (3/4)
 
 ### 9. Znajdź błąd: TAK i NIE
 Robot wpadł do kałuży. Coś jest zamienione. Co?
@@ -251,7 +251,7 @@ KONIEC
 
 ---
 
-# Plansze 5 × 5, poziom 3 (4/4)
+# Plansze 5 × 5, poziom 3, zestaw A (4/4)
 
 ### 13. Znajdź błąd: pętla bez końca
 Robot chodzi dookoła i nigdy nie kończy. Czego brakuje?

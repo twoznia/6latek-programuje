@@ -9,7 +9,7 @@ Repo: `twoznia/6latek-programuje`. Najpierw pobierz aktualny `main`, bo inne wą
 
 ## Układ repo
 
-- `tresc/*.md` to źródła: `instrukcja.md`, `karty.md` oraz `plansze-poziom-<poziom>-<plansza>[-<zestaw>].md`, np. `plansze-poziom-1-5x5-a.md`, `plansze-poziom-2-3-5x5.md` albo `plansze-poziom-4-9x9.md`. Plansze są 5 × 5, 7 × 7 i 9 × 9.
+- `tresc/*.md` to źródła: `instrukcja.md`, `karty.md` oraz `plansze-poziom-<poziom>-<plansza>[-<zestaw>].md`, np. `plansze-poziom-1-5x5-a.md`, `plansze-poziom-2-3-5x5.md` albo `plansze-poziom-4-9x9-a.md`. Plansze są 5 × 5, 7 × 7 i 9 × 9.
 - `druk/` zawiera wygenerowane PDF i HTML pod tą samą nazwą. Oba commitujemy.
 - `narzedzia/drukuj.py` zamienia `.md` na HTML i PDF (sam Python 3; PDF przez Chrome lub Chromium). `narzedzia/styl.css` to wygląd.
 - `narzedzia/sprawdz.py` to symulator robota, który sprawdza rozwiązania.

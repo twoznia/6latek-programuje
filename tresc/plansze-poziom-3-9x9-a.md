@@ -1,4 +1,4 @@
-# Plansze 9 × 9, poziom 3 (1/4)
+# Plansze 9 × 9, poziom 3, zestaw A (1/4)
 
 Kółko to START, a trójkąt pokazuje, gdzie Robot patrzy. Rozwiązanie na dole karty można przed grą zagiąć. Pole ? to niespodzianka: dorosły kładzie na nim kałużę, lawę albo skarb dopiero po ułożeniu programu. Program musi działać za każdym razem.
 
@@ -97,7 +97,7 @@ Ten program działa w 16 różnych ułożeniach kałuż.
 
 ---
 
-# Plansze 9 × 9, poziom 3 (2/4)
+# Plansze 9 × 9, poziom 3, zestaw A (2/4)
 
 ### 5. Do rogu
 Dwie pętle do ściany. Zbierz skarby w rogach.
@@ -211,7 +211,7 @@ SKRĘĆ W PRAWO, IDŹ ×4
 
 ---
 
-# Plansze 9 × 9, poziom 3 (3/4)
+# Plansze 9 × 9, poziom 3, zestaw A (3/4)
 
 ### 9. Cztery ściany
 Pętla do ściany jest w środku pętli ×4. Zbierz skarby.
@@ -315,7 +315,7 @@ IDŹ ×3
 
 ---
 
-# Plansze 9 × 9, poziom 3 (4/4)
+# Plansze 9 × 9, poziom 3, zestaw A (4/4)
 
 ### 13. Skarb w rogu
 Dorosły chowa skarb w jednym z rogów ?. Robot idzie wzdłuż ścian.

@@ -1,4 +1,4 @@
-# Plansze 9 × 9, poziom 2 (1/4)
+# Plansze 9 × 9, poziom 2, zestaw A (1/4)
 
 Kółko to START, a trójkąt pokazuje, gdzie Robot patrzy. Rozwiązanie na dole karty można przed grą zagiąć. Wszystkie gry są z pętlą POWTÓRZ.
 
@@ -82,7 +82,7 @@ KONIEC
 
 ---
 
-# Plansze 9 × 9, poziom 2 (2/4)
+# Plansze 9 × 9, poziom 2, zestaw A (2/4)
 
 ### 5. Gdzie stanie robot? Schodki
 Programista kładzie figurkę tam, gdzie stanie robot. Robot liczy powtórzenia.
@@ -175,7 +175,7 @@ Bok kwadratu ma 6 kroków, a nie 5.
 
 ---
 
-# Plansze 9 × 9, poziom 2 (3/4)
+# Plansze 9 × 9, poziom 2, zestaw A (3/4)
 
 ### 9. Grzebień
 Robot zbiera skarby na ząbkach grzebienia. Co się powtarza?
@@ -262,7 +262,7 @@ KONIEC
 
 ---
 
-# Plansze 9 × 9, poziom 2 (4/4)
+# Plansze 9 × 9, poziom 2, zestaw A (4/4)
 
 ### 13. Trzy kwadraty
 Pętla w pętli: mała pętla rysuje kwadrat, a duża powtarza go 3 razy.
