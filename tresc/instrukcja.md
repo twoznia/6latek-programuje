@@ -40,7 +40,7 @@ Zabawa ruchowa na podłodze, bez komputera. Jedna osoba jest **Programistą** i 
 ## Przebieg rundy
 
 1. **Plansza.** Programista rozkłada pola według karty gry albo wymyśla własną planszę.
-2. **Program.** Programista układa karty na ścieżce, od lewej do prawej. Liczbę wkłada w okienko karty. Puste okienko oznacza: raz.
+2. **Program.** Programista układa karty na ścieżce, od lewej do prawej. Liczbę kładzie w okienko karty. Bez liczby widać kostkę ×1, czyli: raz.
 3. **Start!** Programista stawia wskaźnik przy pierwszej karcie i mówi „START”. To jedyne słowo, które wolno mu powiedzieć.
 4. **Wykonanie.** Robot czyta kartę i ją wykonuje, a Programista przesuwa wskaźnik dalej. Tak aż do końca ścieżki.
 5. **Wynik i zamiana ról.** Sprawdzacie, gdzie stoi Robot, a potem zamieniacie się plakietkami.
@@ -99,7 +99,7 @@ OBRÓĆ SIĘ: obrót tyłem do przodu
 SKOCZ: przeskok nad jedną kałużą
 ```
 
-Każda karta polecenia ma z boku okienko z ×. Wkładamy tam kartę liczby, która mówi, ile razy wykonać polecenie. Na przykład **IDŹ 3** to trzy kroki. Puste okienko oznacza: raz. Program układamy w rzędzie od lewej do prawej, tak jak się czyta.
+Każda karta polecenia ma z boku okienko z kostką ×1, czyli „raz”. Na kostkę kładziemy kartę liczby, która mówi, ile razy wykonać polecenie. Na przykład **IDŹ 3** to trzy kroki. Program układamy w rzędzie od lewej do prawej, tak jak się czyta.
 
 ## Pola na planszy
 
