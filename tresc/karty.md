@@ -19,7 +19,7 @@ Wszystkie karty do gry w jednym pliku. Zasady są w instrukcji, a gry w plikach 
 
 ## Jak używać kart liczb
 
-W okienku karty polecenia jest kostka z ×1, czyli „raz”. Kartę liczby kładziemy na kostkę: **IDŹ** z liczbą 3 to trzy kroki. W okienko karty POWTÓRZ też wkładamy liczbę albo kartę ∞ ZAWSZE, a w okienko JEŚLI kartę pytania.
+W okienku karty polecenia jest narysowana karta 1, czyli „raz”. Inną kartę liczby kładziemy na nią: **IDŹ** z liczbą 3 to trzy kroki. W okienko karty POWTÓRZ też wkładamy liczbę albo kartę ∞ ZAWSZE, a w okienko JEŚLI kartę pytania.
 
 ---
 

@@ -41,7 +41,7 @@ IDŹ, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO, IDŹ ×2
 
 - Tytuł strony zaczyna się od „Plansze”. Wtedy każde `###` jest osobną kartą gry, po 4 na stronę. Plik ma 4 strony oddzielone `---`, czyli 16 gier. Gry są numerowane dalej w obrębie danej planszy i poziomu.
 - Symbole planszy: `.` to puste pole, `^ > v <` to robot patrzący w daną stronę, `*` to skarb, `#` to klocek, `L` to lawa, `K` to kałuża, a `?` to pole z niespodzianką.
-- Polecenia: IDŹ, SKRĘĆ W PRAWO, SKRĘĆ W LEWO, OBRÓĆ SIĘ, SKOCZ, POWTÓRZ ×n lub ×∞, KONIEC, JEŚLI <LAWA?|KAŁUŻA?|SKARB?|ŚCIANA?>, TAK:, NIE:, STOP, META, PRZEPIS A/B … KONIEC (definicja przepisu, poziom 4) i ZRÓB A/B ×n (wywołanie). META w przepisie kończy tylko przepis. Liczba ×1 się nie pojawia, bo okienko karty ma domyślnie narysowaną kostkę ×1 („raz”).
+- Polecenia: IDŹ, SKRĘĆ W PRAWO, SKRĘĆ W LEWO, OBRÓĆ SIĘ, SKOCZ, POWTÓRZ ×n lub ×∞, KONIEC, JEŚLI <LAWA?|KAŁUŻA?|SKARB?|ŚCIANA?>, TAK:, NIE:, STOP, META, PRZEPIS A/B … KONIEC (definicja przepisu, poziom 4) i ZRÓB A/B ×n (wywołanie). META w przepisie kończy tylko przepis. Liczba ×1 się nie pojawia, bo okienko karty ma domyślnie narysowaną kartę liczby 1 („raz”).
 - Program z pętlą lub warunkiem zapisuje się w osobnych liniach z wcięciem o 2 spacje:
   ```
   POWTÓRZ ×∞
