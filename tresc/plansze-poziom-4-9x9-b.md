@@ -250,3 +250,148 @@ POWTÓRZ ×4
 KONIEC
 ```
 Po przepisie A robot zawsze wraca na swoją drogę i patrzy w górę.
+
+### 27. Kwadrat z kałużami
+Przepis A to bok kwadratu z kałużą w środku. Zbierz skarby i wróć na START.
+```plansza
+. . . . . . . . .
+. * . . K . . * .
+. . . . . . . . .
+. . . . . . . . .
+. K . . L . . K .
+. . . . . . . . .
+. . . . . . . . .
+. ^ . . K . . * .
+. . . . . . . . .
+```
+```rozwiazanie
+PRZEPIS A
+  IDŹ ×2, SKOCZ, IDŹ ×2, SKRĘĆ W PRAWO
+KONIEC
+ZRÓB A ×4
+```
+
+### 28. Gdzie stanie robot? Pętla w przepisie
+W przepisie A jest pętla. Robot liczy kroki.
+```plansza
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . ^
+```
+```program
+PRZEPIS A
+  POWTÓRZ ×2
+    IDŹ ×2
+  KONIEC
+  SKRĘĆ W LEWO
+KONIEC
+ZRÓB A ×2
+```
+**Rozwiązanie:** Robot stanie w 5. rzędzie od góry, na 5. polu od lewej. Robot patrzy w dół.
+
+---
+
+# Plansze 9 × 9, poziom 4, zestaw B (4/4)
+
+### 29. Góra z przepisów
+A to schodek. B to 4 schodki. Wejdź na górę i zejdź w dół.
+```plansza
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . * . . . .
+. . . . L . . . .
+. . . L . L . . .
+. . L . . . L . .
+^ . . . . . . . *
+```
+```rozwiazanie
+PRZEPIS A
+  IDŹ, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO
+KONIEC
+PRZEPIS B
+  ZRÓB A ×4
+KONIEC
+ZRÓB B, SKRĘĆ W PRAWO, ZRÓB B
+```
+Ten sam przepis prowadzi w górę i w dół. Wszystko zależy od tego, gdzie robot patrzy.
+
+### 30. Znajdź błąd: kolejność w przepisie
+Robot miał obejść kwadrat, a wypadł z planszy: BUM! Co poprawić w przepisie?
+```plansza
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+* . . . * . . . .
+. . L . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+^ . . . * . . . .
+```
+```program
+PRZEPIS A
+  SKRĘĆ W PRAWO, IDŹ ×4
+KONIEC
+ZRÓB A ×4
+```
+```rozwiazanie
+PRZEPIS A
+  IDŹ ×4, SKRĘĆ W PRAWO
+KONIEC
+ZRÓB A ×4
+```
+Robot najpierw skręca, a powinien najpierw iść. Karty w przepisie są zamienione.
+
+### 31. Omiń klocki przepisem
+Przepis A obchodzi klocek z lewej strony. Dojdź do skarbu.
+```plansza
+. . . . * . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . # . . . .
+. . . . . . . . .
+. . . . * . . . .
+. . . . # . . . .
+. . . . . . . . .
+. . . . ^ . . . .
+```
+```rozwiazanie
+PRZEPIS A
+  SKRĘĆ W LEWO, IDŹ, SKRĘĆ W PRAWO, IDŹ ×2
+  SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO
+KONIEC
+IDŹ, ZRÓB A, IDŹ, ZRÓB A, IDŹ ×2
+```
+
+### 32. Zygzak z A i B
+A idzie i skręca w lewo, B skacze i skręca w prawo. Zbierz skarby.
+```plansza
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . * K . . .
+. . . . . . . . .
+. . . . . . * K .
+. . . . . . . . .
+. . . . . . . . ^
+```
+```rozwiazanie
+PRZEPIS A
+  IDŹ ×2, SKRĘĆ W LEWO
+KONIEC
+PRZEPIS B
+  SKOCZ, SKRĘĆ W PRAWO
+KONIEC
+POWTÓRZ ×2
+  ZRÓB A, ZRÓB B
+KONIEC
+```

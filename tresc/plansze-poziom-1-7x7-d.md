@@ -166,3 +166,102 @@ L L L L L L .
 ```rozwiazanie
 IDŹ ×6, SKRĘĆ W LEWO, IDŹ ×2, SKRĘĆ W LEWO, IDŹ ×4, SKRĘĆ W PRAWO, IDŹ ×2
 ```
+
+### 59. Skok na start
+Robot patrzy w lewo, a kałuża jest tuż przed nim.
+```plansza
+. . . . . . .
+. . . . . . .
+. . . . . . .
+* . . . . K <
+. . . . . . .
+. . . . . . .
+. . . . . . .
+```
+```rozwiazanie
+SKOCZ, IDŹ ×4
+```
+
+### 60. Gdzie stanie robot? Obrót
+Przeczytaj program i połóż skarb tam, gdzie robot stanie.
+```plansza
+. . . . . . .
+. . . . . . .
+. . . . . . .
+. . . . . . .
+. . . . . . .
+. . . . . . .
+. . . ^ . . .
+```
+```program
+IDŹ ×3, OBRÓĆ SIĘ, IDŹ, SKRĘĆ W PRAWO, IDŹ ×2
+```
+**Rozwiązanie:** W 5. rzędzie od góry, na 2. polu od lewej. Robot patrzy w lewo, bo po obrocie patrzył w dół.
+
+---
+
+# Plansze 7 × 7, poziom 1, zestaw D (4/4)
+
+### 61. Dwa mury z kałużami
+W każdym murze jest jedna kałuża. Przeskocz oba mury.
+```plansza
+. . . . * . .
+# # # # K # #
+. . . . . . .
+. . . . . . .
+# K # # # # #
+. . . . . . .
+. ^ . . . . .
+```
+```rozwiazanie
+IDŹ, SKOCZ, IDŹ, SKRĘĆ W PRAWO, IDŹ ×3, SKRĘĆ W LEWO, SKOCZ
+```
+
+### 62. Znajdź błąd: lewo czy prawo?
+Robot patrzy w dół i wypadł z planszy: BUM! Którą kartę zmienić?
+```plansza
+. . . . . . v
+. . . . . . .
+. . . L . . .
+. . L L L . .
+. . . L . . .
+. . . . . . .
+* . . . . . .
+```
+```program
+IDŹ ×6, SKRĘĆ W LEWO, IDŹ ×6
+```
+```rozwiazanie
+IDŹ ×6, SKRĘĆ W PRAWO, IDŹ ×6
+```
+Gdy robot patrzy w dół, jego prawa ręka jest po lewej stronie planszy. Trzeba SKRĘĆ W PRAWO.
+
+### 63. Krzyżyk
+Robot stoi w środku i patrzy w prawo. Zbierz trzy skarby.
+```plansza
+. . . . . . .
+. . . * . . .
+. . . . . . .
+. . . > . * .
+. . . . . . .
+. . . * . . .
+. . . . . . .
+```
+```rozwiazanie
+IDŹ ×2, OBRÓĆ SIĘ, IDŹ ×2, SKRĘĆ W PRAWO, IDŹ ×2, OBRÓĆ SIĘ, IDŹ ×4
+```
+
+### 64. Wielki labirynt z klocków
+Klocki to ściany. Znajdź drogę do skarbu zakrętami.
+```plansza
+. . . . . . .
+. . . . . . .
+. . . . * . .
+# # . # # # #
+. . . . . . .
+# # # # # # .
+. . . . . . ^
+```
+```rozwiazanie
+IDŹ ×2, SKRĘĆ W LEWO, IDŹ ×4, SKRĘĆ W PRAWO, IDŹ ×2, SKRĘĆ W PRAWO, IDŹ ×2
+```

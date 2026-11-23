@@ -283,3 +283,166 @@ POWTÓRZ ×∞
 KONIEC
 ```
 W pierwszej pętli robot patrzy na mur. Lawa: wraca w prawo i robi krok. Dziura: STOP. W drugiej pętli idzie w górę do skarbu.
+
+### 27. Od ściany do ściany
+Wewnętrzna pętla idzie do ściany, a zewnętrzna robi to 2 razy. Zbierz oba skarby.
+```plansza
+. . . . . . . . .
+. . . L . . . . .
+. . . . . . . . .
+. . . . . . . . .
+* . > . . . . . *
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . L . .
+. . . . . . . . .
+```
+```rozwiazanie
+POWTÓRZ ×2
+  POWTÓRZ ×∞
+    JEŚLI ŚCIANA?
+      TAK: STOP
+    KONIEC
+    IDŹ
+  KONIEC
+  OBRÓĆ SIĘ
+KONIEC
+```
+
+### 28. Gdzie stanie robot? Kałuże w pętli
+Robot 4 razy pyta o kałużę. Ile pól przejdzie?
+```plansza
+. . . . . . . . .
+. . . . . . . . .
+> . K . . K . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+```
+```program
+POWTÓRZ ×4
+  JEŚLI KAŁUŻA?
+    TAK: SKOCZ
+    NIE: IDŹ
+  KONIEC
+KONIEC
+```
+**Rozwiązanie:** Krok, skok, krok i skok. Robot stanie w 3. rzędzie od góry, na 7. polu od lewej. Robot patrzy w prawo.
+
+---
+
+# Plansze 9 × 9, poziom 3, zestaw B (4/4)
+
+### 29. Lawa czy kałuża?
+Dorosły rzuca monetą dla każdego pola ?: orzeł to lawa, reszka to kałuża. Jeden program na 4 ułożenia.
+```plansza
+. . . . * . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . ? . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . ? . . . .
+. . . . . . . . .
+. . . . ^ . . . .
+```
+```rozwiazanie
+POWTÓRZ ×∞
+  JEŚLI SKARB?
+    TAK: IDŹ, META
+  KONIEC
+  JEŚLI LAWA?
+    TAK: SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO, IDŹ ×2, SKRĘĆ W LEWO, IDŹ, SKRĘĆ W PRAWO
+  KONIEC
+  JEŚLI KAŁUŻA?
+    TAK: SKOCZ
+    NIE: IDŹ
+  KONIEC
+KONIEC
+```
+Lawę robot obchodzi z prawej strony, a kałużę przeskakuje. Za każdym razem wraca na swoją drogę 2 pola dalej.
+
+### 30. Znajdź błąd: złe pytanie
+Robot miał stanąć przed lawą i skręcić do skarbu, ale wszedł na lawę. Co zmienić?
+```plansza
+. . . . . . . . .
+. . . . . . . . .
+. L . . . . . . .
+. . . . . . . * .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. ^ . . . . . . .
+```
+```program
+POWTÓRZ ×∞
+  JEŚLI ŚCIANA?
+    TAK: STOP
+  KONIEC
+  IDŹ
+KONIEC
+SKRĘĆ W PRAWO, IDŹ ×6
+```
+```rozwiazanie
+POWTÓRZ ×∞
+  JEŚLI LAWA?
+    TAK: STOP
+  KONIEC
+  IDŹ
+KONIEC
+SKRĘĆ W PRAWO, IDŹ ×6
+```
+Robot pyta o ścianę, a ma pytać o lawę. Trzeba zmienić ŚCIANA? na LAWA?.
+
+### 31. Gdzie stanie robot? Pętla przy ścianie
+Robot 6 razy pyta o ścianę. Ile razy skręci?
+```plansza
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . ^ . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+```
+```program
+POWTÓRZ ×6
+  JEŚLI ŚCIANA?
+    TAK: SKRĘĆ W PRAWO
+    NIE: IDŹ ×2
+  KONIEC
+KONIEC
+```
+**Rozwiązanie:** Robot skręci 2 razy. Stanie w prawym górnym rogu, w 1. rzędzie od góry, na 9. polu od lewej. Robot patrzy w dół.
+
+### 32. Dookoła planszy po skarby
+Dorosły kładzie skarby na kilku polach ?. Robot idzie przy ścianach dookoła, aż zobaczy lawę.
+```plansza
+. . . . ? . . . ?
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+? . . . . . . . ?
+. . . . . . . . .
+. . . . . . . . .
+^ . . . . . . . .
+L . . . ? . . . .
+```
+```rozwiazanie
+POWTÓRZ ×∞
+  JEŚLI LAWA?
+    TAK: META
+  KONIEC
+  JEŚLI ŚCIANA?
+    TAK: SKRĘĆ W PRAWO
+    NIE: IDŹ
+  KONIEC
+KONIEC
+```
+Robot obchodzi całą planszę i zbiera każdy skarb po drodze. Lawa przy starcie kończy program.

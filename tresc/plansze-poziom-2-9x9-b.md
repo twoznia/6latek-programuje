@@ -216,3 +216,135 @@ POWTÓRZ ×2
   SKRĘĆ W PRAWO
 KONIEC
 ```
+
+### 27. Prostokąt dookoła lawy
+Zbierz skarby i wróć na START. Prostokąt ma długie i krótkie boki.
+```plansza
+. . . . . . . . .
+. * . . . * . . .
+. . . . . . . . .
+. . . L L . . . .
+. . . L L . . . .
+. . . L L . . . .
+. . . . . . . . .
+. ^ . . . * . . .
+. . . . . . . . .
+```
+```rozwiazanie
+POWTÓRZ ×2
+  IDŹ ×6, SKRĘĆ W PRAWO, IDŹ ×4, SKRĘĆ W PRAWO
+KONIEC
+```
+
+### 28. Gdzie stanie robot? Schody w lewo
+Robot liczy powtórzenia. Połóż skarb tam, gdzie robot stanie.
+```plansza
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . ^
+```
+```program
+POWTÓRZ ×4
+  IDŹ ×2, SKRĘĆ W LEWO, IDŹ, SKRĘĆ W PRAWO
+KONIEC
+```
+**Rozwiązanie:** Robot stanie w 1. rzędzie od góry, na 5. polu od lewej. Robot patrzy w górę.
+
+---
+
+# Plansze 9 × 9, poziom 2, zestaw B (4/4)
+
+### 29. Znajdź błąd: BUM o ścianę
+Robot doszedł do skarbu, ale szedł dalej i uderzył w ścianę. Którą liczbę zmienić?
+```plansza
+. . . . * . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . ^ . . . .
+```
+```program
+POWTÓRZ ×5
+  IDŹ ×2
+KONIEC
+```
+```rozwiazanie
+POWTÓRZ ×4
+  IDŹ ×2
+KONIEC
+```
+Do skarbu jest 8 kroków, czyli 4 razy po 2. Piąte powtórzenie wyprowadza robota poza planszę.
+
+### 30. Wieża z kwadratów
+Mała pętla rysuje kwadrat, a duża stawia dwa kwadraty jeden na drugim.
+```plansza
+. . . . . . . . .
+. . . . . . . . .
+. . . * . . . . .
+. . . . . . . . .
+. L . . . . . . .
+. . . * . . . . .
+. . . . . . . . .
+. L . . . . . . .
+^ . . * . . . . .
+```
+```rozwiazanie
+POWTÓRZ ×2
+  POWTÓRZ ×4
+    IDŹ ×3, SKRĘĆ W PRAWO
+  KONIEC
+  IDŹ ×3
+KONIEC
+```
+
+### 31. Kałuże na zjeżdżalni
+Robot patrzy w dół. Skacz i schodź w prawo.
+```plansza
+v . . . . . . . .
+K . . . . . . . .
+. . . . . . . . .
+. K . . . . . . .
+. . . . . . . . .
+. . K . . . . . .
+. . . . . . . . .
+. . . K . . . . .
+. . . . * . . . .
+```
+```rozwiazanie
+POWTÓRZ ×4
+  SKOCZ, SKRĘĆ W LEWO, IDŹ, SKRĘĆ W PRAWO
+KONIEC
+```
+Gdy robot patrzy w dół, SKRĘĆ W LEWO obraca go w prawą stronę planszy.
+
+### 32. Wielka górka
+Jedna pętla wchodzi pod górę, a druga schodzi w dół. Zbierz skarby.
+```plansza
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . * . . . .
+. . . L . L . . .
+. . . . . . . . .
+. L . . . . . L .
+> . . . . . . . *
+```
+```rozwiazanie
+POWTÓRZ ×2
+  SKRĘĆ W LEWO, IDŹ ×2, SKRĘĆ W PRAWO, IDŹ ×2
+KONIEC
+POWTÓRZ ×2
+  SKRĘĆ W PRAWO, IDŹ ×2, SKRĘĆ W LEWO, IDŹ ×2
+KONIEC
+```

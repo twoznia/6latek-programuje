@@ -225,3 +225,125 @@ KONIEC
 ZRÓB A, SKRĘĆ W PRAWO, ZRÓB A
 ```
 META poza przepisem kończy cały program. W przepisie kończy tylko przepis, więc robot idzie dalej.
+
+### 27. Skoki w lewo
+Przepis to skok i skręt w lewo. Ile razy go zrobić?
+```plansza
+. . . . .
+. . . . .
+* K . . .
+. . K . .
+> K . . .
+```
+```rozwiazanie
+PRZEPIS A
+  SKOCZ, SKRĘĆ W LEWO
+KONIEC
+ZRÓB A ×3
+```
+
+### 28. Gdzie stanie robot? Dwa przepisy
+Przepis B używa przepisu A. Robot liczy na głos.
+```plansza
+. . . . .
+. . . . .
+. . . . .
+. . . . .
+^ . . . .
+```
+```program
+PRZEPIS A
+  IDŹ ×2
+KONIEC
+PRZEPIS B
+  SKRĘĆ W PRAWO, ZRÓB A
+KONIEC
+ZRÓB A, ZRÓB B ×2
+```
+**Rozwiązanie:** Robot stanie w 5. rzędzie od góry, na 3. polu od lewej. Robot patrzy w dół.
+
+---
+
+# Plansze 5 × 5, poziom 4, zestaw B (4/4)
+
+### 29. Pół kwadratu
+Przepis A to pół kwadratu. Zbierz skarby i wróć na START.
+```plansza
+. . . . .
+. . . . .
+* . * . .
+. L . . .
+^ . * . .
+```
+```rozwiazanie
+PRZEPIS A
+  IDŹ ×2, SKRĘĆ W PRAWO, IDŹ ×2
+KONIEC
+ZRÓB A, SKRĘĆ W PRAWO, ZRÓB A
+```
+
+### 30. Znajdź błąd: obrót zamiast skrętu
+Robot miał obejść kwadrat, a chodzi tam i z powrotem. Którą kartę zmienić w przepisie?
+```plansza
+. . . . .
+. * . * .
+. . L . .
+. ^ . * .
+. . . . .
+```
+```program
+PRZEPIS A
+  IDŹ ×2, OBRÓĆ SIĘ
+KONIEC
+ZRÓB A ×4
+```
+```rozwiazanie
+PRZEPIS A
+  IDŹ ×2, SKRĘĆ W PRAWO
+KONIEC
+ZRÓB A ×4
+```
+Zamiast OBRÓĆ SIĘ ma być SKRĘĆ W PRAWO. Poprawka w przepisie działa we wszystkich 4 ZRÓB A.
+
+### 31. Przepis: do kałuży i hop
+Przepis A idzie do kałuży, przeskakuje ją i kończy się. Zbierz oba skarby.
+```plansza
+* . . K *
+K . . . .
+. . . . .
+. . . . .
+^ . . . .
+```
+```rozwiazanie
+PRZEPIS A
+  POWTÓRZ ×∞
+    JEŚLI KAŁUŻA?
+      TAK: SKOCZ, META
+    KONIEC
+    IDŹ
+  KONIEC
+KONIEC
+ZRÓB A, SKRĘĆ W PRAWO, ZRÓB A
+```
+
+### 32. Kieszenie na małej planszy
+Dorosły kładzie skarby na polach ? albo ich nie kładzie. Przepis A zagląda w lewo i bierze skarb, jeśli tam jest.
+```plansza
+. . * . .
+. ? . . .
+. . . . .
+. ? . . .
+. . ^ . .
+```
+```rozwiazanie
+PRZEPIS A
+  SKRĘĆ W LEWO
+  JEŚLI SKARB?
+    TAK: IDŹ, OBRÓĆ SIĘ, IDŹ, SKRĘĆ W LEWO
+    NIE: SKRĘĆ W PRAWO
+  KONIEC
+KONIEC
+POWTÓRZ ×2
+  IDŹ, ZRÓB A, IDŹ
+KONIEC
+```

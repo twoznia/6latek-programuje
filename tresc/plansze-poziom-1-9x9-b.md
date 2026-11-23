@@ -186,3 +186,114 @@ L L L L K L L L L
 ```rozwiazanie
 IDŹ ×5, SKOCZ, IDŹ, SKRĘĆ W LEWO, IDŹ ×4, OBRÓĆ SIĘ, IDŹ ×6, IDŹ ×2
 ```
+
+### 27. Długa droga w dół
+Robot patrzy w dół. Ile kroków do skarbu?
+```plansza
+. . . . . . . . v
+. . . . . . . . .
+. . . . . . . L .
+. . . . . . . . .
+. . . . . . . L .
+. . . . . . . . .
+. . . . . . . L .
+. . . . . . . . .
+. . . . . . . . *
+```
+```rozwiazanie
+IDŹ ×6, IDŹ ×2
+```
+
+### 28. Dwie kałuże w drodze
+Robot patrzy w prawo. Kiedy iść, a kiedy skakać?
+```plansza
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+> . K . . K . . *
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+```
+```rozwiazanie
+IDŹ, SKOCZ, IDŹ, SKOCZ, IDŹ ×2
+```
+
+---
+
+# Plansze 9 × 9, poziom 1, zestaw B (4/4)
+
+### 29. Gdzie stanie robot? Skoki
+Przeczytaj program i połóż skarb tam, gdzie robot stanie.
+```plansza
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . K . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . K . . . .
+. . . . ^ . . . .
+```
+```program
+SKOCZ, IDŹ, SKOCZ, SKRĘĆ W LEWO, IDŹ ×3
+```
+**Rozwiązanie:** W 4. rzędzie od góry, na 2. polu od lewej. Robot patrzy w lewo.
+
+### 30. Znajdź błąd: krok za daleko
+Robot wszedł do kałuży. Które liczby zmienić?
+```plansza
+. . . . . . . . .
+> . . K . . . . *
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+```
+```program
+IDŹ ×3, SKOCZ, IDŹ ×3
+```
+```rozwiazanie
+IDŹ ×2, SKOCZ, IDŹ ×4
+```
+Przed skokiem robot ma zrobić 2 kroki, nie 3. Wtedy po skoku zostają 4 kroki.
+
+### 31. Wielkie schody
+Zbierz trzy skarby. Ile razy skręcić?
+```plansza
+. . . . * . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . L . . . . . .
+* . . . * . . . .
+. . . . . . . . .
+. . L . . . . . .
+. . . . . . . . .
+^ . . . . . . . .
+```
+```rozwiazanie
+IDŹ ×4, SKRĘĆ W PRAWO, IDŹ ×4, SKRĘĆ W LEWO, IDŹ ×4
+```
+
+### 32. Przez mur do rogu
+Mur z klocków ma jedną kałużę. Zbierz trzy skarby.
+```plansza
+* . . . * . . . *
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+# # # # # # # # K
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . ^
+```
+```rozwiazanie
+IDŹ ×3, SKOCZ, IDŹ ×3, SKRĘĆ W LEWO, IDŹ ×6, IDŹ ×2
+```
