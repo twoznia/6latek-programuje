@@ -134,8 +134,8 @@ label.glos:has(input:focus-visible){outline:3px solid var(--accent);outline-offs
 .pytanie.wyb{background:#fff3bf;box-shadow:0 0 0 4px #b08900 inset}
 .box.aktywny{box-shadow:0 0 0 3px #364fc7 inset}
 .poczatek.pa{color:#364fc7;font-weight:800;font-family:var(--display);font-size:18px}
-.licznik{position:absolute;top:8px;left:8px;display:flex;gap:6px;flex-wrap:wrap;pointer-events:none}
-.licznik span{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.94);border-radius:10px;padding:3px 9px;font-weight:800;font-size:15px;box-shadow:0 1px 4px rgba(0,0,0,.15)}
+.licznik{display:flex;gap:6px;flex-wrap:wrap;flex-basis:100%}
+.licznik span{display:inline-flex;align-items:center;gap:4px;background:var(--panel);border-radius:10px;padding:3px 10px;font-weight:800;font-size:15px;box-shadow:0 0 0 1.5px var(--line) inset}
 .licznik span.zle{color:var(--bad)}
 .licznik svg{width:22px;height:22px}
 .rz{display:flex;flex-wrap:wrap;gap:6px;align-items:center;width:100%}
@@ -201,8 +201,9 @@ footer{margin-top:28px;color:var(--muted);font-size:14px}
   .pytanie{font-size:12px;padding:4px 8px 4px 4px}
   .pytanie svg{width:24px;height:24px}
   .pytania{flex-wrap:wrap!important;justify-content:flex-start!important}
-  .licznik{top:4px;left:4px}
-  .licznik span{font-size:13px;padding:2px 7px}
+  .licznik{gap:4px;margin-top:2px}
+  .licznik span{font-size:13px;padding:1px 8px}
+  .licznik svg{width:18px;height:18px}
 }
 @media (max-width:820px) and (max-height:700px){
   .gra-top .opis{font-size:13px}
@@ -248,11 +249,11 @@ footer{margin-top:28px;color:var(--muted);font-size:14px}
     <div class="gra-top">
       <h2 id="graTytul"></h2>
       <p class="opis" id="graOpis"></p>
+      <div class="licznik" id="licznik" hidden></div>
     </div>
     <div class="uklad">
       <div class="podloga">
         <svg id="plansza" role="img" aria-label="Plansza"></svg>
-        <div class="licznik" id="licznik" hidden></div>
         <div class="komunikat" id="komunikat" role="status" aria-live="polite"></div>
         <div class="debug-pytanie" id="debugPytanie" hidden>
           <button class="okragly tak" id="debugTak" aria-label="Zostaw kartę" title="Zostaw kartę"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
