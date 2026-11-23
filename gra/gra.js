@@ -397,10 +397,15 @@
     return { robot: Object.assign({}, stan.robot), zebrane: Object.assign({}, stan.zebrane), pola: stan.pola.map(function (r) { return r.slice(); }), klucze: stan.klucze, suma: stan.suma };
   }
   // robot wraca do stanu sprzed usuniętej karty (tryb debug)
+  // (pozycja, kierunek, skarby, klucze, drzwi i monety). Robot widocznie cofa się na stare miejsce.
   function cofnij(przed) {
-    stan.robot = przed.robot; stan.zebrane = przed.zebrane; stan.pola = przed.pola; stan.klucze = przed.klucze; stan.suma = przed.suma;
+    stan.zebrane = przed.zebrane; stan.pola = przed.pola; stan.klucze = przed.klucze; stan.suma = przed.suma;
     rysujPlansze($("plansza"), stan.pola, true, stan.zebrane);
-    robotBezAnimacji(); rysujLicznik();
+    robotBezAnimacji();          // nowy rysunek: robot najpierw stoi tam, gdzie skończył
+    stan.robot = przed.robot;
+    var g = $("robot"); if (g) g.classList.add("cofa");
+    ustawRobota(false);          // ...i wraca na miejsce sprzed karty
+    rysujLicznik();
   }
   async function sprawdzPrzebieg(przebieg) { if (przebieg !== stan.przebieg) throw PRZERWANE; }
 
@@ -465,6 +470,7 @@
       await sprawdzPrzebieg(ctx.przebieg);
       komunikat("", "");
       if (!dobrze) {
+        komunikat("Robot wraca tam, gdzie był.", "");
         cofnij(przed);
         c.usunieta = true;
         ["program", "przepis"].forEach(function (ob) {
@@ -472,6 +478,10 @@
           if (i >= 0) { p.splice(i, 1); stan.wybrana[ob] = Math.min(stan.wybrana[ob], p.length - 1); }
         });
         rysujProgram();
+        await czekaj(700);
+        var rob = $("robot"); if (rob) rob.classList.remove("cofa");
+        komunikat("", "");
+        await sprawdzPrzebieg(ctx.przebieg);
         return;
       }
       ctx.potwierdzone[c.id] = true;
