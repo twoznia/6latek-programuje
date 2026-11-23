@@ -117,7 +117,7 @@
     var gra = GRY.filter(function (g) { return g.id === id; })[0];
     if (!gra) { pokazStart(); return; }
     stan.gra = gra; stan.program = []; stan.wybrana = -1; stan.biegnie = false;
-    $("ekranStart").hidden = true; $("ekranGra").hidden = false; $("doListy").hidden = false;
+    $("ekranStart").hidden = true; $("ekranGra").hidden = false; $("doListy").hidden = false; document.body.classList.add("w-grze");
     $("graTytul").textContent = "Gra " + gra.nr + ": " + gra.tytul + " (" + gra.size + " × " + gra.size + ")";
     $("graOpis").textContent = gra.opis;
     $("rozw").hidden = true;
@@ -149,8 +149,17 @@
       html += chip(c.k, c.n, i, i === w);
       if (i === w) html += '<button class="usun" data-usun="' + i + '" aria-label="Usuń kartę ' + c.k + '">✕</button>' + (i < p.length - 1 ? kursor : "");
     });
-    if (!p.length) html += '<span class="pusto">Dotknij karty poniżej, żeby dodać polecenie.</span>';
+    if (!p.length) html += '<span class="pusto">Dotknij karty poniżej.</span>';
     $("program").innerHTML = html;
+    pokazWProgramie($("program").querySelector(".wybrana"));
+  }
+  // przewija pasek programu (na telefonie jest w jednym rzędzie) tak, żeby karta była widoczna
+  function pokazWProgramie(el) {
+    var box = $("program");
+    if (!el || box.scrollWidth <= box.clientWidth) return;
+    var l = el.offsetLeft, r = l + el.offsetWidth + 44;
+    if (l < box.scrollLeft) box.scrollLeft = l - 8;
+    else if (r > box.scrollLeft + box.clientWidth) box.scrollLeft = r - box.clientWidth;
   }
   function wybierz(i) {
     stan.wybrana = Math.max(-1, Math.min(i, stan.program.length - 1));
@@ -201,7 +210,7 @@
     outer:
     for (var i = 0; i < stan.program.length; i++) {
       var c = stan.program[i];
-      chips[i].classList.add("teraz");
+      chips[i].classList.add("teraz"); pokazWProgramie(chips[i]);
       powiedz(c.k + (c.n > 1 ? " " + SLOWO[c.n] + " razy" : ""));
       for (var k = 0; k < c.n; k++) {
         blad = krok(c.k);
@@ -267,7 +276,7 @@
 
   // ---------- ekrany i nawigacja ----------
   function pokazStart() {
-    $("ekranStart").hidden = false; $("ekranGra").hidden = true; $("doListy").hidden = true; $("brawo").hidden = true;
+    $("ekranStart").hidden = false; $("ekranGra").hidden = true; $("doListy").hidden = true; document.body.classList.remove("w-grze"); $("brawo").hidden = true;
     rysujListe();
   }
   function trasa() {
