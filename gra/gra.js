@@ -28,13 +28,22 @@
   }
 
   // ---------- mowa ----------
+  // Zwraca obietnicę, która kończy się, gdy robot skończy mówić
+  // (albo od razu, gdy mowa jest wyłączona). Zapas czasu na wypadek,
+  // gdyby przeglądarka nie zgłosiła końca wypowiedzi.
   function powiedz(t) {
-    if (!$("glos").checked || !window.speechSynthesis) return;
-    try {
-      var u = new SpeechSynthesisUtterance(t.toLowerCase());
-      u.lang = "pl-PL"; u.rate = 0.9;
-      window.speechSynthesis.cancel(); window.speechSynthesis.speak(u);
-    } catch (e) { /* brak mowy */ }
+    return new Promise(function (gotowe) {
+      if (!$("glos").checked || !window.speechSynthesis) { gotowe(); return; }
+      var koniec = false;
+      function zakoncz() { if (!koniec) { koniec = true; gotowe(); } }
+      try {
+        var u = new SpeechSynthesisUtterance(t.toLowerCase());
+        u.lang = "pl-PL"; u.rate = 0.9;
+        u.onend = zakoncz; u.onerror = zakoncz;
+        window.speechSynthesis.cancel(); window.speechSynthesis.speak(u);
+        setTimeout(zakoncz, 1500 + 130 * t.length);
+      } catch (e) { zakoncz(); }
+    });
   }
 
   // ---------- rysowanie ----------
@@ -121,6 +130,7 @@
     $("graTytul").textContent = "Gra " + gra.nr + ": " + gra.tytul + " (" + gra.size + " × " + gra.size + ")";
     $("graOpis").textContent = gra.opis;
     $("rozw").hidden = true;
+    stan.nieudane = 0; $("pokazRozw").hidden = true;
     $("rozw").innerHTML = gra.rozwiazanie.map(function (c) { return chip(c[0], c[1]); }).join("");
     naStart();
     rysujProgram();
@@ -211,7 +221,7 @@
     for (var i = 0; i < stan.program.length; i++) {
       var c = stan.program[i];
       chips[i].classList.add("teraz"); pokazWProgramie(chips[i]);
-      powiedz(c.k + (c.n > 1 ? " " + SLOWO[c.n] + " razy" : ""));
+      await powiedz(c.k + (c.n > 1 ? " " + SLOWO[c.n] + " razy" : ""));
       for (var k = 0; k < c.n; k++) {
         blad = krok(c.k);
         await czekaj(c.k === "SKOCZ" ? 560 : 430);
@@ -221,6 +231,7 @@
     }
     stan.biegnie = false; $("start").disabled = false;
     if (blad) {
+      nieudana();
       var g = $("robot"); g.classList.add("potrzasnij");
       setTimeout(function () { g.classList.remove("potrzasnij"); }, 500);
       komunikat(blad + " Popraw program i spróbuj jeszcze raz.", "zle");
@@ -229,6 +240,7 @@
     var gw = stan.info.rows.reduce(function (a, r) { return a + r.filter(function (t) { return t === "*"; }).length; }, 0);
     var mam = Object.keys(stan.zebrane).length;
     var naStarcie = stan.robot.y === stan.info.start.y && stan.robot.x === stan.info.start.x;
+    if (mam < gw || (stan.gra.powrot && !naStarcie)) nieudana();
     if (mam < gw) { komunikat(mam ? "Jest " + mam + " z " + gw + " skarbów. Robot musi iść dalej!" : "Robot stanął, ale skarb jest dalej.", "zle"); return; }
     if (stan.gra.powrot && !naStarcie) { komunikat("Masz skarb! Teraz wróć na START.", "zle"); return; }
     sukces();
@@ -257,6 +269,12 @@
       var s = document.getElementById("gw-" + y + "-" + x); if (s) s.classList.add("zebrany");
     }
     return null;
+  }
+  // Rozwiązanie dla dorosłego pojawia się dopiero po 2 nieudanych próbach.
+  var PROG_PODPOWIEDZI = 2;
+  function nieudana() {
+    stan.nieudane = (stan.nieudane || 0) + 1;
+    if (stan.nieudane >= PROG_PODPOWIEDZI) $("pokazRozw").hidden = false;
   }
   function sukces() {
     zapiszGw(stan.gra.id);
