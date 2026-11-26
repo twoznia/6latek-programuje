@@ -28,8 +28,8 @@ Każdy plik ma źródło w Markdown w katalogu [`tresc/`](tresc/) i gotowy wydru
 
 | Plik | Co zawiera | Strony | Źródło | Do druku |
 |---|---|---|---|---|
-| instrukcja | zasady gry dla dwojga, poziomy 1–4, rodzaje gier, zabawy bez przygotowania, matematyka | 8 | [instrukcja.md](tresc/instrukcja.md) | [PDF](druk/instrukcja.pdf) · [HTML](druk/instrukcja.html) |
-| karty | wszystkie karty: polecenia, liczby, pola na podłogę, plakietki ról, karty poziomów 2, 3 i 4 | 19 | [karty.md](tresc/karty.md) | [PDF](druk/karty.pdf) · [HTML](druk/karty.html) |
+| instrukcja | zasady gry dla dwojga, poziomy 1–4, rodzaje gier, zabawy bez przygotowania, matematyka | 9 | [instrukcja.md](tresc/instrukcja.md) | [PDF](druk/instrukcja.pdf) · [HTML](druk/instrukcja.html) |
+| karty | wszystkie karty: polecenia, liczby, pola na podłogę, plakietki ról, karty poziomów 2, 3 i 4 | 21 | [karty.md](tresc/karty.md) | [PDF](druk/karty.pdf) · [HTML](druk/karty.html) |
 | plansze-poziom-1-5x5-a | gry 1–16, poziom 1, plansza 5 × 5 | 4 | [md](tresc/plansze-poziom-1-5x5-a.md) | [PDF](druk/plansze-poziom-1-5x5-a.pdf) · [HTML](druk/plansze-poziom-1-5x5-a.html) |
 | plansze-poziom-1-5x5-b | gry 17–32, poziom 1, plansza 5 × 5 | 4 | [md](tresc/plansze-poziom-1-5x5-b.md) | [PDF](druk/plansze-poziom-1-5x5-b.pdf) · [HTML](druk/plansze-poziom-1-5x5-b.html) |
 | plansze-poziom-1-5x5-c | gry 33–48, poziom 1, plansza 5 × 5 | 4 | [md](tresc/plansze-poziom-1-5x5-c.md) | [PDF](druk/plansze-poziom-1-5x5-c.pdf) · [HTML](druk/plansze-poziom-1-5x5-c.html) |
@@ -64,6 +64,12 @@ Każdy plik ma źródło w Markdown w katalogu [`tresc/`](tresc/) i gotowy wydru
 | plansze-poziom-4-9x9-a | gry 1–16, poziom 4, plansza 9 × 9 | 4 | [md](tresc/plansze-poziom-4-9x9-a.md) | [PDF](druk/plansze-poziom-4-9x9-a.pdf) · [HTML](druk/plansze-poziom-4-9x9-a.html) |
 | plansze-poziom-4-9x9-b | gry 17–32, poziom 4, plansza 9 × 9 | 4 | [md](tresc/plansze-poziom-4-9x9-b.md) | [PDF](druk/plansze-poziom-4-9x9-b.pdf) · [HTML](druk/plansze-poziom-4-9x9-b.html) |
 | plansze-poziom-4-9x9-c | gry 33–48, poziom 4, plansza 9 × 9 | 4 | [md](tresc/plansze-poziom-4-9x9-c.md) | [PDF](druk/plansze-poziom-4-9x9-c.pdf) · [HTML](druk/plansze-poziom-4-9x9-c.html) |
+
+| plansze-starsi-poziom-3-5x5 | gry 1–8, poziom 3 dla starszych (8 lat: pętla w pętli, DOPÓKI), plansza 5 × 5 | 2 | [md](tresc/plansze-starsi-poziom-3-5x5.md) | [PDF](druk/plansze-starsi-poziom-3-5x5.pdf) · [HTML](druk/plansze-starsi-poziom-3-5x5.html) |
+| plansze-starsi-poziom-3-7x7 | gry 1–8, poziom 3 dla starszych (8 lat: pętla w pętli, DOPÓKI), plansza 7 × 7 | 2 | [md](tresc/plansze-starsi-poziom-3-7x7.md) | [PDF](druk/plansze-starsi-poziom-3-7x7.pdf) · [HTML](druk/plansze-starsi-poziom-3-7x7.html) |
+| plansze-starsi-poziom-3-9x9 | gry 1–8, poziom 3 dla starszych (8 lat: pętla w pętli, DOPÓKI), plansza 9 × 9 | 2 | [md](tresc/plansze-starsi-poziom-3-9x9.md) | [PDF](druk/plansze-starsi-poziom-3-9x9.pdf) · [HTML](druk/plansze-starsi-poziom-3-9x9.html) |
+
+Pliki `plansze-starsi-*` to druk poziomów 3–7 dla starszych z gry online. Powstają same z `gra/poziom-<N>.md` (`python3 narzedzia/druk_starsi.py`, robi to też `make druk`), więc zmieniaj tamte pliki, a nie `tresc/plansze-starsi-*`. To inne poziomy niż poziomy 3 i 4 dla 6-latka.
 
 Pliki z planszami mają zawsze 4 strony po 4 gry. W każdym zestawie gry idą od najłatwiejszej. Na dole każdej karty gry jest rozwiązanie dla dorosłego (przed grą można je zagiąć). Rozwiązania gier poziomu 1 zostały sprawdzone programem, który symuluje robota.
 

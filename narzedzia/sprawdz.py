@@ -147,6 +147,8 @@ def games(path):
 if __name__ == "__main__":
     bad = 0
     for path in sys.argv[1:]:
+        if "starsi" in path:
+            print(f"  pomijam   {path}: sprawdza make online (narzedzia/symulator.py)"); continue
         for title, board, sol in games(path):
             if not board or not sol or any("?" in l for l in board):
                 print(f"  pomijam   {path}: {title}"); continue

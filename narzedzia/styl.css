@@ -92,3 +92,4 @@ code{background:#f1f3f5;padding:0 1mm;border-radius:1mm}
 .mis .pl{margin-left:calc(var(--ind,0)*4mm)}
 .mis .two .given{padding:1mm 1.5mm}
 .cmd2 .slot .num2{background:#fff}
+.wciecia .mis .given .pl{margin-left:calc(var(--ind,0)*5mm)}
