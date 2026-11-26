@@ -185,6 +185,182 @@ DOPÓKI N > 0?
 KONIEC
 ```
 
+### Zestaw C: Liczby rosną i maleją
+karty: POWTÓRZ, DOPÓKI, JEŚLI, N =, N +, N −
+pytania: WOLNE?, NIE ŚCIANA?, NIE SKARB?, SKARB?, KAŁUŻA?, N > 0?, N = 0?
+
+#### 9. Fale do klocka
+Krok w prawo, N + 1 i fala o wysokości N. Tak, dopóki przed robotem jest wolne. Skarb jest tam, gdzie robot stanie. Masz tylko 11 kart.
+```plansza
+. . . . .
+. . . . .
+. . . . .
+. . . . .
+> . ? ? ?
+```
+```ustawienia
+limit: 11
+warianty: *#. ..*
+```
+```rozwiazanie
+DOPÓKI WOLNE?
+  IDŹ, N + 1, SKRĘĆ W LEWO, IDŹ ×N, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W PRAWO, IDŹ ×N, SKRĘĆ W LEWO
+KONIEC
+```
+
+#### 10. Ślimak
+Pierwszy bok ma 4 pól, a każdy następny o 1 mniej. Pętla kończy się sama, gdy N = 0. Masz tylko 6 kart.
+```plansza
+* . . * .
+. . . . .
+. . * * .
+. . . . .
+^ . . . .
+```
+```ustawienia
+limit: 6
+```
+```rozwiazanie
+N = 4
+DOPÓKI N > 0?
+  IDŹ ×N, SKRĘĆ W PRAWO, N − 1
+KONIEC
+```
+
+#### 11. Choinka
+Robot idzie w dół zygzakiem, a każdy rząd jest o 1 dłuższy. Wychodzi choinka. Masz tylko 13 kart.
+```plansza
+L L > * L
+L * . * L
+L * . . *
+* . . . *
+* L L L L
+```
+```ustawienia
+limit: 13
+```
+```rozwiazanie
+N = 1
+POWTÓRZ ×2
+  IDŹ ×N, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W PRAWO, N + 1
+  IDŹ ×N, SKRĘĆ W LEWO, IDŹ, SKRĘĆ W LEWO, N + 1
+KONIEC
+```
+
+#### 12. Kwadrat w kwadracie
+Kwadrat o boku N, krok w środek po skosie i kwadrat o 2 mniejszy. Masz tylko 12 kart.
+```plansza
+* . . . *
+. * . * .
+. * * . .
+* * . * .
+^ . . . *
+```
+```ustawienia
+limit: 12
+```
+```rozwiazanie
+N = 4
+DOPÓKI N > 0?
+  POWTÓRZ ×4
+    IDŹ ×N, SKRĘĆ W PRAWO
+  KONIEC
+  IDŹ, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO, N − 2
+KONIEC
+```
+
+### Zestaw D: Zmierz i użyj
+karty: POWTÓRZ, DOPÓKI, JEŚLI, N =, N +, N −
+pytania: WOLNE?, NIE ŚCIANA?, NIE SKARB?, SKARB?, KAŁUŻA?, N > 0?, N = 0?
+
+#### 13. Zmierz i skręć
+Idź do klocka i licz kroki w N. Potem skręć w prawo i zrób IDŹ ×N. Masz tylko 6 kart.
+```plansza
+? . . . .
+? . . ? .
+? . ? . .
+. ? . . .
+^ . . . .
+```
+```ustawienia
+limit: 6
+warianty: .#..*. ...#.* #.*...
+```
+```rozwiazanie
+DOPÓKI WOLNE?
+  IDŹ, N + 1
+KONIEC
+SKRĘĆ W PRAWO
+IDŹ ×N
+```
+
+#### 14. Zejdź po schodach
+Wejdź na górę do klocka i licz piętra. Potem zejdź po tylu schodkach, ile było pięter. Masz tylko 12 kart.
+```plansza
+? . . . .
+? . . . .
+? . . . .
+. . . . .
+^ ? ? ? .
+```
+```ustawienia
+limit: 12
+warianty: .#..*. #....* ..#*..
+```
+```rozwiazanie
+DOPÓKI WOLNE?
+  IDŹ, N + 1
+KONIEC
+SKRĘĆ W PRAWO
+DOPÓKI N > 0?
+  IDŹ, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO, N − 1
+KONIEC
+```
+
+#### 15. Skarb i wieża
+Licz kroki do pierwszego skarbu. Drugi skarb leży nad nim, tyle pól w górę, ile było kroków. Masz tylko 7 kart.
+```plansza
+. . . . .
+. . . . ?
+. . . ? .
+. . ? . .
+> . ? ? ?
+```
+```ustawienia
+limit: 7
+warianty: .*..*. *....* ..**..
+```
+```rozwiazanie
+DOPÓKI NIE SKARB?
+  IDŹ, N + 1
+KONIEC
+IDŹ, SKRĘĆ W LEWO
+IDŹ ×N
+```
+
+#### 16. Połowa drogi
+Idź do klocka i licz kroki. Wróć, ale tylko w połowę drogi: za każdy krok odejmij 2. Masz tylko 9 kart.
+```plansza
+. . . . .
+. . . . .
+> * . ? ?
+. L . L .
+. . . . .
+```
+```ustawienia
+limit: 9
+warianty: .# #.
+```
+```rozwiazanie
+DOPÓKI WOLNE?
+  IDŹ, N + 1
+KONIEC
+OBRÓĆ SIĘ
+DOPÓKI N > 0?
+  IDŹ, N − 2
+KONIEC
+```
+
 ## Plansza 7 × 7
 
 ### Zestaw A: Zmienna N
@@ -373,6 +549,198 @@ DOPÓKI N > 0?
     IDŹ ×N, SKRĘĆ W PRAWO
   KONIEC
   N − 1
+KONIEC
+```
+
+### Zestaw C: Liczby rosną i maleją
+karty: POWTÓRZ, DOPÓKI, JEŚLI, N =, N +, N −
+pytania: WOLNE?, NIE ŚCIANA?, NIE SKARB?, SKARB?, KAŁUŻA?, N > 0?, N = 0?
+
+#### 9. Fale
+Każda fala jest o 1 wyższa od poprzedniej. Wysokość fali to N. Masz tylko 12 kart.
+```plansza
+L L L L L L L
+L L L L L L L
+L L L L L L L
+L L L L * * L
+L L * * . . L
+* * . . . . L
+> * * * * * *
+```
+```ustawienia
+limit: 12
+```
+```rozwiazanie
+N = 1
+POWTÓRZ ×3
+  SKRĘĆ W LEWO, IDŹ ×N, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W PRAWO, IDŹ ×N, SKRĘĆ W LEWO, IDŹ, N + 1
+KONIEC
+```
+
+#### 10. Ślimak
+Pierwszy bok ma 6 pól, a każdy następny o 1 mniej. Pętla kończy się sama, gdy N = 0. Masz tylko 6 kart.
+```plansza
+* . . . . * .
+. . . . . . .
+. . * * . . .
+. . . . . . .
+. . * . . * .
+. . . . . . .
+^ . . . . . .
+```
+```ustawienia
+limit: 6
+```
+```rozwiazanie
+N = 6
+DOPÓKI N > 0?
+  IDŹ ×N, SKRĘĆ W PRAWO, N − 1
+KONIEC
+```
+
+#### 11. Choinka
+Robot idzie w dół zygzakiem, a każdy rząd jest o 1 dłuższy. Wychodzi choinka. Masz tylko 13 kart.
+```plansza
+L L L > * L L
+L L * . * L L
+L L * . . * L
+L * . . . * L
+L * . . . . *
+* . . . . . *
+* L L L L L L
+```
+```ustawienia
+limit: 13
+```
+```rozwiazanie
+N = 1
+POWTÓRZ ×3
+  IDŹ ×N, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W PRAWO, N + 1
+  IDŹ ×N, SKRĘĆ W LEWO, IDŹ, SKRĘĆ W LEWO, N + 1
+KONIEC
+```
+
+#### 12. Kwadrat w kwadracie
+Kwadrat o boku N, krok w środek po skosie i kwadrat o 2 mniejszy. Masz tylko 12 kart.
+```plansza
+* . . . . . *
+. * . . . * .
+. . * . * . .
+. . * * . . .
+. * * . * . .
+* * . . . * .
+^ . . . . . *
+```
+```ustawienia
+limit: 12
+```
+```rozwiazanie
+N = 6
+DOPÓKI N > 0?
+  POWTÓRZ ×4
+    IDŹ ×N, SKRĘĆ W PRAWO
+  KONIEC
+  IDŹ, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO, N − 2
+KONIEC
+```
+
+### Zestaw D: Zmierz i użyj
+karty: POWTÓRZ, DOPÓKI, JEŚLI, N =, N +, N −
+pytania: WOLNE?, NIE ŚCIANA?, NIE SKARB?, SKARB?, KAŁUŻA?, N > 0?, N = 0?
+
+#### 13. Zmierz i skręć
+Idź do klocka i licz kroki w N. Potem skręć w prawo i zrób IDŹ ×N. Masz tylko 6 kart.
+```plansza
+. . . . . . .
+? . . . . . .
+? . . . ? . .
+. . . ? . . .
+? . . . . . .
+. ? . . . . .
+^ . . . . . .
+```
+```ustawienia
+limit: 6
+warianty: .#.*.. #.*... ....#*
+```
+```rozwiazanie
+DOPÓKI WOLNE?
+  IDŹ, N + 1
+KONIEC
+SKRĘĆ W PRAWO
+IDŹ ×N
+```
+
+#### 14. Zejdź po schodach
+Wejdź na górę do klocka i licz piętra. Potem zejdź po tylu schodkach, ile było pięter. Masz tylko 12 kart.
+```plansza
+? . . . . . .
+? . . . . . .
+. . . . . . .
+. . . . . . .
+? . . . . . .
+. . . . . . .
+^ ? . . ? ? .
+```
+```ustawienia
+limit: 12
+warianty: .#..*. ..#*.. #....*
+```
+```rozwiazanie
+DOPÓKI WOLNE?
+  IDŹ, N + 1
+KONIEC
+SKRĘĆ W PRAWO
+DOPÓKI N > 0?
+  IDŹ, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO, N − 1
+KONIEC
+```
+
+#### 15. Skarb i wieża
+Licz kroki do pierwszego skarbu. Drugi skarb leży nad nim, tyle pól w górę, ile było kroków. Masz tylko 7 kart.
+```plansza
+. . . . . . .
+. . . . . . ?
+. . . . . . .
+. . . . ? . .
+. . . ? . . .
+. . . . . . .
+> . . ? ? . ?
+```
+```ustawienia
+limit: 7
+warianty: ..**.. .*..*. *....*
+```
+```rozwiazanie
+DOPÓKI NIE SKARB?
+  IDŹ, N + 1
+KONIEC
+IDŹ, SKRĘĆ W LEWO
+IDŹ ×N
+```
+
+#### 16. Połowa drogi
+Idź do klocka i licz kroki. Wróć, ale tylko w połowę drogi: za każdy krok odejmij 2. Masz tylko 9 kart.
+```plansza
+. . . . . . .
+. . . . . . .
+. . . . . . .
+> ? ? ? . ? ?
+. L . L . L .
+. . . . . . .
+. . . . . . .
+```
+```ustawienia
+limit: 9
+warianty: .*.#. .*..# *.#..
+```
+```rozwiazanie
+DOPÓKI WOLNE?
+  IDŹ, N + 1
+KONIEC
+OBRÓĆ SIĘ
+DOPÓKI N > 0?
+  IDŹ, N − 2
 KONIEC
 ```
 
@@ -585,3 +953,214 @@ DOPÓKI N > 0?
   N − 1
 KONIEC
 ```
+
+### Zestaw C: Liczby rosną i maleją
+karty: POWTÓRZ, DOPÓKI, JEŚLI, N =, N +, N −
+pytania: WOLNE?, NIE ŚCIANA?, NIE SKARB?, SKARB?, KAŁUŻA?, N > 0?, N = 0?
+
+#### 9. Fale
+Każda fala jest o 1 wyższa od poprzedniej. Wysokość fali to N. Masz tylko 12 kart.
+```plansza
+L L L L L L L L L
+L L L L L L L L L
+L L L L L L L L L
+L L L L L L L L L
+L L L L L L * * L
+L L L L * * . . L
+L L * * . . . . L
+* * . . . . . . L
+> * * * * * * * *
+```
+```ustawienia
+limit: 12
+```
+```rozwiazanie
+N = 1
+POWTÓRZ ×4
+  SKRĘĆ W LEWO, IDŹ ×N, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W PRAWO, IDŹ ×N, SKRĘĆ W LEWO, IDŹ, N + 1
+KONIEC
+```
+
+#### 10. Ślimak
+Pierwszy bok ma 8 pól, a każdy następny o 1 mniej. Pętla kończy się sama, gdy N = 0. Masz tylko 7 kart.
+```plansza
+* . . . . . . * .
+. . . . . . . . .
+. . * . . * . . .
+. . . . . . . . .
+. . . . * * . . .
+. . . . . . . . .
+. . * . . . . * .
+. . . . . . . . .
+^ . . . . . . . .
+```
+```ustawienia
+limit: 7
+```
+```rozwiazanie
+N = 6
+N + 2
+DOPÓKI N > 0?
+  IDŹ ×N, SKRĘĆ W PRAWO, N − 1
+KONIEC
+```
+
+#### 11. Choinka
+Robot idzie w dół zygzakiem, a każdy rząd jest o 1 dłuższy. Wychodzi choinka. Masz tylko 13 kart.
+```plansza
+L L L L > * L L L
+L L L * . * L L L
+L L L * . . * L L
+L L * . . . * L L
+L L * . . . . * L
+L * . . . . . * L
+L * . . . . . . *
+* . . . . . . . *
+* L L L L L L L L
+```
+```ustawienia
+limit: 13
+```
+```rozwiazanie
+N = 1
+POWTÓRZ ×4
+  IDŹ ×N, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W PRAWO, N + 1
+  IDŹ ×N, SKRĘĆ W LEWO, IDŹ, SKRĘĆ W LEWO, N + 1
+KONIEC
+```
+
+#### 12. Kwadrat w kwadracie
+Kwadrat o boku N, krok w środek po skosie i kwadrat o 2 mniejszy. Masz tylko 13 kart.
+```plansza
+* . . . . . . . *
+. * . . . . . * .
+. . * . . . * . .
+. . . * . * . . .
+. . . * * . . . .
+. . * * . * . . .
+. * * . . . * . .
+* * . . . . . * .
+^ . . . . . . . *
+```
+```ustawienia
+limit: 13
+```
+```rozwiazanie
+N = 6
+N + 2
+DOPÓKI N > 0?
+  POWTÓRZ ×4
+    IDŹ ×N, SKRĘĆ W PRAWO
+  KONIEC
+  IDŹ, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO, N − 2
+KONIEC
+```
+
+### Zestaw D: Zmierz i użyj
+karty: POWTÓRZ, DOPÓKI, JEŚLI, N =, N +, N −
+pytania: WOLNE?, NIE ŚCIANA?, NIE SKARB?, SKARB?, KAŁUŻA?, N > 0?, N = 0?
+
+#### 13. Zmierz i skręć
+Idź do klocka i licz kroki w N. Potem skręć w prawo i zrób IDŹ ×N. Masz tylko 6 kart.
+```plansza
+? . . . . . . . .
+. . . . . . . ? .
+? . . . . . . . .
+. . . . . ? . . .
+. . . . . . . . .
+. . . . . . . . .
+? . . . . . . . .
+. ? . . . . . . .
+^ . . . . . . . .
+```
+```ustawienia
+limit: 6
+warianty: ..#*.. #*.... ....#*
+```
+```rozwiazanie
+DOPÓKI WOLNE?
+  IDŹ, N + 1
+KONIEC
+SKRĘĆ W PRAWO
+IDŹ ×N
+```
+
+#### 14. Zejdź po schodach
+Wejdź na górę do klocka i licz piętra. Potem zejdź po tylu schodkach, ile było pięter. Masz tylko 12 kart.
+```plansza
+. . . . . . . . .
+? . . . . . . . .
+? . . . . . . . .
+. . . . . . . . .
+? . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+^ . . ? . ? ? . .
+```
+```ustawienia
+limit: 12
+warianty: .#..*. #....* ..#*..
+```
+```rozwiazanie
+DOPÓKI WOLNE?
+  IDŹ, N + 1
+KONIEC
+SKRĘĆ W PRAWO
+DOPÓKI N > 0?
+  IDŹ, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO, N − 1
+KONIEC
+```
+
+#### 15. Skarb i wieża
+Licz kroki do pierwszego skarbu. Drugi skarb leży nad nim, tyle pól w górę, ile było kroków. Masz tylko 7 kart.
+```plansza
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . ? .
+. . . . . . . . .
+. . . . . ? . . .
+. . . . . . . . .
+. . . . . . . . .
+. . ? . . . . . .
+> . ? . . ? . ? .
+```
+```ustawienia
+limit: 7
+warianty: *....* .*..*. ..**..
+```
+```rozwiazanie
+DOPÓKI NIE SKARB?
+  IDŹ, N + 1
+KONIEC
+IDŹ, SKRĘĆ W LEWO
+IDŹ ×N
+```
+
+#### 16. Połowa drogi
+Idź do klocka i licz kroki. Wróć, ale tylko w połowę drogi: za każdy krok odejmij 2. Masz tylko 9 kart.
+```plansza
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+> ? . ? ? . . ? ?
+. L . L . L . L .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+```
+```ustawienia
+limit: 9
+warianty: .*.#. *.#.. .*..#
+```
+```rozwiazanie
+DOPÓKI WOLNE?
+  IDŹ, N + 1
+KONIEC
+OBRÓĆ SIĘ
+DOPÓKI N > 0?
+  IDŹ, N − 2
+KONIEC
+```
+

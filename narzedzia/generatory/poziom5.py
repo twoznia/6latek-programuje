@@ -217,4 +217,5 @@ Nowe na tym poziomie: **pytania złożone** i **czujniki z boku**. `NIE X` odwra
         g, w = labirynt(n, n * 100 + 8, LEWA, c["drzwi"] + 1, c["war"] + 1)
         out.append(blok(8, "Wielka zagadka", f"{c['war'] + 1} różne labirynty i jeden program. Którą ręką do ściany?", g, LEWA, w))
     open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "gra", "poziom-5.md"), "w", encoding="utf-8").write("\n".join(out))
-main()
+if __name__ == "__main__":
+    main()

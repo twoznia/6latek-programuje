@@ -242,6 +242,240 @@ KONIEC
 IDŹ
 ```
 
+### Zestaw C: Ścieżki i przeszkody
+karty: POWTÓRZ, DOPÓKI, JEŚLI, ZRÓB A
+pytania: WOLNE?, NIE WOLNE?, WOLNE W LEWO?, WOLNE W PRAWO?, NIE WOLNE? I WOLNE W LEWO?, NIE WOLNE? I WOLNE W PRAWO?, NIE SKARB?, NIE ŚCIANA?, KAŁUŻA?, LAWA? LUB KLOCEK?, LAWA?, KLOCEK?
+
+#### 9. Długa kręta ścieżka
+Nowa ścieżka, ten sam pomysł: jeśli przed tobą zamknięte I w lewo wolne, skręć w lewo. Tak samo w prawo. Masz tylko 12 kart.
+```plansza
+L ? . . .
+L L L L .
+L L L . ?
+L . . . L
+> . L L L
+```
+```ustawienia
+limit: 12
+warianty: .* *.
+```
+```rozwiazanie
+DOPÓKI NIE SKARB?
+  IDŹ
+  JEŚLI NIE WOLNE? I WOLNE W LEWO?
+    SKRĘĆ W LEWO
+  NIE
+  KONIEC
+  JEŚLI NIE WOLNE? I WOLNE W PRAWO?
+    SKRĘĆ W PRAWO
+  NIE
+  KONIEC
+KONIEC
+IDŹ
+```
+
+#### 10. Idź za ścieżką
+Krócej: jeśli wolne, IDŹ. Jeśli nie, a w lewo wolne, skręć w lewo. W każdym innym razie skręć w prawo. Masz tylko 12 kart.
+```plansza
+L L L L L
+L . . ? .
+L . L L .
+. . L L .
+^ L L ? .
+```
+```ustawienia
+limit: 12
+warianty: *. .*
+```
+```rozwiazanie
+DOPÓKI NIE SKARB?
+  JEŚLI WOLNE?
+    IDŹ
+  NIE
+    JEŚLI WOLNE W LEWO?
+      SKRĘĆ W LEWO
+    NIE
+      SKRĘĆ W PRAWO
+    KONIEC
+  KONIEC
+KONIEC
+IDŹ
+```
+
+#### 11. Więcej kałuż
+Kręta ścieżka z kałużami. Kałużę przeskocz, a potem pytaj o skręty. Masz tylko 16 kart.
+```plansza
+. K . . L
+? L L . ?
+L L L L .
+L L L . .
+> . K . L
+```
+```ustawienia
+limit: 16
+warianty: .* *.
+```
+```rozwiazanie
+DOPÓKI NIE SKARB?
+  JEŚLI KAŁUŻA?
+    SKOCZ
+  NIE
+    IDŹ
+  KONIEC
+  JEŚLI NIE WOLNE? I WOLNE W LEWO?
+    SKRĘĆ W LEWO
+  NIE
+  KONIEC
+  JEŚLI NIE WOLNE? I WOLNE W PRAWO?
+    SKRĘĆ W PRAWO
+  NIE
+  KONIEC
+KONIEC
+IDŹ
+```
+
+#### 12. Nowe przeszkody
+Cztery różne rzędy przeszkód i jeden program. Kałużę przeskocz, lawę LUB klocek obejdź przepisem A. Masz tylko 18 kart.
+```plansza
+. . . L .
+. . L L .
+. . . . .
+> ? ? ? *
+L . . . .
+```
+```ustawienia
+limit: 18
+warianty: #.K K.# K.K L.K
+```
+```rozwiazanie
+PRZEPIS A
+  SKRĘĆ W LEWO, IDŹ, SKRĘĆ W PRAWO, IDŹ ×2, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO
+KONIEC
+DOPÓKI NIE ŚCIANA?
+  JEŚLI KAŁUŻA?
+    SKOCZ
+  NIE
+    JEŚLI LAWA? LUB KLOCEK?
+      ZRÓB A
+    NIE
+      IDŹ
+    KONIEC
+  KONIEC
+KONIEC
+```
+
+### Zestaw D: Nowe labirynty
+karty: POWTÓRZ, DOPÓKI, JEŚLI
+pytania: WOLNE?, NIE WOLNE?, WOLNE W LEWO?, WOLNE W PRAWO?, NIE WOLNE? I WOLNE W LEWO?, NIE WOLNE? I WOLNE W PRAWO?, NIE SKARB?, NIE ŚCIANA?, KAŁUŻA?, LAWA? LUB KLOCEK?, LAWA?, KLOCEK?
+
+#### 13. Nowy labirynt
+Prawa ręka na ścianie. Część ścian (pola ?) za każdym razem stoi inaczej. Masz tylko 11 kart.
+```plansza
+. . . . .
+# # . # .
+. . . ? .
+. # # # .
+^ ? * . .
+```
+```ustawienia
+limit: 11
+warianty: ## .#
+```
+```rozwiazanie
+DOPÓKI NIE SKARB?
+  IDŹ
+  JEŚLI WOLNE W PRAWO?
+    SKRĘĆ W PRAWO
+  NIE
+    DOPÓKI NIE WOLNE?
+      SKRĘĆ W LEWO
+    KONIEC
+  KONIEC
+KONIEC
+IDŹ
+```
+
+#### 14. Labirynt w lewo
+Lewa ręka na ścianie. Napisz program sam, zanim zajrzysz do rozwiązania. Masz tylko 11 kart.
+```plansza
+. . . . .
+. # ? # .
+* # . . .
+# # . # .
+> . . ? .
+```
+```ustawienia
+limit: 11
+warianty: ## .#
+```
+```rozwiazanie
+DOPÓKI NIE SKARB?
+  IDŹ
+  JEŚLI WOLNE W LEWO?
+    SKRĘĆ W LEWO
+  NIE
+    DOPÓKI NIE WOLNE?
+      SKRĘĆ W PRAWO
+    KONIEC
+  KONIEC
+KONIEC
+IDŹ
+```
+
+#### 15. Więcej drzwi
+Więcej pól ? i 2 różne labirynty. Program ten sam. Masz tylko 11 kart.
+```plansza
+. . . . .
+. # ? # .
+. # * ? .
+. # . # .
+^ ? . . .
+```
+```ustawienia
+limit: 11
+warianty: ### #.#
+```
+```rozwiazanie
+DOPÓKI NIE SKARB?
+  IDŹ
+  JEŚLI WOLNE W PRAWO?
+    SKRĘĆ W PRAWO
+  NIE
+    DOPÓKI NIE WOLNE?
+      SKRĘĆ W LEWO
+    KONIEC
+  KONIEC
+KONIEC
+IDŹ
+```
+
+#### 16. Największa zagadka
+3 labirynty, dużo drzwi i jeden program. Masz tylko 11 kart.
+```plansza
+. . . . .
+. # ? # .
+. . * ? .
+? # ? # .
+> . . . .
+```
+```ustawienia
+limit: 11
+warianty: #### ###. #.##
+```
+```rozwiazanie
+DOPÓKI NIE SKARB?
+  IDŹ
+  JEŚLI WOLNE W LEWO?
+    SKRĘĆ W LEWO
+  NIE
+    DOPÓKI NIE WOLNE?
+      SKRĘĆ W PRAWO
+    KONIEC
+  KONIEC
+KONIEC
+IDŹ
+```
+
 ## Plansza 7 × 7
 
 ### Zestaw A: Pytania złożone
@@ -481,6 +715,256 @@ IDŹ
 ```ustawienia
 limit: 11
 warianty: #### ###. ##.# #.##
+```
+```rozwiazanie
+DOPÓKI NIE SKARB?
+  IDŹ
+  JEŚLI WOLNE W LEWO?
+    SKRĘĆ W LEWO
+  NIE
+    DOPÓKI NIE WOLNE?
+      SKRĘĆ W PRAWO
+    KONIEC
+  KONIEC
+KONIEC
+IDŹ
+```
+
+### Zestaw C: Ścieżki i przeszkody
+karty: POWTÓRZ, DOPÓKI, JEŚLI, ZRÓB A
+pytania: WOLNE?, NIE WOLNE?, WOLNE W LEWO?, WOLNE W PRAWO?, NIE WOLNE? I WOLNE W LEWO?, NIE WOLNE? I WOLNE W PRAWO?, NIE SKARB?, NIE ŚCIANA?, KAŁUŻA?, LAWA? LUB KLOCEK?, LAWA?, KLOCEK?
+
+#### 9. Długa kręta ścieżka
+Nowa ścieżka, ten sam pomysł: jeśli przed tobą zamknięte I w lewo wolne, skręć w lewo. Tak samo w prawo. Masz tylko 12 kart.
+```plansza
+L L L L ? . .
+L L L . . L .
+L . . . L . .
+L . L L . . L
+. . L L . L L
+. L L L . ? L
+^ L L L L L L
+```
+```ustawienia
+limit: 12
+warianty: *. .*
+```
+```rozwiazanie
+DOPÓKI NIE SKARB?
+  IDŹ
+  JEŚLI NIE WOLNE? I WOLNE W LEWO?
+    SKRĘĆ W LEWO
+  NIE
+  KONIEC
+  JEŚLI NIE WOLNE? I WOLNE W PRAWO?
+    SKRĘĆ W PRAWO
+  NIE
+  KONIEC
+KONIEC
+IDŹ
+```
+
+#### 10. Idź za ścieżką
+Krócej: jeśli wolne, IDŹ. Jeśli nie, a w lewo wolne, skręć w lewo. W każdym innym razie skręć w prawo. Masz tylko 12 kart.
+```plansza
+L L L L L L L
+L L L L L L L
+L . . . L L L
+L . L . . . .
+? . L L L L ?
+L L . . . L .
+> . . L . . .
+```
+```ustawienia
+limit: 12
+warianty: .* *.
+```
+```rozwiazanie
+DOPÓKI NIE SKARB?
+  JEŚLI WOLNE?
+    IDŹ
+  NIE
+    JEŚLI WOLNE W LEWO?
+      SKRĘĆ W LEWO
+    NIE
+      SKRĘĆ W PRAWO
+    KONIEC
+  KONIEC
+KONIEC
+IDŹ
+```
+
+#### 11. Więcej kałuż
+Kręta ścieżka z kałużami. Kałużę przeskocz, a potem pytaj o skręty. Masz tylko 16 kart.
+```plansza
+. . . L L L L
+K L . . L L L
+. L L ? L L L
+. L . . L L L
+K L . L L L ?
+. L K L L L .
+^ L . . . . .
+```
+```ustawienia
+limit: 16
+warianty: *. .*
+```
+```rozwiazanie
+DOPÓKI NIE SKARB?
+  JEŚLI KAŁUŻA?
+    SKOCZ
+  NIE
+    IDŹ
+  KONIEC
+  JEŚLI NIE WOLNE? I WOLNE W LEWO?
+    SKRĘĆ W LEWO
+  NIE
+  KONIEC
+  JEŚLI NIE WOLNE? I WOLNE W PRAWO?
+    SKRĘĆ W PRAWO
+  NIE
+  KONIEC
+KONIEC
+IDŹ
+```
+
+#### 12. Nowe przeszkody
+Cztery różne rzędy przeszkód i jeden program. Kałużę przeskocz, lawę LUB klocek obejdź przepisem A. Masz tylko 18 kart.
+```plansza
+. . L . . . L
+L . . L . . L
+L . L L . . .
+. L . . . . L
+. . . . . . .
+> ? ? ? ? ? *
+. . . . . L .
+```
+```ustawienia
+limit: 18
+warianty: ..#.# L..#. L...K L..L.
+```
+```rozwiazanie
+PRZEPIS A
+  SKRĘĆ W LEWO, IDŹ, SKRĘĆ W PRAWO, IDŹ ×2, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO
+KONIEC
+DOPÓKI NIE ŚCIANA?
+  JEŚLI KAŁUŻA?
+    SKOCZ
+  NIE
+    JEŚLI LAWA? LUB KLOCEK?
+      ZRÓB A
+    NIE
+      IDŹ
+    KONIEC
+  KONIEC
+KONIEC
+```
+
+### Zestaw D: Nowe labirynty
+karty: POWTÓRZ, DOPÓKI, JEŚLI
+pytania: WOLNE?, NIE WOLNE?, WOLNE W LEWO?, WOLNE W PRAWO?, NIE WOLNE? I WOLNE W LEWO?, NIE WOLNE? I WOLNE W PRAWO?, NIE SKARB?, NIE ŚCIANA?, KAŁUŻA?, LAWA? LUB KLOCEK?, LAWA?, KLOCEK?
+
+#### 13. Nowy labirynt
+Prawa ręka na ścianie. Część ścian (pola ?) za każdym razem stoi inaczej. Masz tylko 11 kart.
+```plansza
+. . . . . . .
+. # # # # # .
+. . . ? * . .
+. # . # # # #
+. # . . . . .
+? # # # ? # .
+> . . . . . .
+```
+```ustawienia
+limit: 11
+warianty: ### .##
+```
+```rozwiazanie
+DOPÓKI NIE SKARB?
+  IDŹ
+  JEŚLI WOLNE W PRAWO?
+    SKRĘĆ W PRAWO
+  NIE
+    DOPÓKI NIE WOLNE?
+      SKRĘĆ W LEWO
+    KONIEC
+  KONIEC
+KONIEC
+IDŹ
+```
+
+#### 14. Labirynt w lewo
+Lewa ręka na ścianie. Napisz program sam, zanim zajrzysz do rozwiązania. Masz tylko 11 kart.
+```plansza
+. . . . . . .
+. # # # # # .
+. # . . . # .
+. # . # . # .
+. . . ? * # .
+# # ? # ? # .
+> . . . . . .
+```
+```ustawienia
+limit: 11
+warianty: ### ##.
+```
+```rozwiazanie
+DOPÓKI NIE SKARB?
+  IDŹ
+  JEŚLI WOLNE W LEWO?
+    SKRĘĆ W LEWO
+  NIE
+    DOPÓKI NIE WOLNE?
+      SKRĘĆ W PRAWO
+    KONIEC
+  KONIEC
+KONIEC
+IDŹ
+```
+
+#### 15. Więcej drzwi
+Więcej pól ? i 3 różne labirynty. Program ten sam. Masz tylko 11 kart.
+```plansza
+* . . . . . .
+? # # # # # .
+. . . . . # .
+. # ? # . # .
+. . . ? . # .
+# # . # . # .
+> . . ? . . .
+```
+```ustawienia
+limit: 11
+warianty: #### ###. ##.#
+```
+```rozwiazanie
+DOPÓKI NIE SKARB?
+  IDŹ
+  JEŚLI WOLNE W PRAWO?
+    SKRĘĆ W PRAWO
+  NIE
+    DOPÓKI NIE WOLNE?
+      SKRĘĆ W LEWO
+    KONIEC
+  KONIEC
+KONIEC
+IDŹ
+```
+
+#### 16. Największa zagadka
+4 labirynty, dużo drzwi i jeden program. Masz tylko 11 kart.
+```plansza
+* # . . . . .
+. # . # ? # .
+. . . . . ? .
+. # # # ? # .
+. ? . . . . .
+? # . # # # .
+> . . # . . .
+```
+```ustawienia
+limit: 11
+warianty: ##### ###.# ##.## #.###
 ```
 ```rozwiazanie
 DOPÓKI NIE SKARB?
@@ -765,3 +1249,270 @@ DOPÓKI NIE SKARB?
 KONIEC
 IDŹ
 ```
+
+### Zestaw C: Ścieżki i przeszkody
+karty: POWTÓRZ, DOPÓKI, JEŚLI, ZRÓB A
+pytania: WOLNE?, NIE WOLNE?, WOLNE W LEWO?, WOLNE W PRAWO?, NIE WOLNE? I WOLNE W LEWO?, NIE WOLNE? I WOLNE W PRAWO?, NIE SKARB?, NIE ŚCIANA?, KAŁUŻA?, LAWA? LUB KLOCEK?, LAWA?, KLOCEK?
+
+#### 9. Długa kręta ścieżka
+Nowa ścieżka, ten sam pomysł: jeśli przed tobą zamknięte I w lewo wolne, skręć w lewo. Tak samo w prawo. Masz tylko 12 kart.
+```plansza
+. . ? . L L L L L
+. L L . . L L L L
+. L L L . L L L L
+. . L L . . . . L
+L . . L L L L . L
+L L . L L L L . .
+L L . . L L L L .
+L L L . L L L L .
+> . . . L L ? . .
+```
+```ustawienia
+limit: 12
+warianty: *. .*
+```
+```rozwiazanie
+DOPÓKI NIE SKARB?
+  IDŹ
+  JEŚLI NIE WOLNE? I WOLNE W LEWO?
+    SKRĘĆ W LEWO
+  NIE
+  KONIEC
+  JEŚLI NIE WOLNE? I WOLNE W PRAWO?
+    SKRĘĆ W PRAWO
+  NIE
+  KONIEC
+KONIEC
+IDŹ
+```
+
+#### 10. Idź za ścieżką
+Krócej: jeśli wolne, IDŹ. Jeśli nie, a w lewo wolne, skręć w lewo. W każdym innym razie skręć w prawo. Masz tylko 12 kart.
+```plansza
+. . . L L L L L L
+. L . L L L . . .
+? L . . . . . L .
+L L L L L L L ? .
+L L L L L L L . L
+L L L L L L L . .
+L L L L L L L L .
+L L . . . L . . .
+> . . L . . . L L
+```
+```ustawienia
+limit: 12
+warianty: .* *.
+```
+```rozwiazanie
+DOPÓKI NIE SKARB?
+  JEŚLI WOLNE?
+    IDŹ
+  NIE
+    JEŚLI WOLNE W LEWO?
+      SKRĘĆ W LEWO
+    NIE
+      SKRĘĆ W PRAWO
+    KONIEC
+  KONIEC
+KONIEC
+IDŹ
+```
+
+#### 11. Więcej kałuż
+Kręta ścieżka z kałużami. Kałużę przeskocz, a potem pytaj o skręty. Masz tylko 16 kart.
+```plansza
+L L L . . K . . .
+L L . . L L L L .
+? . . L L L L L .
+L L L L L L L L K
+L . . . . . . L .
+L . L L L L . L .
+L . L L L L . L K
+. . L L L L . L ?
+^ L L L L L . . .
+```
+```ustawienia
+limit: 16
+warianty: .* *.
+```
+```rozwiazanie
+DOPÓKI NIE SKARB?
+  JEŚLI KAŁUŻA?
+    SKOCZ
+  NIE
+    IDŹ
+  KONIEC
+  JEŚLI NIE WOLNE? I WOLNE W LEWO?
+    SKRĘĆ W LEWO
+  NIE
+  KONIEC
+  JEŚLI NIE WOLNE? I WOLNE W PRAWO?
+    SKRĘĆ W PRAWO
+  NIE
+  KONIEC
+KONIEC
+IDŹ
+```
+
+#### 12. Nowe przeszkody
+Cztery różne rzędy przeszkód i jeden program. Kałużę przeskocz, lawę LUB klocek obejdź przepisem A. Masz tylko 18 kart.
+```plansza
+. . . . . L . . .
+L . . . . . . . .
+L . . . . . . . L
+L . . . . . L . .
+L L . . . . L . .
+. L . L L . . . .
+. . . . . . . . .
+> ? ? ? ? ? ? ? *
+. L . . L . . . L
+```
+```ustawienia
+limit: 18
+warianty: ...L.K. .K....K K..#... L.K.L..
+```
+```rozwiazanie
+PRZEPIS A
+  SKRĘĆ W LEWO, IDŹ, SKRĘĆ W PRAWO, IDŹ ×2, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO
+KONIEC
+DOPÓKI NIE ŚCIANA?
+  JEŚLI KAŁUŻA?
+    SKOCZ
+  NIE
+    JEŚLI LAWA? LUB KLOCEK?
+      ZRÓB A
+    NIE
+      IDŹ
+    KONIEC
+  KONIEC
+KONIEC
+```
+
+### Zestaw D: Nowe labirynty
+karty: POWTÓRZ, DOPÓKI, JEŚLI
+pytania: WOLNE?, NIE WOLNE?, WOLNE W LEWO?, WOLNE W PRAWO?, NIE WOLNE? I WOLNE W LEWO?, NIE WOLNE? I WOLNE W PRAWO?, NIE SKARB?, NIE ŚCIANA?, KAŁUŻA?, LAWA? LUB KLOCEK?, LAWA?, KLOCEK?
+
+#### 13. Nowy labirynt
+Prawa ręka na ścianie. Część ścian (pola ?) za każdym razem stoi inaczej. Masz tylko 11 kart.
+```plansza
+. . . . . . . . .
+. # # # # # # # .
+. . . . . . . # .
+? # . # # # # # .
+. . . ? . . . . .
+. # # # . # ? # #
+. . * # . . . . .
+# # ? # # # # # .
+> . . . . . . . .
+```
+```ustawienia
+limit: 11
+warianty: #### ##.#
+```
+```rozwiazanie
+DOPÓKI NIE SKARB?
+  IDŹ
+  JEŚLI WOLNE W PRAWO?
+    SKRĘĆ W PRAWO
+  NIE
+    DOPÓKI NIE WOLNE?
+      SKRĘĆ W LEWO
+    KONIEC
+  KONIEC
+KONIEC
+IDŹ
+```
+
+#### 14. Labirynt w lewo
+Lewa ręka na ścianie. Napisz program sam, zanim zajrzysz do rozwiązania. Masz tylko 11 kart.
+```plansza
+* . . . . # . . .
+# # ? # . # . # .
+. . . # . . . # .
+. # . # # # . # .
+. ? . . . # . # .
+. # # # . # # # .
+. . . ? . . . . .
+? # . # # # # # .
+> . . # . . . . .
+```
+```ustawienia
+limit: 11
+warianty: #### .###
+```
+```rozwiazanie
+DOPÓKI NIE SKARB?
+  IDŹ
+  JEŚLI WOLNE W LEWO?
+    SKRĘĆ W LEWO
+  NIE
+    DOPÓKI NIE WOLNE?
+      SKRĘĆ W PRAWO
+    KONIEC
+  KONIEC
+KONIEC
+IDŹ
+```
+
+#### 15. Więcej drzwi
+Więcej pól ? i 3 różne labirynty. Program ten sam. Masz tylko 11 kart.
+```plansza
+. . . . . ? . . .
+. # # # . # . # .
+. # . . . # * # .
+. # ? # . # ? # .
+. . . ? . . . ? .
+. # . # # # . # .
+. # . # . . . # .
+# # . # . # # # .
+> . . # . . . . .
+```
+```ustawienia
+limit: 11
+warianty: ##### ###.. #.##.
+```
+```rozwiazanie
+DOPÓKI NIE SKARB?
+  IDŹ
+  JEŚLI WOLNE W PRAWO?
+    SKRĘĆ W PRAWO
+  NIE
+    DOPÓKI NIE WOLNE?
+      SKRĘĆ W LEWO
+    KONIEC
+  KONIEC
+KONIEC
+IDŹ
+```
+
+#### 16. Największa zagadka
+4 labirynty, dużo drzwi i jeden program. Masz tylko 11 kart.
+```plansza
+. . . . . # . . .
+. # ? # . # ? # .
+. # . # . . . . .
+. # . # # # # # .
+. # . . . . . . .
+. # # # ? # . # ?
+. . . . . # . . .
+? # ? # . # # # .
+> . . . . # * . .
+```
+```ustawienia
+limit: 11
+warianty: #####. ###.## ###.#. ##.###
+```
+```rozwiazanie
+DOPÓKI NIE SKARB?
+  IDŹ
+  JEŚLI WOLNE W LEWO?
+    SKRĘĆ W LEWO
+  NIE
+    DOPÓKI NIE WOLNE?
+      SKRĘĆ W PRAWO
+    KONIEC
+  KONIEC
+KONIEC
+IDŹ
+```
+

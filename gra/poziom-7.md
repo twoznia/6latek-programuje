@@ -212,6 +212,216 @@ KONIEC
 ZRÓB A ×2
 ```
 
+### Zestaw C: Rekurencja rysuje
+karty: POWTÓRZ, DOPÓKI, JEŚLI, N =, N +, N −, ZRÓB A, META
+pytania: N > 0?, N = 0?, WOLNE?, NIE WOLNE?
+rekurencja: tak
+parametr: tak
+wymagaj: rekurencja
+
+#### 9. Ślimak z rekurencji
+Bok o długości N, skręt i wywołanie z N − 1. Kończy się, gdy N = 0. Masz tylko 8 kart.
+```plansza
+* . . * .
+. . . . .
+. . * * .
+. . . . .
+^ . . . .
+```
+```ustawienia
+limit: 8
+```
+```rozwiazanie
+PRZEPIS A
+  JEŚLI N > 0?
+    IDŹ ×N, SKRĘĆ W PRAWO, N − 1, ZRÓB A ×N
+  NIE
+  KONIEC
+KONIEC
+ZRÓB A ×4
+```
+
+#### 10. Płatek śniegu
+Plus, a na końcu każdego ramienia mniejszy plus. Robot wraca do środka. Wróć na START. Masz tylko 13 kart.
+```plansza
+L L * L L
+L * * * L
+* * ^ * *
+L * * * L
+L L * L L
+```
+```ustawienia
+limit: 13
+```
+```rozwiazanie
+PRZEPIS A
+  JEŚLI N > 0?
+    POWTÓRZ ×4
+      IDŹ, N − 1, ZRÓB A ×N, N + 1, OBRÓĆ SIĘ, IDŹ, SKRĘĆ W LEWO
+    KONIEC
+  NIE
+  KONIEC
+KONIEC
+ZRÓB A ×2
+```
+
+#### 11. Słupki rosną
+Przepis najpierw woła sam siebie z N − 1, a dopiero potem stawia słupek o wysokości N. Dlatego słupki rosną: 1, 2, 3… Masz tylko 13 kart.
+```plansza
+L L L L L
+L L * L L
+L * . L L
+* . . L L
+> . . . L
+```
+```ustawienia
+limit: 13
+```
+```rozwiazanie
+PRZEPIS A
+  JEŚLI N > 0?
+    N − 1, ZRÓB A ×N, N + 1
+    SKRĘĆ W LEWO, IDŹ ×N, OBRÓĆ SIĘ, IDŹ ×N, SKRĘĆ W LEWO, IDŹ
+  NIE
+  KONIEC
+KONIEC
+ZRÓB A ×3
+```
+
+#### 12. Dolina
+Te same karty przed wywołaniem i po nim: słupki maleją w drodze w dół rekurencji i rosną w drodze powrotnej. Masz tylko 19 kart.
+```plansza
+L L L L L
+L L L L L
+* L L * L
+. * * . L
+> . . . .
+```
+```ustawienia
+limit: 19
+```
+```rozwiazanie
+PRZEPIS A
+  JEŚLI N > 0?
+    SKRĘĆ W LEWO, IDŹ ×N, OBRÓĆ SIĘ, IDŹ ×N, SKRĘĆ W LEWO, IDŹ
+    N − 1, ZRÓB A ×N, N + 1
+    SKRĘĆ W LEWO, IDŹ ×N, OBRÓĆ SIĘ, IDŹ ×N, SKRĘĆ W LEWO, IDŹ
+  NIE
+  KONIEC
+KONIEC
+ZRÓB A ×2
+```
+
+### Zestaw D: Powrót po śladach
+karty: POWTÓRZ, DOPÓKI, JEŚLI, ZRÓB A, META
+pytania: WOLNE?, NIE WOLNE?, SKARB?, NIE SKARB?, NIE ŚCIANA?
+rekurencja: tak
+wymagaj: rekurencja
+
+#### 13. Za róg tyle samo
+Idź do klocka. Tam strażnik skręca w prawo i robi META. Każde IDŹ po ZRÓB A czeka na powrót, więc robot idzie w prawo tyle pól, ile przeszedł w górę. Masz tylko 9 kart.
+```plansza
+? . . . .
+? . . ? .
+? . ? . .
+. ? . . .
+^ . . . .
+```
+```ustawienia
+limit: 9
+warianty: .#..*. ...#.* #.*...
+```
+```rozwiazanie
+PRZEPIS A
+  JEŚLI NIE WOLNE?
+    SKRĘĆ W PRAWO, META
+  NIE
+  KONIEC
+  IDŹ, ZRÓB A, IDŹ
+KONIEC
+ZRÓB A
+```
+
+#### 14. Schody i z powrotem
+Schodkami w górę, aż nad robotem stanie klocek. Karty po ZRÓB A sprowadzają robota tą samą drogą. Wróć na START. Masz tylko 14 kart.
+```plansza
+. . . ? .
+. . ? ? .
+. ? ? . .
+. ? . . .
+^ . . . .
+```
+```ustawienia
+limit: 14
+warianty: .#..*. ...#.* #.*...
+```
+```rozwiazanie
+PRZEPIS A
+  JEŚLI WOLNE?
+    IDŹ, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO, ZRÓB A, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO, IDŹ
+  NIE
+    OBRÓĆ SIĘ
+  KONIEC
+KONIEC
+ZRÓB A
+```
+
+#### 15. Powrót po śladach
+Przepis zapamiętuje drogę: każde IDŹ i każdy skręt czeka na powrót. Za skarbem robot zawraca i idzie tą samą drogą. Wróć na START. Masz tylko 16 kart.
+```plansza
+. ? ? . L
+. L L L L
+? L L L L
+. L L L L
+^ L L L L
+```
+```ustawienia
+limit: 16
+warianty: .*. ..* *..
+```
+```rozwiazanie
+PRZEPIS A
+  JEŚLI SKARB?
+    IDŹ, OBRÓĆ SIĘ, IDŹ
+  NIE
+    JEŚLI WOLNE?
+      IDŹ, ZRÓB A, IDŹ
+    NIE
+      SKRĘĆ W PRAWO, ZRÓB A, SKRĘĆ W LEWO
+    KONIEC
+  KONIEC
+KONIEC
+ZRÓB A
+```
+
+#### 16. Ślady w lewo
+Ta sama sztuczka, ale ścieżka skręca w lewo. Zmień w przepisie strony skrętów. Wróć na START. Masz tylko 16 kart.
+```plansza
+L ? . . .
+L . L L ?
+L ? L L .
+L L L L .
+L L L L ^
+```
+```ustawienia
+limit: 16
+warianty: .*. ..* *..
+```
+```rozwiazanie
+PRZEPIS A
+  JEŚLI SKARB?
+    IDŹ, OBRÓĆ SIĘ, IDŹ
+  NIE
+    JEŚLI WOLNE?
+      IDŹ, ZRÓB A, IDŹ
+    NIE
+      SKRĘĆ W LEWO, ZRÓB A, SKRĘĆ W PRAWO
+    KONIEC
+  KONIEC
+KONIEC
+ZRÓB A
+```
+
 ## Plansza 7 × 7
 
 ### Zestaw A: Rekurencja
@@ -434,6 +644,232 @@ PRZEPIS A
   KONIEC
 KONIEC
 ZRÓB A ×3
+```
+
+### Zestaw C: Rekurencja rysuje
+karty: POWTÓRZ, DOPÓKI, JEŚLI, N =, N +, N −, ZRÓB A, META
+pytania: N > 0?, N = 0?, WOLNE?, NIE WOLNE?
+rekurencja: tak
+parametr: tak
+wymagaj: rekurencja
+
+#### 9. Ślimak z rekurencji
+Bok o długości N, skręt i wywołanie z N − 1. Kończy się, gdy N = 0. Masz tylko 8 kart.
+```plansza
+* . . . . * .
+. . . . . . .
+. . * * . . .
+. . . . . . .
+. . * . . * .
+. . . . . . .
+^ . . . . . .
+```
+```ustawienia
+limit: 8
+```
+```rozwiazanie
+PRZEPIS A
+  JEŚLI N > 0?
+    IDŹ ×N, SKRĘĆ W PRAWO, N − 1, ZRÓB A ×N
+  NIE
+  KONIEC
+KONIEC
+ZRÓB A ×6
+```
+
+#### 10. Płatek śniegu
+Plus, a na końcu każdego ramienia mniejszy plus. Robot wraca do środka. Wróć na START. Masz tylko 13 kart.
+```plansza
+L L L L L L L
+L L L * L L L
+L L * * * L L
+L * * ^ * * L
+L L * * * L L
+L L L * L L L
+L L L L L L L
+```
+```ustawienia
+limit: 13
+```
+```rozwiazanie
+PRZEPIS A
+  JEŚLI N > 0?
+    POWTÓRZ ×4
+      IDŹ, N − 1, ZRÓB A ×N, N + 1, OBRÓĆ SIĘ, IDŹ, SKRĘĆ W LEWO
+    KONIEC
+  NIE
+  KONIEC
+KONIEC
+ZRÓB A ×2
+```
+
+#### 11. Słupki rosną
+Przepis najpierw woła sam siebie z N − 1, a dopiero potem stawia słupek o wysokości N. Dlatego słupki rosną: 1, 2, 3… Masz tylko 13 kart.
+```plansza
+L L L L L L L
+L L L L L L L
+L L L L L L L
+L L * L L L L
+L * . L L L L
+* . . L L L L
+> . . . L L L
+```
+```ustawienia
+limit: 13
+```
+```rozwiazanie
+PRZEPIS A
+  JEŚLI N > 0?
+    N − 1, ZRÓB A ×N, N + 1
+    SKRĘĆ W LEWO, IDŹ ×N, OBRÓĆ SIĘ, IDŹ ×N, SKRĘĆ W LEWO, IDŹ
+  NIE
+  KONIEC
+KONIEC
+ZRÓB A ×3
+```
+
+#### 12. Dolina
+Te same karty przed wywołaniem i po nim: słupki maleją w drodze w dół rekurencji i rosną w drodze powrotnej. Masz tylko 19 kart.
+```plansza
+L L L L L L L
+L L L L L L L
+L L L L L L L
+* L L L L * L
+. * L L * . L
+. . * * . . L
+> . . . . . .
+```
+```ustawienia
+limit: 19
+```
+```rozwiazanie
+PRZEPIS A
+  JEŚLI N > 0?
+    SKRĘĆ W LEWO, IDŹ ×N, OBRÓĆ SIĘ, IDŹ ×N, SKRĘĆ W LEWO, IDŹ
+    N − 1, ZRÓB A ×N, N + 1
+    SKRĘĆ W LEWO, IDŹ ×N, OBRÓĆ SIĘ, IDŹ ×N, SKRĘĆ W LEWO, IDŹ
+  NIE
+  KONIEC
+KONIEC
+ZRÓB A ×3
+```
+
+### Zestaw D: Powrót po śladach
+karty: POWTÓRZ, DOPÓKI, JEŚLI, ZRÓB A, META
+pytania: WOLNE?, NIE WOLNE?, SKARB?, NIE SKARB?, NIE ŚCIANA?
+rekurencja: tak
+wymagaj: rekurencja
+
+#### 13. Za róg tyle samo
+Idź do klocka. Tam strażnik skręca w prawo i robi META. Każde IDŹ po ZRÓB A czeka na powrót, więc robot idzie w prawo tyle pól, ile przeszedł w górę. Masz tylko 9 kart.
+```plansza
+. . . . . . .
+? . . . . . .
+? . . . ? . .
+? . . ? . . .
+. . ? . . . .
+. . . . . . .
+^ . . . . . .
+```
+```ustawienia
+limit: 9
+warianty: ...#.* .#..*. #.*...
+```
+```rozwiazanie
+PRZEPIS A
+  JEŚLI NIE WOLNE?
+    SKRĘĆ W PRAWO, META
+  NIE
+  KONIEC
+  IDŹ, ZRÓB A, IDŹ
+KONIEC
+ZRÓB A
+```
+
+#### 14. Schody i z powrotem
+Schodkami w górę, aż nad robotem stanie klocek. Karty po ZRÓB A sprowadzają robota tą samą drogą. Wróć na START. Masz tylko 14 kart.
+```plansza
+. . . . . ? .
+. . . . ? ? .
+. . . . ? . .
+. . ? . . . .
+. . ? . . . .
+. . . . . . .
+^ . . . . . .
+```
+```ustawienia
+limit: 14
+warianty: .#.*.. ....#* #.*...
+```
+```rozwiazanie
+PRZEPIS A
+  JEŚLI WOLNE?
+    IDŹ, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO, ZRÓB A, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO, IDŹ
+  NIE
+    OBRÓĆ SIĘ
+  KONIEC
+KONIEC
+ZRÓB A
+```
+
+#### 15. Powrót po śladach
+Przepis zapamiętuje drogę: każde IDŹ i każdy skręt czeka na powrót. Za skarbem robot zawraca i idzie tą samą drogą. Wróć na START. Masz tylko 16 kart.
+```plansza
+. . . ? . L L
+? L L L ? L L
+. L L L . L L
+. L L L L L L
+. L L L L L L
+. L L L L L L
+^ L L L L L L
+```
+```ustawienia
+limit: 16
+warianty: ..* *.. .*.
+```
+```rozwiazanie
+PRZEPIS A
+  JEŚLI SKARB?
+    IDŹ, OBRÓĆ SIĘ, IDŹ
+  NIE
+    JEŚLI WOLNE?
+      IDŹ, ZRÓB A, IDŹ
+    NIE
+      SKRĘĆ W PRAWO, ZRÓB A, SKRĘĆ W LEWO
+    KONIEC
+  KONIEC
+KONIEC
+ZRÓB A
+```
+
+#### 16. Ślady w lewo
+Ta sama sztuczka, ale ścieżka skręca w lewo. Zmień w przepisie strony skrętów. Wróć na START. Masz tylko 16 kart.
+```plansza
+L L L L L L L
+L L L . . . ?
+L L L ? L L .
+L L L . L L ?
+L L L L L L .
+L L L L L L .
+L L L L L L ^
+```
+```ustawienia
+limit: 16
+warianty: ..* .*. *..
+```
+```rozwiazanie
+PRZEPIS A
+  JEŚLI SKARB?
+    IDŹ, OBRÓĆ SIĘ, IDŹ
+  NIE
+    JEŚLI WOLNE?
+      IDŹ, ZRÓB A, IDŹ
+    NIE
+      SKRĘĆ W LEWO, ZRÓB A, SKRĘĆ W PRAWO
+    KONIEC
+  KONIEC
+KONIEC
+ZRÓB A
 ```
 
 ## Plansza 9 × 9
@@ -679,3 +1115,248 @@ PRZEPIS A
 KONIEC
 ZRÓB A ×4
 ```
+
+### Zestaw C: Rekurencja rysuje
+karty: POWTÓRZ, DOPÓKI, JEŚLI, N =, N +, N −, ZRÓB A, META
+pytania: N > 0?, N = 0?, WOLNE?, NIE WOLNE?
+rekurencja: tak
+parametr: tak
+wymagaj: rekurencja
+
+#### 9. Ślimak z rekurencji
+Bok o długości N, skręt i wywołanie z N − 1. Kończy się, gdy N = 0. Masz tylko 10 kart.
+```plansza
+* . . . . . . * .
+. . . . . . . . .
+. . * . . * . . .
+. . . . . . . . .
+. . . . * * . . .
+. . . . . . . . .
+. . * . . . . * .
+. . . . . . . . .
+^ . . . . . . . .
+```
+```ustawienia
+limit: 10
+```
+```rozwiazanie
+PRZEPIS A
+  JEŚLI N > 0?
+    IDŹ ×N, SKRĘĆ W PRAWO, N − 1, ZRÓB A ×N
+  NIE
+  KONIEC
+KONIEC
+N = 6
+N + 2
+ZRÓB A ×N
+```
+
+#### 10. Płatek śniegu
+Plus, a na końcu każdego ramienia mniejszy plus. Robot wraca do środka. Wróć na START. Masz tylko 13 kart.
+```plansza
+L L L L * L L L L
+L L L L . L L L L
+L L * . * . * L L
+L L . L . L . L L
+* . * . ^ . * . *
+L L . L . L . L L
+L L * . * . * L L
+L L L L . L L L L
+L L L L * L L L L
+```
+```ustawienia
+limit: 13
+```
+```rozwiazanie
+PRZEPIS A
+  JEŚLI N > 0?
+    POWTÓRZ ×4
+      IDŹ ×2, N − 1, ZRÓB A ×N, N + 1, OBRÓĆ SIĘ, IDŹ ×2, SKRĘĆ W LEWO
+    KONIEC
+  NIE
+  KONIEC
+KONIEC
+ZRÓB A ×2
+```
+
+#### 11. Słupki rosną
+Przepis najpierw woła sam siebie z N − 1, a dopiero potem stawia słupek o wysokości N. Dlatego słupki rosną: 1, 2, 3… Masz tylko 13 kart.
+```plansza
+L L L L L L L L L
+L L L L L L L L L
+L L L L L L L L L
+L L L L L L L L L
+L L L * L L L L L
+L L * . L L L L L
+L * . . L L L L L
+* . . . L L L L L
+> . . . . L L L L
+```
+```ustawienia
+limit: 13
+```
+```rozwiazanie
+PRZEPIS A
+  JEŚLI N > 0?
+    N − 1, ZRÓB A ×N, N + 1
+    SKRĘĆ W LEWO, IDŹ ×N, OBRÓĆ SIĘ, IDŹ ×N, SKRĘĆ W LEWO, IDŹ
+  NIE
+  KONIEC
+KONIEC
+ZRÓB A ×4
+```
+
+#### 12. Dolina
+Te same karty przed wywołaniem i po nim: słupki maleją w drodze w dół rekurencji i rosną w drodze powrotnej. Masz tylko 19 kart.
+```plansza
+L L L L L L L L L
+L L L L L L L L L
+L L L L L L L L L
+L L L L L L L L L
+* L L L L L L * L
+. * L L L L * . L
+. . * L L * . . L
+. . . * * . . . L
+> . . . . . . . .
+```
+```ustawienia
+limit: 19
+```
+```rozwiazanie
+PRZEPIS A
+  JEŚLI N > 0?
+    SKRĘĆ W LEWO, IDŹ ×N, OBRÓĆ SIĘ, IDŹ ×N, SKRĘĆ W LEWO, IDŹ
+    N − 1, ZRÓB A ×N, N + 1
+    SKRĘĆ W LEWO, IDŹ ×N, OBRÓĆ SIĘ, IDŹ ×N, SKRĘĆ W LEWO, IDŹ
+  NIE
+  KONIEC
+KONIEC
+ZRÓB A ×4
+```
+
+### Zestaw D: Powrót po śladach
+karty: POWTÓRZ, DOPÓKI, JEŚLI, ZRÓB A, META
+pytania: WOLNE?, NIE WOLNE?, SKARB?, NIE SKARB?, NIE ŚCIANA?
+rekurencja: tak
+wymagaj: rekurencja
+
+#### 13. Za róg tyle samo
+Idź do klocka. Tam strażnik skręca w prawo i robi META. Każde IDŹ po ZRÓB A czeka na powrót, więc robot idzie w prawo tyle pól, ile przeszedł w górę. Masz tylko 9 kart.
+```plansza
+? . . . . . . . .
+. . . . . . . ? .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+? . . . . . . . .
+? . ? . . . . . .
+. ? . . . . . . .
+^ . . . . . . . .
+```
+```ustawienia
+limit: 9
+warianty: ...#.* ..#.*. #*....
+```
+```rozwiazanie
+PRZEPIS A
+  JEŚLI NIE WOLNE?
+    SKRĘĆ W PRAWO, META
+  NIE
+  KONIEC
+  IDŹ, ZRÓB A, IDŹ
+KONIEC
+ZRÓB A
+```
+
+#### 14. Schody i z powrotem
+Schodkami w górę, aż nad robotem stanie klocek. Karty po ZRÓB A sprowadzają robota tą samą drogą. Wróć na START. Masz tylko 14 kart.
+```plansza
+. . . . . . . . .
+. . . . . . . . .
+. . . . . ? . . .
+. . . . ? ? . . .
+. . . . ? . . . .
+. . . . . . . . .
+. ? . . . . . . .
+. ? . . . . . . .
+^ . . . . . . . .
+```
+```ustawienia
+limit: 14
+warianty: #.*... .#.*.. ....#*
+```
+```rozwiazanie
+PRZEPIS A
+  JEŚLI WOLNE?
+    IDŹ, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO, ZRÓB A, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO, IDŹ
+  NIE
+    OBRÓĆ SIĘ
+  KONIEC
+KONIEC
+ZRÓB A
+```
+
+#### 15. Powrót po śladach
+Przepis zapamiętuje drogę: każde IDŹ i każdy skręt czeka na powrót. Za skarbem robot zawraca i idzie tą samą drogą. Wróć na START. Masz tylko 16 kart.
+```plansza
+L L L L L L L L L
+. . ? . ? . . L L
+. L L L L L . L L
+. L L L L L . L L
+. L L L L L ? L L
+. L L . . . . L L
+. L L L L L L L L
+. L L L L L L L L
+^ L L L L L L L L
+```
+```ustawienia
+limit: 16
+warianty: ..* .*. *..
+```
+```rozwiazanie
+PRZEPIS A
+  JEŚLI SKARB?
+    IDŹ, OBRÓĆ SIĘ, IDŹ
+  NIE
+    JEŚLI WOLNE?
+      IDŹ, ZRÓB A, IDŹ
+    NIE
+      SKRĘĆ W PRAWO, ZRÓB A, SKRĘĆ W LEWO
+    KONIEC
+  KONIEC
+KONIEC
+ZRÓB A
+```
+
+#### 16. Ślady w lewo
+Ta sama sztuczka, ale ścieżka skręca w lewo. Zmień w przepisie strony skrętów. Wróć na START. Masz tylko 16 kart.
+```plansza
+L . . . . ? . . .
+L . L L L L L L .
+L . L L L ? L L .
+L . L L L . L L .
+L . L L L . L L .
+L . ? . . . L L .
+L L L L L L L L .
+L L L L L L L L .
+L L L L L L L L ^
+```
+```ustawienia
+limit: 16
+warianty: ..* .*. *..
+```
+```rozwiazanie
+PRZEPIS A
+  JEŚLI SKARB?
+    IDŹ, OBRÓĆ SIĘ, IDŹ
+  NIE
+    JEŚLI WOLNE?
+      IDŹ, ZRÓB A, IDŹ
+    NIE
+      SKRĘĆ W LEWO, ZRÓB A, SKRĘĆ W PRAWO
+    KONIEC
+  KONIEC
+KONIEC
+ZRÓB A
+```
+
