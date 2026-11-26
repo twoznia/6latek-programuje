@@ -217,7 +217,7 @@ def bez_nowych_kart(plansza, powrot):
     return None
 
 
-OPCJE = ("limit", "suma", "warianty", "pytania", "parametr", "rekurencja")
+OPCJE = ("limit", "suma", "warianty", "pytania", "parametr", "rekurencja", "wymagaj")
 
 
 def poziom_wyzszy(nr):
@@ -273,6 +273,11 @@ def poziom_wyzszy(nr):
                 sys.exit(f"{where}: rozwiązanie używa kart spoza zestawu: {sorted(uzyte - set(karty))}")
             if any(c[0] == "ZRÓB A" for c in przepis) and not rekurencja:
                 sys.exit(f"{where}: ZRÓB A w przepisie bez 'rekurencja: tak'")
+            wymagaj = ust.get("wymagaj")
+            if wymagaj not in (None, "rekurencja"):
+                sys.exit(f"{where}: nieznane 'wymagaj: {wymagaj}'")
+            if wymagaj and not any(c[0] == "ZRÓB A" for c in przepis):
+                sys.exit(f"{where}: 'wymagaj: rekurencja', a przepis A nie woła sam siebie")
             pytania = [p.strip() for p in ust["pytania"].split(",")] if "pytania" in ust else PYTANIA
             for c in prog + przepis:
                 if c[0] in ("JEŚLI", "DOPÓKI") and c[1] not in pytania:
@@ -301,7 +306,7 @@ def poziom_wyzszy(nr):
             ile = symulator.ile_kart(prog, przepis)
             if limit is not None and ile > limit:
                 BLEDY.append(f"{where}: rozwiązanie ma {ile} kart, a limit to {limit}")
-            if limit is not None and not warianty:
+            if limit is not None and not warianty and not wymagaj:
                 prosto = bez_nowych_kart(plansza, back)
                 if prosto is not None and prosto <= limit:
                     uwagi.append(f"{where}: da się bez nowych kart w {prosto} kartach (limit {limit})")
@@ -318,6 +323,7 @@ def poziom_wyzszy(nr):
             if limit is not None: g["limit"] = limit
             if parametr: g["parametr"] = True
             if rekurencja: g["rekurencja"] = True
+            if wymagaj: g["wymagaj"] = wymagaj
             if {"JEŚLI", "DOPÓKI"} & set(karty): g["pytania"] = pytania
             games.append(g)
     return games, uwagi

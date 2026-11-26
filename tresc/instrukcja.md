@@ -277,6 +277,10 @@ N −: odejmij od N liczbę z okienka
 - **Licznik.** DOPÓKI WOLNE? (IDŹ, N + 1) liczy kroki. Potem IDŹ ×N wraca dokładnie tyle samo. DOPÓKI N > 0? (…, N − 1) to odliczanie: pętla sama się kończy przy zerze.
 - **Większe liczby.** Karty liczb kończą się na 6, ale N może być większe: USTAW N 6, a potem N + 2 daje 8.
 
+---
+
+# Dla starszych: poziomy 5–7
+
 ## Poziom 5 dla początkującego programisty: pytania złożone i labirynty
 
 - **Składanie pytań.** W okienko JEŚLI albo DOPÓKI można położyć kilka kart: NIE WOLNE? (odwrócona odpowiedź), NIE WOLNE? I WOLNE W LEWO? (TAK tylko wtedy, gdy oba są TAK), LAWA? LUB KLOCEK? (TAK, gdy choć jedno jest TAK).
@@ -289,3 +293,9 @@ N −: odejmij od N liczbę z okienka
 - **Parametr.** Na tym poziomie liczba w okienku ZRÓB A nie mówi „ile razy”. Przekazuje wartość do przepisu: ZRÓB A ×3 robi przepis raz, a w środku przepisu N = 3. Przepis „kwadrat o boku N” rysuje więc kwadrat o boku 1, 2 albo 5, zależnie od karty.
 - **Zmienna lokalna.** Po powrocie z przepisu N wraca do wartości sprzed ZRÓB A. Przepis może odliczać N − 1, a program i tak pamięta swoje N. Dorosły zapisuje wartości N jedna pod drugą i skreśla ostatnią po powrocie z przepisu.
 - **N jako argument.** ZRÓB A z kartą N w okienku przekazuje bieżące N, np. zmierzoną odległość: „idź do klocka i licz, a potem narysuj kwadrat tej wielkości”.
+
+## Poziom 7 (trudny): rekurencja
+
+- **Przepis woła sam siebie.** Karta ZRÓB A może leżeć w przepisie A. Przepis musi mieć warunek stopu (JEŚLI N > 0? albo JEŚLI WOLNE?), bo bez niego robot „zapętla się” i gra przerywa program po 40 wywołaniach.
+- **Karty po ZRÓB A czekają.** Robot robi je dopiero po powrocie z wywołania, od najgłębszego. Dlatego przepis „IDŹ, ZRÓB A, IDŹ” prowadzi robota do ściany i z powrotem, a drzewo rysuje najpierw lewą, potem prawą gałąź. Dorosły odkłada żeton na każde wywołanie i zdejmuje go przy powrocie.
+- **META w przepisie** kończy tylko bieżące wywołanie (wczesny powrót). W tych grach przepis A musi wołać sam siebie, inaczej nie ma BRAWO.

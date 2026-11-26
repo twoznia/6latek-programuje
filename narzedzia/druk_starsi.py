@@ -23,11 +23,13 @@ WSTEP_KOD = ("Kółko to START, a trójkąt pokazuje, gdzie Robot patrzy. Rozwi�
 
 def gry(path):
     text = open(path, encoding="utf-8").read()
-    size = None
+    size, zest = None, {}
     for blok in re.split(r"^(?=#{2,4} )", text, flags=re.M):
         head = blok.splitlines()[0] if blok.strip() else ""
         if head.startswith("## "):
             size = int(re.search(r"(\d)", head).group(1))
+        elif head.startswith("### "):
+            zest = {k.strip(): v.strip() for k, v in (l.split(":", 1) for l in blok.splitlines()[1:] if ":" in l)}
         elif head.startswith("#### "):
             num, title = re.match(r"^#### (\d+)\.\s*(.*)$", head).groups()
             desc = " ".join(l.strip() for l in blok.split("```")[0].splitlines()[1:] if l.strip())
@@ -35,7 +37,7 @@ def gry(path):
             sol = re.search(r"```rozwiazanie\n(.*?)```", blok, re.S).group(1)
             u = re.search(r"```ustawienia\n(.*?)```", blok, re.S)
             ust = dict(l.split(":", 1) for l in u.group(1).splitlines() if ":" in l) if u else {}
-            ust = {k.strip(): v.strip() for k, v in ust.items()}
+            ust = {**zest, **{k.strip(): v.strip() for k, v in ust.items()}}
             # ustawienia zestawu (np. warianty nie, ale parametr tak) - tylko te, które wpływają na opis
             yield size, int(num), title, desc, board, sol, ust
 
@@ -61,6 +63,8 @@ def main():
                     if "warianty" in ust:
                         w = [" ".join(SLOWO.get(c, c) for c in x) for x in ust["warianty"].split()]
                         opis += " Warianty pól ?: " + "; ".join(f"{i + 1}) {x}" for i, x in enumerate(w)) + "."
+                    if ust.get("wymagaj") == "rekurencja":
+                        opis += " Przepis A musi wołać sam siebie."
                     out.append(opis)
                     out.append("```plansza\n" + board + "```")
                     out.append(("```kod\n" if nr >= 5 else "```rozwiazanie\n") + sol + "```\n")
