@@ -276,3 +276,10 @@ N −: odejmij od N liczbę z okienka
 - **Karta N w okienku.** IDŹ z kartą N w okienku to „idź tyle pól, ile jest teraz w N”. Tak samo POWTÓRZ ×N. Gdy N rośnie w pętli, każdy obrót jest dłuższy (spirala, coraz wyższe schody).
 - **Licznik.** DOPÓKI WOLNE? (IDŹ, N + 1) liczy kroki. Potem IDŹ ×N wraca dokładnie tyle samo. DOPÓKI N > 0? (…, N − 1) to odliczanie: pętla sama się kończy przy zerze.
 - **Większe liczby.** Karty liczb kończą się na 6, ale N może być większe: USTAW N 6, a potem N + 2 daje 8.
+
+## Poziom 5 dla początkującego programisty: pytania złożone i labirynty
+
+- **Składanie pytań.** W okienko JEŚLI albo DOPÓKI można położyć kilka kart: NIE WOLNE? (odwrócona odpowiedź), NIE WOLNE? I WOLNE W LEWO? (TAK tylko wtedy, gdy oba są TAK), LAWA? LUB KLOCEK? (TAK, gdy choć jedno jest TAK).
+- **Czujniki.** WOLNE W LEWO? i WOLNE W PRAWO? pytają o pole obok robota, a nie przed nim.
+- **Labirynty.** Część ścian (pola ?) za każdym razem stoi inaczej, więc wyuczona droga nie wystarczy. Działa algorytm „ręka na ścianie”: po każdym kroku, jeśli w prawo jest wolne, skręć w prawo, a jeśli nie, kręć się w lewo, dopóki przed robotem nie jest wolne.
+- **Na kartach gier** rozwiązanie jest zapisane tekstem, jak w prawdziwym programie. Wcięcie to wnętrze pętli, pytania albo przepisu.

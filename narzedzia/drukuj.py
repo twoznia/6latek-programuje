@@ -324,6 +324,11 @@ def render_blocks(lines):
                 out.append(("program", block_program(body, arg)))
             elif kind == "rozwiazanie":
                 out.append(("rozw", block_program(body, arg)))
+            elif kind == "kod":
+                # rozwiązanie jako tekst (poziomy dla programistów): zwięźlej niż karty
+                txt = html.escape("\n".join(l.rstrip() for l in body if l.strip()))
+                n = sum(1 for l in body if l.strip())
+                out.append(("rozw", f'<pre class="kod{" dlugi" if n > 12 else ""}">{txt}</pre>'))
             else:
                 out.append(("special", f'<pre>{html.escape(chr(10).join(body))}</pre>'))
             continue
