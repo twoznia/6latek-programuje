@@ -1,16 +1,21 @@
-// Robot i Programista - wersja online (poziomy 1 i 2). Dane gier: gra/gry.js (window.GRY).
+// Robot i Programista - wersja online (poziomy 1-7). Dane gier: gra/gry.js (window.GRY).
 // Poziom 2: pętla POWTÓRZ…KONIEC, klucze (@) i drzwi (D), monety 1-6 z sumą, limit kart,
 // pytanie JEŚLI…NIE…KONIEC z polami ? (warianty planszy) i przepis A z kartą ZRÓB A.
+// Poziom 3+: DOPÓKI…KONIEC, zmienna N (N =, N +, N −, liczba N w okienku), pytania złożone
+// (NIE, I, LUB, czujniki w lewo i w prawo), przepis z parametrem, rekurencja i META.
+// Ta sama logika jest w narzedzia/symulator.py (sprawdzanie rozwiązań).
 (function () {
   "use strict";
   var GRY = window.GRY || [];
   var KOLOR = {
     "IDŹ": "#2e9e4f", "SKRĘĆ W PRAWO": "#f08a1c", "SKRĘĆ W LEWO": "#2b6fd6", "OBRÓĆ SIĘ": "#8a4fd1", "SKOCZ": "#0c8599",
-    "POWTÓRZ": "#d6336c", "KONIEC": "#495057", "JEŚLI": "#b08900", "NIE": "#e03131", "ZRÓB A": "#364fc7"
+    "POWTÓRZ": "#d6336c", "KONIEC": "#495057", "JEŚLI": "#b08900", "NIE": "#e03131", "ZRÓB A": "#364fc7",
+    "DOPÓKI": "#0b7285", "N =": "#6741d9", "N +": "#6741d9", "N −": "#6741d9", "META": "#1d2a36"
   };
   var NAPIS = {
     "IDŹ": ["IDŹ"], "SKRĘĆ W PRAWO": ["SKRĘĆ", "W PRAWO"], "SKRĘĆ W LEWO": ["SKRĘĆ", "W LEWO"], "OBRÓĆ SIĘ": ["OBRÓĆ", "SIĘ"], "SKOCZ": ["SKOCZ"],
-    "POWTÓRZ": ["POWTÓRZ"], "JEŚLI": ["JEŚLI"], "ZRÓB A": ["ZRÓB A"]
+    "POWTÓRZ": ["POWTÓRZ"], "JEŚLI": ["JEŚLI"], "ZRÓB A": ["ZRÓB A"],
+    "DOPÓKI": ["DOPÓKI"], "N =": ["USTAW N"], "N +": ["N +"], "N −": ["N −"], "META": ["META"]
   };
   var IKONA = {
     "IDŹ": '<path d="M50 8 L84 46 L61 46 L61 92 L39 92 L39 46 L16 46 Z" fill="currentColor"/>',
@@ -23,7 +28,12 @@
     "JEŚLI": '<text x="50" y="84" text-anchor="middle" font-size="96" font-weight="800" font-family="Arial,sans-serif" fill="currentColor">?</text>',
     "NIE": '<circle cx="50" cy="50" r="44" fill="currentColor"/><path d="M32 32 L68 68 M68 32 L32 68" stroke="#fff" stroke-width="13" stroke-linecap="round"/>',
     "TAK": '<circle cx="50" cy="50" r="44" fill="currentColor"/><path d="M26 52 L44 70 L76 32" stroke="#fff" stroke-width="13" fill="none" stroke-linecap="round" stroke-linejoin="round"/>',
-    "ZRÓB A": '<rect x="18" y="6" width="64" height="88" rx="9" fill="none" stroke="currentColor" stroke-width="9"/><polygon points="38,28 72,50 38,72" fill="currentColor"/>'
+    "ZRÓB A": '<rect x="18" y="6" width="64" height="88" rx="9" fill="none" stroke="currentColor" stroke-width="9"/><polygon points="38,28 72,50 38,72" fill="currentColor"/>',
+    "DOPÓKI": '<path d="M80 52 A30 30 0 1 1 66 26" stroke="currentColor" stroke-width="13" fill="none"/><path d="M52 6 L84 26 L54 44 Z" fill="currentColor"/><text x="50" y="66" text-anchor="middle" font-size="40" font-weight="800" font-family="Arial,sans-serif" fill="currentColor">?</text>',
+    "N =": '<rect x="10" y="14" width="80" height="72" rx="14" fill="none" stroke="currentColor" stroke-width="9"/><text x="50" y="70" text-anchor="middle" font-size="54" font-weight="800" font-family="Arial,sans-serif" fill="currentColor">N</text>',
+    "N +": '<text x="34" y="70" text-anchor="middle" font-size="56" font-weight="800" font-family="Arial,sans-serif" fill="currentColor">N</text><path d="M66 34 V72 M47 53 H85" stroke="currentColor" stroke-width="11"/>',
+    "N −": '<text x="34" y="70" text-anchor="middle" font-size="56" font-weight="800" font-family="Arial,sans-serif" fill="currentColor">N</text><path d="M47 53 H85" stroke="currentColor" stroke-width="11"/>',
+    "META": '<path d="M22 92 V10" stroke="currentColor" stroke-width="9"/><path d="M26 12 H84 V52 H26 Z" fill="currentColor"/><path d="M26 12 H45 V32 H26 Z M45 32 H64 V52 H45 Z M64 12 H84 V32 H64 Z" fill="#fff"/>'
   };
   var RUCH = ["IDŹ", "SKRĘĆ W PRAWO", "SKRĘĆ W LEWO", "OBRÓĆ SIĘ", "SKOCZ"];
   var PYTANIE = { "LAWA?": "L", "KAŁUŻA?": "K", "SKARB?": "*", "ŚCIANA?": "SCIANA" };
@@ -32,11 +42,23 @@
   var KIER = "^>v<";
   var DXY = { "^": [-1, 0], ">": [0, 1], "v": [1, 0], "<": [0, -1] };
   var S = 20, O = 4; // rozmiar pola w SVG i margines
-  var MAX = 30, MAX_KROKOW = 400;
+  var MAX = 30, MAX_KROKOW = 600;
+  var OTWIERA = { "POWTÓRZ": 1, "JEŚLI": 1, "DOPÓKI": 1 };
+  var ZMIENNA = { "N =": 1, "N +": 1, "N −": 1 };
+  var NIE_WOLNO = { "L": 1, "K": 1, "#": 1, "SCIANA": 1, "D": 1 };
+  var OPIS_POZIOMU = {
+    1: "Karty IDŹ, SKRĘĆ, OBRÓĆ SIĘ i SKOCZ. Liczba mówi, ile razy.",
+    2: "Nowe karty i pola: pętla POWTÓRZ, klucz i drzwi, monety do liczenia, pytanie JEŚLI i przepis A. W każdym zestawie gry idą od najłatwiejszej.",
+    3: "Dla 8-latka: pętla w pętli i nowa pętla DOPÓKI, która kręci się tak długo, jak odpowiedź brzmi TAK.",
+    4: "Dla 12-latka: zmienna N. Robot pamięta liczbę N, może ją zmieniać i używać w okienku karty (IDŹ ×N).",
+    5: "Dla początkującego programisty: pytania złożone (NIE, I, LUB), czujniki w lewo i w prawo oraz labirynty, które za każdym razem są inne.",
+    6: "Dla średniego programisty: przepis z parametrem (ZRÓB A ×3 daje N = 3 w przepisie) i pętle z licznikiem.",
+    7: "Trudny: rekurencja (przepis woła sam siebie), META i ogólne algorytmy z limitem kart."
+  };
 
   var $ = function (id) { return document.getElementById(id); };
   var stan = {
-    przebieg: 0, odpowiedz: null, gra: null, biegnie: false, robot: null, rozmiar: 5, poziom: 1,
+    przebieg: 0, odpowiedz: null, gra: null, biegnie: false, robot: null, rozmiar: 5, poziom: 1, N: 0,
     obszary: { program: [], przepis: [] }, obszar: "program", wybrana: { program: -1, przepis: -1 }, nowyId: 1
   };
 
@@ -48,7 +70,7 @@
   }
   function zapiszWybor() { try { localStorage.setItem("rip-wybor", JSON.stringify({ p: stan.poziom, r: stan.rozmiar })); } catch (e) { /* bez zapisu */ } }
   function wczytajWybor() {
-    try { var w = JSON.parse(localStorage.getItem("rip-wybor") || "null"); if (w) { stan.poziom = w.p === 2 ? 2 : 1; stan.rozmiar = [5, 7, 9].indexOf(w.r) >= 0 ? w.r : 5; } } catch (e) { /* domyślnie */ }
+    try { var w = JSON.parse(localStorage.getItem("rip-wybor") || "null"); if (w) { stan.poziom = poziomy().indexOf(w.p) >= 0 ? w.p : 1; stan.rozmiar = [5, 7, 9].indexOf(w.r) >= 0 ? w.r : 5; } } catch (e) { /* domyślnie */ }
   }
 
   // ---------- mowa ----------
@@ -67,12 +89,22 @@
       } catch (e) { zakoncz(); }
     });
   }
+  function slowoLiczby(n) { return n === "N" ? "N" : (SLOWO[n] || String(n)); }
+  function tekstPytania(q) {
+    return q.toLowerCase().replace(/\?/g, "").replace(/ > /g, " większe od ").replace(/ = /g, " równe ").replace(/ 0/g, " zero");
+  }
   function tekstKarty(c) {
-    if (c.k === "POWTÓRZ") return "powtórz " + SLOWO[c.n] + (c.n > 1 ? " razy" : "");
-    if (c.k === "JEŚLI") return "jeśli " + PYT_SLOWO[c.q];
-    if (c.k === "ZRÓB A") return "zrób przepis A" + (c.n > 1 ? " " + SLOWO[c.n] + " razy" : "");
+    if (c.k === "POWTÓRZ") return "powtórz " + slowoLiczby(c.n) + (c.n !== 1 ? " razy" : "");
+    if (c.k === "JEŚLI") return "jeśli " + (PYT_SLOWO[c.q] || tekstPytania(c.q));
+    if (c.k === "DOPÓKI") return "dopóki " + (PYT_SLOWO[c.q] || tekstPytania(c.q));
+    if (c.k === "N =") return "N równa się " + c.n;
+    if (c.k === "N +") return "N plus " + c.n;
+    if (c.k === "N −") return "N minus " + c.n;
+    if (c.k === "META") return "meta";
+    if (c.k === "ZRÓB A" && stan.gra && stan.gra.parametr) return "zrób przepis A, N równa się " + slowoLiczby(c.n);
+    if (c.k === "ZRÓB A") return "zrób przepis A" + (c.n !== 1 ? " " + slowoLiczby(c.n) + " razy" : "");
     if (c.k === "NIE" || c.k === "KONIEC") return c.k;
-    return c.k + (c.n > 1 ? " " + SLOWO[c.n] + " razy" : "");
+    return c.k + (c.n !== 1 ? " " + slowoLiczby(c.n) + " razy" : "");
   }
 
   // ---------- rysowanie ----------
@@ -175,10 +207,13 @@
     var wszystkie = gry.length, zrobione = gry.filter(function (g) { return gw.indexOf(g.id) >= 0; }).length;
     $("postep").textContent = "Gwiazdki: " + zrobione + " z " + wszystkie;
     [5, 7, 9].forEach(function (r) { $("tab" + r).setAttribute("aria-selected", stan.rozmiar === r); });
-    [1, 2].forEach(function (p) { $("poz" + p).setAttribute("aria-selected", stan.poziom === p); });
-    $("opisPoziomu").textContent = stan.poziom === 1
-      ? "Karty IDŹ, SKRĘĆ, OBRÓĆ SIĘ i SKOCZ. Liczba mówi, ile razy."
-      : "Nowe karty i pola: pętla POWTÓRZ, klucz i drzwi, monety do liczenia, pytanie JEŚLI i przepis A. W każdym zestawie gry idą od najłatwiejszej.";
+    document.querySelectorAll(".tab[data-poziom]").forEach(function (b) { b.setAttribute("aria-selected", stan.poziom === +b.dataset.poziom); });
+    $("opisPoziomu").textContent = OPIS_POZIOMU[stan.poziom] || "";
+  }
+  function poziomy() {
+    var p = [];
+    GRY.forEach(function (g) { if (p.indexOf(g.poziom) < 0) p.push(g.poziom); });
+    return p.sort(function (a, b) { return a - b; });
   }
 
   // ---------- gra ----------
@@ -190,6 +225,7 @@
     stan.gra = gra; stan.obszary = { program: [], przepis: [] }; stan.obszar = "program"; stan.wybrana = { program: -1, przepis: -1 };
     stan.poziom = gra.poziom; stan.rozmiar = gra.size;
     $("ekranStart").hidden = true; $("ekranGra").hidden = false; $("doListy").hidden = false; document.body.classList.add("w-grze");
+    stan.N = 0;
     $("graTytul").textContent = (gra.poziom > 1 ? "Poziom " + gra.poziom + ", gra " : "Gra ") + gra.nr + ": " + gra.tytul + " (" + gra.size + " × " + gra.size + ")";
     $("graOpis").textContent = gra.opis;
     $("rozw").hidden = true;
@@ -206,7 +242,7 @@
   }
   function tokenZDanych(c) {
     var t = { k: c[0], n: 1, id: stan.nowyId++ };
-    if (c[0] === "JEŚLI") t.q = c[1]; else t.n = c[1] || 1;
+    if (c[0] === "JEŚLI" || c[0] === "DOPÓKI") t.q = c[1]; else t.n = c[1] === undefined ? 1 : c[1];
     return t;
   }
   function wariantPlanszy(w) {
@@ -217,7 +253,7 @@
   // robot na START, plansza bez zmian (pola ? jeszcze nieodkryte)
   function naStart(w) {
     stan.pola = wariantPlanszy(w);
-    stan.zebrane = {}; stan.klucze = 0; stan.suma = 0; stan.kroki = 0;
+    stan.zebrane = {}; stan.klucze = 0; stan.suma = 0; stan.kroki = 0; stan.N = 0; stan.glebokosc = 0;
     var info = rysujPlansze($("plansza"), stan.pola, true, stan.zebrane);
     stan.info = info;
     stan.robot = { y: info.start.y, x: info.start.x, d: info.start.d, kat: KIER.indexOf(info.start.d) * 90 };
@@ -231,6 +267,7 @@
     if (g.limit) h.push('<span class="' + (ileKart() > g.limit ? "zle" : "") + '">Karty: ' + ileKart() + " z " + g.limit + "</span>");
     if (g.plansza.some(function (r) { return r.indexOf("@") >= 0; })) h.push('<span><svg viewBox="0 0 20 20" aria-hidden="true">' + klucz(0, 0) + "</svg> " + stan.klucze + "</span>");
     if (g.suma) h.push("<span>Suma: " + stan.suma + " z " + g.suma + "</span>");
+    if (ma("N =") || ma("N +") || g.parametr) h.push('<span class="zm">N = ' + stan.N + "</span>");
     $("licznik").innerHTML = h.join("");
     $("licznik").hidden = !h.length;
   }
@@ -240,24 +277,31 @@
   function grupy(lista) {
     var stos = [], gr = {};
     lista.forEach(function (c, i) {
-      if (c.k === "POWTÓRZ" || c.k === "JEŚLI") { var g = { start: i, nie: -1, koniec: -1 }; stos.push(g); gr[i] = g; }
-      else if (c.k === "NIE" && stos.length) { stos[stos.length - 1].nie = i; gr[i] = stos[stos.length - 1]; }
+      if (OTWIERA[c.k]) { var g = { start: i, nie: -1, koniec: -1 }; stos.push(g); gr[i] = g; }
+      else if (c.k === "NIE" && stos.length && lista[stos[stos.length - 1].start].k === "JEŚLI") { stos[stos.length - 1].nie = i; gr[i] = stos[stos.length - 1]; }
       else if (c.k === "KONIEC" && stos.length) { var t = stos.pop(); t.koniec = i; gr[i] = t; }
     });
     return gr;
   }
   function chip(c, obszar, wybrana) {
     var kolor = KOLOR[c.k], tresc;
-    if (c.k === "JEŚLI") tresc = ikona("JEŚLI") + "<span>JEŚLI</span>" + pytanieIkona(c.q) + '<span class="q">' + c.q + "</span>";
+    if (c.k === "JEŚLI" || c.k === "DOPÓKI") tresc = ikona(c.k) + "<span>" + c.k + "</span>" + pytanieIkona(c.q) + '<span class="q">' + c.q + "</span>";
+    else if (ZMIENNA[c.k]) tresc = ikona(c.k) + "<span>" + c.k + '</span><b class="n">' + c.n + "</b>";
+    else if (c.k === "META") tresc = ikona("META") + "<span>META</span>";
+    else if (c.k === "ZRÓB A" && stan.gra && stan.gra.parametr) tresc = ikona(c.k) + "<span>ZRÓB A</span>" + '<b class="n">N=' + c.n + "</b>";
     else if (c.k === "NIE") tresc = ikona("NIE") + "<span>NIE</span>";
     else if (c.k === "KONIEC") tresc = ikona("KONIEC") + "<span>KONIEC</span>";
-    else tresc = ikona(c.k) + "<span>" + c.k + "</span>" + (c.n > 1 || c.k === "POWTÓRZ" ? '<b class="n">×' + c.n + "</b>" : "");
+    else tresc = ikona(c.k) + "<span>" + c.k + "</span>" + (c.n !== 1 || c.k === "POWTÓRZ" ? '<b class="n">×' + c.n + "</b>" : "");
     var aktywny = obszar !== "x";
     return '<button class="chip' + (wybrana ? " wybrana" : "") + '" data-id="' + c.id + '"' + (aktywny ? ' data-a="' + obszar + '" aria-pressed="' + !!wybrana + '"' : ' tabindex="-1"') +
            ' style="color:' + kolor + '">' + tresc + "</button>";
   }
   function pytanieIkona(q) {
     var t = PYTANIE[q];
+    if (q === "KLOCEK?") t = "#";
+    if (q === "WOLNE?") return '<svg viewBox="0 0 20 20" aria-hidden="true"><rect x="1" y="1" width="18" height="18" rx="3" fill="#e9dcc6" stroke="#2e9e4f" stroke-width="1.4"/><path d="M10 15 V5 M6 9 L10 5 L14 9" stroke="#2e9e4f" stroke-width="2" fill="none" stroke-linecap="round"/></svg>';
+    if (q === "WOLNE W LEWO?" || q === "WOLNE W PRAWO?") return '<svg viewBox="0 0 20 20" aria-hidden="true"><rect x="1" y="1" width="18" height="18" rx="3" fill="#e9dcc6" stroke="#2e9e4f" stroke-width="1.4"/><path d="' + (q === "WOLNE W LEWO?" ? "M15 10 H5 M9 6 L5 10 L9 14" : "M5 10 H15 M11 6 L15 10 L11 14") + '" stroke="#2e9e4f" stroke-width="2" fill="none" stroke-linecap="round"/></svg>';
+    if (!t) return "";
     if (t === "SCIANA") return '<svg viewBox="0 0 20 20" aria-hidden="true"><rect x="1" y="1" width="18" height="18" rx="2" fill="#f1d3c3"/><path d="M1 7 H19 M1 13 H19 M7 1 V7 M13 7 V13 M7 13 V19" stroke="#c0603a" stroke-width="1.6"/></svg>';
     return '<svg viewBox="0 0 20 20" aria-hidden="true">' + rysujPole(t, 0, 0) + "</svg>";
   }
@@ -265,7 +309,7 @@
   function rysujKarty(lista, obszar, w) {
     var kursor = '<span class="kursor" aria-hidden="true"></span>', html = "";
     lista.forEach(function (c, i) {
-      var otw = c.k === "POWTÓRZ" || c.k === "JEŚLI";
+      var otw = !!OTWIERA[c.k];
       if (otw) html += '<span class="grupa" style="--c:' + KOLOR[c.k] + '">';
       html += chip(c, obszar, i === w);
       if (c.k === "JEŚLI" && i !== w) html += '<span class="tak" aria-hidden="true">' + ikona("TAK") + "TAK</span>";
@@ -301,9 +345,14 @@
   }
   function wybrany() { var w = stan.wybrana[stan.obszar]; return w >= 0 ? stan.obszary[stan.obszar][w] : null; }
   function rysujPanelLiczb() {
-    var c = wybrany(), pyt = c && c.k === "JEŚLI";
+    var c = wybrany(), pyt = c && (c.k === "JEŚLI" || c.k === "DOPÓKI");
     $("liczby").hidden = pyt; $("pytania").hidden = !pyt;
-    $("tytulLiczb").textContent = pyt ? "O co pyta robot?" : "Ile razy?";
+    $("tytulLiczb").textContent = pyt ? "O co pyta robot?" : (c && ZMIENNA[c.k] ? "Jaka liczba?" : "Ile razy?");
+    var zN = stan.gra && (ma("N =") || ma("N +") || stan.gra.parametr);
+    $("liczby").querySelectorAll(".liczba").forEach(function (b) {
+      if (b.dataset.n === "0") b.hidden = !(stan.gra && ma("N ="));
+      if (b.dataset.n === "N") b.hidden = !zN;
+    });
     if (pyt) {
       $("pytania").innerHTML = (stan.gra.pytania || Object.keys(PYTANIE)).map(function (q) {
         return '<button class="pytanie' + (q === c.q ? " wyb" : "") + '" data-q="' + q + '">' + pytanieIkona(q) + "<span>" + q + "</span></button>";
@@ -332,13 +381,15 @@
     if (stan.biegnie) return;
     var ob = stan.obszar, p = stan.obszary[ob];
     var nowe;
-    if (nazwa === "ZRÓB A" && ob === "przepis") { komunikat("Kartę ZRÓB A kładziemy w programie, a nie w przepisie.", "zle"); return; }
+    if (nazwa === "ZRÓB A" && ob === "przepis" && !stan.gra.rekurencja) { komunikat("Kartę ZRÓB A kładziemy w programie, a nie w przepisie.", "zle"); return; }
     if (nazwa === "POWTÓRZ") nowe = [{ k: "POWTÓRZ", n: 2 }, { k: "KONIEC", n: 1 }];
     else if (nazwa === "JEŚLI") nowe = [{ k: "JEŚLI", n: 1, q: (stan.gra.pytania || ["LAWA?"])[0] }, { k: "NIE", n: 1 }, { k: "KONIEC", n: 1 }];
+    else if (nazwa === "DOPÓKI") nowe = [{ k: "DOPÓKI", n: 1, q: (stan.gra.pytania || ["WOLNE?"])[0] }, { k: "KONIEC", n: 1 }];
+    else if (nazwa === "N =") nowe = [{ k: "N =", n: 0 }];
     else nowe = [{ k: nazwa, n: 1 }];
     if (ileKart() + nowe.length > MAX) { komunikat("Program jest już bardzo długi.", "zle"); return; }
     if (stan.gra.limit && ileKart() + nowe.length > stan.gra.limit) {
-      komunikat("Masz tylko " + stan.gra.limit + " " + slowoKarty(stan.gra.limit) + ". " + (ma("ZRÓB A") ? "Może przepis A pomoże?" : "Może pomoże POWTÓRZ?"), "zle"); return;
+      komunikat("Masz tylko " + stan.gra.limit + " " + slowoKarty(stan.gra.limit) + ". " + (ma("ZRÓB A") ? "Może przepis A pomoże?" : ma("DOPÓKI") ? "Może pomoże pętla?" : "Może pomoże POWTÓRZ?"), "zle"); return;
     }
     nowe.forEach(function (c) { c.id = stan.nowyId++; });
     var w = stan.wybrana[ob] + 1;
@@ -352,13 +403,16 @@
     if (!p.length) { komunikat("Najpierw wybierz kartę polecenia.", "zle"); return; }
     var c = wybrany();
     if (!c) { komunikat("Dotknij karty w programie, której chcesz zmienić liczbę.", "zle"); return; }
-    if (c.k === "NIE" || c.k === "KONIEC") { komunikat("Karta " + c.k + " nie ma liczby.", "zle"); return; }
+    if (c.k === "NIE" || c.k === "KONIEC" || c.k === "META") { komunikat("Karta " + c.k + " nie ma liczby.", "zle"); return; }
+    if (c.k === "JEŚLI" || c.k === "DOPÓKI") return;
+    if (n === 0 && c.k !== "N =") { komunikat("Zero pasuje tylko do karty USTAW N.", "zle"); return; }
+    if (n === "N" && ZMIENNA[c.k]) { komunikat("Tu wybierz zwykłą liczbę.", "zle"); return; }
     c.n = n;
-    powiedz(c.k === "POWTÓRZ" ? tekstKarty(c) : SLOWO[n] + (n > 1 ? " razy" : ""));
+    powiedz(c.k === "POWTÓRZ" || ZMIENNA[c.k] || c.k === "ZRÓB A" ? tekstKarty(c) : slowoLiczby(n) + (n !== 1 ? " razy" : ""));
     rysujProgram(); naStart();
   }
   function pytanie(q) {
-    var c = wybrany(); if (!c || c.k !== "JEŚLI" || stan.biegnie) return;
+    var c = wybrany(); if (!c || (c.k !== "JEŚLI" && c.k !== "DOPÓKI") || stan.biegnie) return;
     c.q = q; powiedz(tekstKarty(c)); rysujProgram(); naStart();
   }
 
@@ -372,14 +426,34 @@
   }
   var BLAD = { "L": "Auć! To lawa! Trzeba ją obejść.", "K": "Plusk! Kałużę trzeba przeskoczyć.", "#": "Bum! Tu stoi klocek.", "SCIANA": "Stop! Tu kończy się plansza." };
   function Blad(t) { this.tekst = t; }
-  var PRZERWANE = {};
+  var PRZERWANE = {}, KONIEC_PRZEPISU = {};
+  function ile(n) { return n === "N" ? stan.N : n; }
+  // pytanie złożone: "X LUB Y", "X I Y", "NIE X" (LUB łączy słabiej niż I)
+  function prawda(q) {
+    return q.split(" LUB ").some(function (cz) { return cz.split(" I ").every(atom); });
+  }
+  function atom(q) {
+    q = q.trim();
+    if (q.indexOf("NIE ") === 0) return !atom(q.slice(4));
+    var r = stan.robot, i = KIER.indexOf(r.d);
+    function obok(o) { var d = DXY[KIER[(i + o) % 4]]; return pole(r.y + d[0], r.x + d[1]); }
+    if (PYTANIE[q]) return obok(0) === PYTANIE[q];
+    if (q === "KLOCEK?") return obok(0) === "#";
+    if (q === "WOLNE?") return !NIE_WOLNO[obok(0)];
+    if (q === "WOLNE W LEWO?") return !NIE_WOLNO[obok(3)];
+    if (q === "WOLNE W PRAWO?") return !NIE_WOLNO[obok(1)];
+    if (q === "N > 0?") return stan.N > 0;
+    if (q === "N = 0?") return stan.N === 0;
+    return false;
+  }
+  function tik() { if (++stan.kroki > MAX_KROKOW) throw new Blad("Uff, robot jest zmęczony. Program kręci się za długo."); }
 
   // płaska lista kart -> drzewo (pętle i pytania mają w środku swoje karty)
   function drzewo(lista) {
     var korzen = [], stos = [{ cel: korzen }];
     lista.forEach(function (c) {
       var top = stos[stos.length - 1];
-      if (c.k === "POWTÓRZ") { var w = { t: "petla", c: c, cialo: [] }; top.cel.push(w); stos.push({ w: w, cel: w.cialo }); }
+      if (c.k === "POWTÓRZ" || c.k === "DOPÓKI") { var w = { t: c.k === "POWTÓRZ" ? "petla" : "dopoki", c: c, cialo: [] }; top.cel.push(w); stos.push({ w: w, cel: w.cialo }); }
       else if (c.k === "JEŚLI") { var j = { t: "jesli", c: c, tak: [], nie: [] }; top.cel.push(j); stos.push({ w: j, cel: j.tak }); }
       else if (c.k === "NIE") { if (top.w && top.w.t === "jesli") { top.w.nieC = c; top.cel = top.w.nie; } }
       else if (c.k === "KONIEC") { if (stos.length > 1) { top.w.koniecC = c; stos.pop(); } }
@@ -394,12 +468,12 @@
     if (tak) pokazWProgramie(el.closest(".program"), el);
   }
   function stanRobota() {
-    return { robot: Object.assign({}, stan.robot), zebrane: Object.assign({}, stan.zebrane), pola: stan.pola.map(function (r) { return r.slice(); }), klucze: stan.klucze, suma: stan.suma };
+    return { robot: Object.assign({}, stan.robot), zebrane: Object.assign({}, stan.zebrane), pola: stan.pola.map(function (r) { return r.slice(); }), klucze: stan.klucze, suma: stan.suma, N: stan.N };
   }
   // robot wraca do stanu sprzed usuniętej karty (tryb debug)
   // (pozycja, kierunek, skarby, klucze, drzwi i monety). Robot widocznie cofa się na stare miejsce.
   function cofnij(przed) {
-    stan.zebrane = przed.zebrane; stan.pola = przed.pola; stan.klucze = przed.klucze; stan.suma = przed.suma;
+    stan.zebrane = przed.zebrane; stan.pola = przed.pola; stan.klucze = przed.klucze; stan.suma = przed.suma; stan.N = przed.N;
     rysujPlansze($("plansza"), stan.pola, true, stan.zebrane);
     robotBezAnimacji();          // nowy rysunek: robot najpierw stoi tam, gdzie skończył
     stan.robot = przed.robot;
@@ -414,21 +488,40 @@
       var w = wezly[i];
       if (w.c.usunieta) continue;
       if (w.t === "petla") {
-        for (var k = 0; k < w.c.n; k++) {
+        var ileRazy = ile(w.c.n);
+        for (var k = 0; k < ileRazy; k++) {
+          tik();
           podswietl(w.c, true);
-          komunikat("POWTÓRZ: " + (k + 1) + " z " + w.c.n, "");
+          komunikat("POWTÓRZ: " + (k + 1) + " z " + ileRazy, "");
           if (k === 0) await powiedz(tekstKarty(w.c)); else await czekaj(250);
           await sprawdzPrzebieg(ctx.przebieg);
           podswietl(w.c, false);
           await wykonaj(w.cialo, ctx);
         }
         komunikat("", "");
+      } else if (w.t === "dopoki") {
+        for (var runda = 0; ; runda++) {
+          podswietl(w.c, true);
+          var dalej = prawda(w.c.q);
+          komunikat(w.c.q + " " + (dalej ? "TAK! Kręcimy dalej." : "NIE! Koniec pętli."), "");
+          if (runda === 0) await powiedz("dopóki " + (PYT_SLOWO[w.c.q] || tekstPytania(w.c.q))); else await czekaj(300);
+          await sprawdzPrzebieg(ctx.przebieg);
+          podswietl(w.c, false);
+          if (!dalej) break;
+          tik();
+          await wykonaj(w.cialo, ctx);
+        }
+        komunikat("", "");
       } else if (w.t === "jesli") {
         podswietl(w.c, true);
-        var r = stan.robot, d = DXY[r.d], przed = pole(r.y + d[0], r.x + d[1]);
-        var tak = przed === PYTANIE[w.c.q];
-        komunikat("Czy przed robotem jest " + PYT_SLOWO[w.c.q] + "? " + (tak ? "TAK!" : "NIE!"), "");
-        await powiedz("czy przed robotem jest " + PYT_SLOWO[w.c.q] + "? " + (tak ? "tak" : "nie"));
+        var tak = prawda(w.c.q);
+        if (PYT_SLOWO[w.c.q]) {
+          komunikat("Czy przed robotem jest " + PYT_SLOWO[w.c.q] + "? " + (tak ? "TAK!" : "NIE!"), "");
+          await powiedz("czy przed robotem jest " + PYT_SLOWO[w.c.q] + "? " + (tak ? "tak" : "nie"));
+        } else {
+          komunikat(w.c.q + " " + (tak ? "TAK!" : "NIE!"), "");
+          await powiedz("czy " + tekstPytania(w.c.q) + "? " + (tak ? "tak" : "nie"));
+        }
         await czekaj(500);
         await sprawdzPrzebieg(ctx.przebieg);
         podswietl(w.c, false);
@@ -436,14 +529,27 @@
         komunikat("", "");
         await wykonaj(tak ? w.tak : w.nie, ctx);
       } else if (w.c.k === "ZRÓB A") {
-        for (var z = 0; z < w.c.n; z++) {
+        var param = !!stan.gra.parametr, nA = ile(w.c.n);
+        for (var z = 0; z < (param ? 1 : nA); z++) {
           podswietl(w.c, true);
-          await powiedz(z === 0 ? tekstKarty(w.c) : "jeszcze raz przepis A");
+          await powiedz(z === 0 ? (param ? "zrób przepis A, N równa się " + nA : tekstKarty(w.c)) : "jeszcze raz przepis A");
           await czekaj(200);
           await sprawdzPrzebieg(ctx.przebieg);
-          await wykonaj(ctx.przepis, ctx);
+          if (++stan.glebokosc > 40) throw new Blad("Przepis woła sam siebie bez końca. Potrzebne pytanie, które go zatrzyma.");
+          var stareN = stan.N;
+          if (param) { stan.N = nA; rysujLicznik(); }
+          try { await wykonaj(ctx.przepis, ctx); }
+          catch (e) { if (e !== KONIEC_PRZEPISU) throw e; }
+          stan.glebokosc--;
+          if (param) { stan.N = stareN; rysujLicznik(); }
           podswietl(w.c, false);
         }
+      } else if (w.c.k === "META") {
+        podswietl(w.c, true);
+        await powiedz("meta");
+        await czekaj(250);
+        podswietl(w.c, false);
+        throw KONIEC_PRZEPISU;
       } else {
         await wykonajKarte(w.c, ctx);
       }
@@ -454,7 +560,15 @@
     var przed = stanRobota(), blad = null;
     await powiedz(tekstKarty(c));
     await sprawdzPrzebieg(ctx.przebieg);
-    for (var k = 0; k < c.n; k++) {
+    if (ZMIENNA[c.k]) {
+      if (++stan.kroki > MAX_KROKOW) blad = "Uff, robot jest zmęczony. Program jest za długi.";
+      else stan.N = c.k === "N =" ? c.n : c.k === "N +" ? stan.N + c.n : stan.N - c.n;
+      rysujLicznik();
+      await czekaj(350);
+      await sprawdzPrzebieg(ctx.przebieg);
+    }
+    var razy = ZMIENNA[c.k] ? 0 : ile(c.n);
+    for (var k = 0; k < razy; k++) {
       if (++stan.kroki > MAX_KROKOW) { blad = "Uff, robot jest zmęczony. Program jest za długi."; break; }
       blad = krok(c.k);
       rysujLicznik();
@@ -516,7 +630,8 @@
         await czekaj(warianty.length > 1 ? 900 : 350);
         await sprawdzPrzebieg(przebieg);
         komunikat("", "");
-        await wykonaj(program, ctx);
+        try { await wykonaj(program, ctx); }
+        catch (e) { if (e !== KONIEC_PRZEPISU) throw e; }
         var wynik = ocen();
         if (wynik) { nieudana(); komunikat(wynik + (warianty.length > 1 ? " (próba " + (t + 1) + " z " + warianty.length + ")" : ""), "zle"); koniecBiegu(); return; }
         if (t < warianty.length - 1) {
@@ -646,9 +761,10 @@
 
   function init() {
     wczytajWybor();
-    $("liczby").innerHTML = [1, 2, 3, 4, 5, 6].map(function (n) { return '<button class="liczba" data-n="' + n + '" aria-label="' + SLOWO[n] + ' razy">' + n + "</button>"; }).join("");
+    $("liczby").innerHTML = [0, 1, 2, 3, 4, 5, 6, "N"].map(function (n) { return '<button class="liczba" data-n="' + n + '" aria-label="' + (n === 0 ? "zero" : n === "N" ? "N razy" : SLOWO[n] + " razy") + '"' + (n === 0 || n === "N" ? " hidden" : "") + ">" + n + "</button>"; }).join("");
+    $("poziomyTaby").innerHTML = poziomy().map(function (p) { return '<button class="tab" role="tab" data-poziom="' + p + '" aria-selected="false">Poziom ' + p + "</button>"; }).join("");
     $("karty").addEventListener("click", function (e) { var b = e.target.closest(".karta"); if (b) dodaj(b.dataset.k); });
-    $("liczby").addEventListener("click", function (e) { var b = e.target.closest(".liczba"); if (b) liczba(+b.dataset.n); });
+    $("liczby").addEventListener("click", function (e) { var b = e.target.closest(".liczba"); if (b) liczba(b.dataset.n === "N" ? "N" : +b.dataset.n); });
     $("pytania").addEventListener("click", function (e) { var b = e.target.closest(".pytanie"); if (b) pytanie(b.dataset.q); });
     function klikProgram(e) {
       if (stan.biegnie) return;
@@ -673,7 +789,7 @@
     $("pokazRozw").addEventListener("click", function () { $("rozw").hidden = !$("rozw").hidden; });
     $("lista").addEventListener("click", function (e) { var b = e.target.closest(".kafel"); if (b) location.hash = "gra-" + b.dataset.id; });
     [5, 7, 9].forEach(function (r) { $("tab" + r).addEventListener("click", function () { stan.rozmiar = r; zapiszWybor(); rysujListe(); }); });
-    [1, 2].forEach(function (p) { $("poz" + p).addEventListener("click", function () { stan.poziom = p; zapiszWybor(); rysujListe(); }); });
+    $("poziomyTaby").addEventListener("click", function (e) { var b = e.target.closest(".tab[data-poziom]"); if (b) { stan.poziom = +b.dataset.poziom; zapiszWybor(); rysujListe(); } });
     $("doListy").addEventListener("click", function () { location.hash = ""; });
     $("grajTeraz").addEventListener("click", function () {
       var gw = wczytajGw();

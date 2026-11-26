@@ -137,6 +137,7 @@ label.glos:has(input:focus-visible){outline:3px solid var(--accent);outline-offs
 .licznik{display:flex;gap:6px;flex-wrap:wrap;flex-basis:100%}
 .licznik span{display:inline-flex;align-items:center;gap:4px;background:var(--panel);border-radius:10px;padding:3px 10px;font-weight:800;font-size:15px;box-shadow:0 0 0 1.5px var(--line) inset}
 .licznik span.zle{color:var(--bad)}
+.licznik span.zm{color:#6741d9}
 .licznik svg{width:22px;height:22px}
 .rz{display:flex;flex-wrap:wrap;gap:6px;align-items:center;width:100%}
 
@@ -226,14 +227,13 @@ footer{margin-top:28px;color:var(--muted);font-size:14px}
     <div class="hero">
       <div>
         <h2>Ułóż program. Robot pójdzie po skarb.</h2>
-        <p>Dotykaj kart: IDŹ, SKRĘĆ, OBRÓĆ SIĘ, SKOCZ. Liczba mówi, ile razy. Potem naciśnij START i patrz, czy robot dojdzie do gwiazdki. Na lawę nie wolno wejść, a kałużę trzeba przeskoczyć. Na poziomie 2 czekają pętla, klucze i drzwi, monety do liczenia, pytanie JEŚLI i przepis.</p>
+        <p>Dotykaj kart: IDŹ, SKRĘĆ, OBRÓĆ SIĘ, SKOCZ. Liczba mówi, ile razy. Potem naciśnij START i patrz, czy robot dojdzie do gwiazdki. Na lawę nie wolno wejść, a kałużę trzeba przeskoczyć. Na poziomie 2 czekają pętla, klucze i drzwi, monety do liczenia, pytanie JEŚLI i przepis, a na poziomach 3–7 coraz trudniejsze zadania dla starszych dzieci i początkujących programistów.</p>
         <button class="btn go" id="grajTeraz">Graj!</button>
       </div>
       <div class="demo" id="demo" aria-hidden="true"></div>
     </div>
     <div class="tabs poziomy" role="tablist" aria-label="Poziom">
-      <button class="tab" role="tab" id="poz1" aria-selected="true">Poziom 1</button>
-      <button class="tab" role="tab" id="poz2" aria-selected="false">Poziom 2</button>
+      <span class="tabs" id="poziomyTaby" style="margin:0"></span>
       <span class="opis-poziomu" id="opisPoziomu"></span>
     </div>
     <div class="tabs" role="tablist" aria-label="Plansza">
