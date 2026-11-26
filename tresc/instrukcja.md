@@ -283,3 +283,9 @@ N −: odejmij od N liczbę z okienka
 - **Czujniki.** WOLNE W LEWO? i WOLNE W PRAWO? pytają o pole obok robota, a nie przed nim.
 - **Labirynty.** Część ścian (pola ?) za każdym razem stoi inaczej, więc wyuczona droga nie wystarczy. Działa algorytm „ręka na ścianie”: po każdym kroku, jeśli w prawo jest wolne, skręć w prawo, a jeśli nie, kręć się w lewo, dopóki przed robotem nie jest wolne.
 - **Na kartach gier** rozwiązanie jest zapisane tekstem, jak w prawdziwym programie. Wcięcie to wnętrze pętli, pytania albo przepisu.
+
+## Poziom 6 dla średniego programisty: przepis z parametrem
+
+- **Parametr.** Na tym poziomie liczba w okienku ZRÓB A nie mówi „ile razy”. Przekazuje wartość do przepisu: ZRÓB A ×3 robi przepis raz, a w środku przepisu N = 3. Przepis „kwadrat o boku N” rysuje więc kwadrat o boku 1, 2 albo 5, zależnie od karty.
+- **Zmienna lokalna.** Po powrocie z przepisu N wraca do wartości sprzed ZRÓB A. Przepis może odliczać N − 1, a program i tak pamięta swoje N. Dorosły zapisuje wartości N jedna pod drugą i skreśla ostatnią po powrocie z przepisu.
+- **N jako argument.** ZRÓB A z kartą N w okienku przekazuje bieżące N, np. zmierzoną odległość: „idź do klocka i licz, a potem narysuj kwadrat tej wielkości”.
