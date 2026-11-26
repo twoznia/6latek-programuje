@@ -4,7 +4,7 @@
 
 ## Gra online
 
-Otwórz [`index.html`](index.html) w przeglądarce (wystarczy podwójne kliknięcie, internet nie jest potrzebny). To strona startowa gry na ekranie: wybór poziomu (1 albo 2) i planszy 5 × 5, 7 × 7 albo 9 × 9, lista gier i gra. Dziecko dotyka kart IDŹ, SKRĘĆ W PRAWO, SKRĘĆ W LEWO, OBRÓĆ SIĘ i SKOCZ, dokłada liczbę „ile razy” i naciska START. Program można poprawiać: dotknięcie karty w programie ją zaznacza, nowa karta wstawia się za zaznaczoną (▶ to początek), liczba zmienia się w zaznaczonej karcie, a ✕ ją usuwa. Robot idzie po planszy, a przy błędzie mówi, co się stało (lawa, kałuża, klocek, koniec planszy, skok bez kałuży). Za każdą rozwiązaną grę jest gwiazdka, zapamiętywana w przeglądarce. Karty można też czytać na głos.
+Otwórz [`index.html`](index.html) w przeglądarce (wystarczy podwójne kliknięcie, internet nie jest potrzebny). To strona startowa gry na ekranie: wybór poziomu (od 1 do 3) i planszy 5 × 5, 7 × 7 albo 9 × 9, lista gier i gra. Dziecko dotyka kart IDŹ, SKRĘĆ W PRAWO, SKRĘĆ W LEWO, OBRÓĆ SIĘ i SKOCZ, dokłada liczbę „ile razy” i naciska START. Program można poprawiać: dotknięcie karty w programie ją zaznacza, nowa karta wstawia się za zaznaczoną (▶ to początek), liczba zmienia się w zaznaczonej karcie, a ✕ ją usuwa. Robot idzie po planszy, a przy błędzie mówi, co się stało (lawa, kałuża, klocek, koniec planszy, skok bez kałuży). Za każdą rozwiązaną grę jest gwiazdka, zapamiętywana w przeglądarce. Karty można też czytać na głos.
 
 **Poziom 2** ma 26 gier na każdą planszę, w pięciu zestawach. Każdy zestaw uczy jednej nowej rzeczy, od najłatwiejszej gry:
 
@@ -13,6 +13,10 @@ Otwórz [`index.html`](index.html) w przeglądarce (wystarczy podwójne kliknię
 - **C. Monety i liczenie**: monety mają liczby 1–6. Trzeba zebrać monety, które dają dokładnie podaną sumę. Licznik nad planszą pokazuje sumę i liczbę kart.
 - **D. Pytanie JEŚLI**: na polu ? za każdym razem jest coś innego (kałuża, lawa, skarb albo nic). JEŚLI pyta o pole przed robotem (LAWA?, KAŁUŻA?, SKARB?, ŚCIANA?), a karty przed NIE robot robi, gdy odpowiedź to TAK. Po START robot sprawdza program na każdym wariancie pola ?, więc program musi działać za każdym razem.
 - **E. Przepis A**: w górnym rzędzie dziecko układa przepis A, a karta ZRÓB A w programie robi cały przepis (ZRÓB A ×3 to trzy razy).
+
+**Poziomy 3–7** są dla starszych dzieci i początkujących programistów. Gry są w plikach `gra/poziom-<N>.md`, a rozwiązania sprawdza symulator [`narzedzia/symulator.py`](narzedzia/symulator.py) (ta sama logika co w grze):
+
+- **Poziom 3 (8 lat)**: pętla w pętli i pętla **DOPÓKI** z pytaniem (WOLNE?, NIE ŚCIANA?, NIE SKARB?, KAŁUŻA?). Pola ? zmieniają się co próbę, więc program musi działać zawsze.
 
 Tryb debug (krok po kroku, ✓ zostaw albo ✗ usuń kartę), czytanie kart na głos i rozwiązanie dla dorosłego po 2 nieudanych próbach działają na obu poziomach. ✕ przy karcie POWTÓRZ, JEŚLI, NIE albo KONIEC zdejmuje całą ramkę, a karty ze środka zostają.
 
