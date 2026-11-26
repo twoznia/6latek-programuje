@@ -31,26 +31,35 @@ Każdy plik ma źródło w Markdown w katalogu [`tresc/`](tresc/) i gotowy wydru
 | plansze-poziom-1-5x5-c | gry 33–48, poziom 1, plansza 5 × 5 | 4 | [md](tresc/plansze-poziom-1-5x5-c.md) | [PDF](druk/plansze-poziom-1-5x5-c.pdf) · [HTML](druk/plansze-poziom-1-5x5-c.html) |
 | plansze-poziom-1-5x5-d | gry 49–64, poziom 1, plansza 5 × 5 | 4 | [md](tresc/plansze-poziom-1-5x5-d.md) | [PDF](druk/plansze-poziom-1-5x5-d.pdf) · [HTML](druk/plansze-poziom-1-5x5-d.html) |
 | plansze-poziom-1-5x5-e | gry 65–80, poziom 1, plansza 5 × 5 | 4 | [md](tresc/plansze-poziom-1-5x5-e.md) | [PDF](druk/plansze-poziom-1-5x5-e.pdf) · [HTML](druk/plansze-poziom-1-5x5-e.html) |
+| plansze-poziom-1-5x5-f | gry 81–96, poziom 1, plansza 5 × 5 | 4 | [md](tresc/plansze-poziom-1-5x5-f.md) | [PDF](druk/plansze-poziom-1-5x5-f.pdf) · [HTML](druk/plansze-poziom-1-5x5-f.html) |
 | plansze-poziom-1-7x7-a | gry 1–16, poziom 1, plansza 7 × 7 | 4 | [md](tresc/plansze-poziom-1-7x7-a.md) | [PDF](druk/plansze-poziom-1-7x7-a.pdf) · [HTML](druk/plansze-poziom-1-7x7-a.html) |
 | plansze-poziom-1-7x7-b | gry 17–32, poziom 1, plansza 7 × 7 | 4 | [md](tresc/plansze-poziom-1-7x7-b.md) | [PDF](druk/plansze-poziom-1-7x7-b.pdf) · [HTML](druk/plansze-poziom-1-7x7-b.html) |
 | plansze-poziom-1-7x7-c | gry 33–48, poziom 1, plansza 7 × 7 | 4 | [md](tresc/plansze-poziom-1-7x7-c.md) | [PDF](druk/plansze-poziom-1-7x7-c.pdf) · [HTML](druk/plansze-poziom-1-7x7-c.html) |
 | plansze-poziom-1-7x7-d | gry 49–64, poziom 1, plansza 7 × 7 | 4 | [md](tresc/plansze-poziom-1-7x7-d.md) | [PDF](druk/plansze-poziom-1-7x7-d.pdf) · [HTML](druk/plansze-poziom-1-7x7-d.html) |
 | plansze-poziom-1-7x7-e | gry 65–80, poziom 1, plansza 7 × 7 | 4 | [md](tresc/plansze-poziom-1-7x7-e.md) | [PDF](druk/plansze-poziom-1-7x7-e.pdf) · [HTML](druk/plansze-poziom-1-7x7-e.html) |
+| plansze-poziom-1-7x7-f | gry 81–96, poziom 1, plansza 7 × 7 | 4 | [md](tresc/plansze-poziom-1-7x7-f.md) | [PDF](druk/plansze-poziom-1-7x7-f.pdf) · [HTML](druk/plansze-poziom-1-7x7-f.html) |
 | plansze-poziom-1-9x9-a | gry 1–16, poziom 1, plansza 9 × 9 | 4 | [md](tresc/plansze-poziom-1-9x9-a.md) | [PDF](druk/plansze-poziom-1-9x9-a.pdf) · [HTML](druk/plansze-poziom-1-9x9-a.html) |
 | plansze-poziom-1-9x9-b | gry 17–32, poziom 1, plansza 9 × 9 | 4 | [md](tresc/plansze-poziom-1-9x9-b.md) | [PDF](druk/plansze-poziom-1-9x9-b.pdf) · [HTML](druk/plansze-poziom-1-9x9-b.html) |
 | plansze-poziom-1-9x9-c | gry 33–48, poziom 1, plansza 9 × 9 | 4 | [md](tresc/plansze-poziom-1-9x9-c.md) | [PDF](druk/plansze-poziom-1-9x9-c.pdf) · [HTML](druk/plansze-poziom-1-9x9-c.html) |
+| plansze-poziom-1-9x9-d | gry 49–64, poziom 1, plansza 9 × 9 | 4 | [md](tresc/plansze-poziom-1-9x9-d.md) | [PDF](druk/plansze-poziom-1-9x9-d.pdf) · [HTML](druk/plansze-poziom-1-9x9-d.html) |
 | plansze-poziom-2-3-5x5 | gry 1–11 z pętlą POWTÓRZ, gry 12–15 z JEŚLI, STOP i META, gra 16 do wymyślenia | 4 | [md](tresc/plansze-poziom-2-3-5x5.md) | [PDF](druk/plansze-poziom-2-3-5x5.pdf) · [HTML](druk/plansze-poziom-2-3-5x5.html) |
 | plansze-poziom-2-5x5-b | gry 17–32, poziom 2 (POWTÓRZ), plansza 5 × 5 | 4 | [md](tresc/plansze-poziom-2-5x5-b.md) | [PDF](druk/plansze-poziom-2-5x5-b.pdf) · [HTML](druk/plansze-poziom-2-5x5-b.html) |
+| plansze-poziom-2-5x5-c | gry 33–48, poziom 2, plansza 5 × 5 | 4 | [md](tresc/plansze-poziom-2-5x5-c.md) | [PDF](druk/plansze-poziom-2-5x5-c.pdf) · [HTML](druk/plansze-poziom-2-5x5-c.html) |
 | plansze-poziom-2-9x9-a | gry 1–16, poziom 2 (POWTÓRZ, pętla w pętli), plansza 9 × 9 | 4 | [md](tresc/plansze-poziom-2-9x9-a.md) | [PDF](druk/plansze-poziom-2-9x9-a.pdf) · [HTML](druk/plansze-poziom-2-9x9-a.html) |
 | plansze-poziom-2-9x9-b | gry 17–32, poziom 2, plansza 9 × 9 | 4 | [md](tresc/plansze-poziom-2-9x9-b.md) | [PDF](druk/plansze-poziom-2-9x9-b.pdf) · [HTML](druk/plansze-poziom-2-9x9-b.html) |
+| plansze-poziom-2-9x9-c | gry 33–48, poziom 2, plansza 9 × 9 | 4 | [md](tresc/plansze-poziom-2-9x9-c.md) | [PDF](druk/plansze-poziom-2-9x9-c.pdf) · [HTML](druk/plansze-poziom-2-9x9-c.html) |
 | plansze-poziom-3-5x5-a | gry 1–16, poziom 3 (JEŚLI, STOP, META, pola ?), plansza 5 × 5 | 4 | [md](tresc/plansze-poziom-3-5x5-a.md) | [PDF](druk/plansze-poziom-3-5x5-a.pdf) · [HTML](druk/plansze-poziom-3-5x5-a.html) |
 | plansze-poziom-3-5x5-b | gry 17–32, poziom 3, plansza 5 × 5 | 4 | [md](tresc/plansze-poziom-3-5x5-b.md) | [PDF](druk/plansze-poziom-3-5x5-b.pdf) · [HTML](druk/plansze-poziom-3-5x5-b.html) |
+| plansze-poziom-3-5x5-c | gry 33–48, poziom 3, plansza 5 × 5 | 4 | [md](tresc/plansze-poziom-3-5x5-c.md) | [PDF](druk/plansze-poziom-3-5x5-c.pdf) · [HTML](druk/plansze-poziom-3-5x5-c.html) |
 | plansze-poziom-3-9x9-a | gry 1–16, poziom 3, plansza 9 × 9 | 4 | [md](tresc/plansze-poziom-3-9x9-a.md) | [PDF](druk/plansze-poziom-3-9x9-a.pdf) · [HTML](druk/plansze-poziom-3-9x9-a.html) |
 | plansze-poziom-3-9x9-b | gry 17–32, poziom 3, plansza 9 × 9 | 4 | [md](tresc/plansze-poziom-3-9x9-b.md) | [PDF](druk/plansze-poziom-3-9x9-b.pdf) · [HTML](druk/plansze-poziom-3-9x9-b.html) |
+| plansze-poziom-3-9x9-c | gry 33–48, poziom 3, plansza 9 × 9 | 4 | [md](tresc/plansze-poziom-3-9x9-c.md) | [PDF](druk/plansze-poziom-3-9x9-c.pdf) · [HTML](druk/plansze-poziom-3-9x9-c.html) |
 | plansze-poziom-4-5x5-a | gry 1–16, poziom 4 (PRZEPIS i ZRÓB), plansza 5 × 5 | 4 | [md](tresc/plansze-poziom-4-5x5-a.md) | [PDF](druk/plansze-poziom-4-5x5-a.pdf) · [HTML](druk/plansze-poziom-4-5x5-a.html) |
 | plansze-poziom-4-5x5-b | gry 17–32, poziom 4, plansza 5 × 5 | 4 | [md](tresc/plansze-poziom-4-5x5-b.md) | [PDF](druk/plansze-poziom-4-5x5-b.pdf) · [HTML](druk/plansze-poziom-4-5x5-b.html) |
+| plansze-poziom-4-5x5-c | gry 33–48, poziom 4, plansza 5 × 5 | 4 | [md](tresc/plansze-poziom-4-5x5-c.md) | [PDF](druk/plansze-poziom-4-5x5-c.pdf) · [HTML](druk/plansze-poziom-4-5x5-c.html) |
 | plansze-poziom-4-9x9-a | gry 1–16, poziom 4, plansza 9 × 9 | 4 | [md](tresc/plansze-poziom-4-9x9-a.md) | [PDF](druk/plansze-poziom-4-9x9-a.pdf) · [HTML](druk/plansze-poziom-4-9x9-a.html) |
 | plansze-poziom-4-9x9-b | gry 17–32, poziom 4, plansza 9 × 9 | 4 | [md](tresc/plansze-poziom-4-9x9-b.md) | [PDF](druk/plansze-poziom-4-9x9-b.pdf) · [HTML](druk/plansze-poziom-4-9x9-b.html) |
+| plansze-poziom-4-9x9-c | gry 33–48, poziom 4, plansza 9 × 9 | 4 | [md](tresc/plansze-poziom-4-9x9-c.md) | [PDF](druk/plansze-poziom-4-9x9-c.pdf) · [HTML](druk/plansze-poziom-4-9x9-c.html) |
 
 Pliki z planszami mają zawsze 4 strony po 4 gry. W każdym zestawie gry idą od najłatwiejszej. Na dole każdej karty gry jest rozwiązanie dla dorosłego (przed grą można je zagiąć). Rozwiązania gier poziomu 1 zostały sprawdzone programem, który symuluje robota.
 
