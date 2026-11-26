@@ -180,8 +180,8 @@ def bez_nowych_kart(plansza, powrot):
     rows = [r.split() for r in plansza]
     n = len(rows)
     gw = [(y, x) for y in range(n) for x in range(n) if rows[y][x] == "*"]
-    if any(t in "@D123456789?" for r in rows for t in r):
-        return None
+    if any(t in "@D123456789?" for r in rows for t in r) or len(gw) > 12:
+        return None  # przy wielu skarbach przeszukiwanie trwa za długo, a prosty program i tak jest długi
     (sy, sx), sd = next(((y, x), rows[y][x]) for y in range(n) for x in range(n) if rows[y][x] in "^>v<")
     full = (1 << len(gw)) - 1
     def ok(y, x):
