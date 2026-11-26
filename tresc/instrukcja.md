@@ -14,11 +14,11 @@ Zabawa ruchowa na podłodze, bez komputera. Jedna osoba jest **Programistą** i 
 
 - **Instrukcja**, czyli ten plik.
 - **Karty**: polecenia, liczby, pola na podłogę i plakietki ROBOT i PROGRAMISTA.
-- **Plansze**: 208 gier na kartach, po 4 gry na stronie i po 4 strony w pliku. Na dole każdej karty jest rozwiązanie dla dorosłego.
-  - Poziom 1: plansza 5 × 5 (zestawy A, B, C), 7 × 7 (zestawy A, B, C) i 9 × 9.
-  - Poziom 2: plansza 5 × 5 (razem z poziomem 3) i 9 × 9.
-  - Poziom 3: plansza 5 × 5 (razem z poziomem 2 i osobno) i 9 × 9.
-  - Poziom 4: plansza 5 × 5 i 9 × 9.
+- **Plansze**: 544 gry na kartach, po 4 gry na stronie i po 4 strony w pliku. Na dole każdej karty jest rozwiązanie dla dorosłego.
+  - Poziom 1: plansza 5 × 5 (zestawy A–F), 7 × 7 (zestawy A–F) i 9 × 9 (zestawy A–D).
+  - Poziom 2: plansza 5 × 5 (zestaw z poziomem 3, B i C) i 9 × 9 (zestawy A–C).
+  - Poziom 3: plansza 5 × 5 (zestaw z poziomem 2, A–C) i 9 × 9 (zestawy A–C).
+  - Poziom 4: plansza 5 × 5 i 9 × 9 (zestawy A–C).
 
 ## Przygotowanie (10 minut)
 
