@@ -666,6 +666,8 @@
     if (g.suma && stan.suma < g.suma) return "Masz " + stan.suma + ", a trzeba " + g.suma + ". Zbierz więcej!";
     if (g.suma && stan.suma > g.suma) return "Masz " + stan.suma + ", a trzeba " + g.suma + ". To za dużo!";
     if (g.powrot && !naStarcie) return "Masz skarb! Teraz wróć na START.";
+    if (g.wymagaj === "rekurencja" && !stan.obszary.przepis.some(function (c) { return c.k === "ZRÓB A"; }))
+      return "Skarby są, ale tu trzeba rekurencji: połóż ZRÓB A w samym przepisie A.";
     return null;
   }
   // ---------- tryb debug ----------
