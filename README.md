@@ -4,7 +4,7 @@
 
 ## Gra online
 
-Otwórz [`index.html`](index.html) w przeglądarce (wystarczy podwójne kliknięcie, internet nie jest potrzebny). To strona startowa gry na ekranie: wybór poziomu (od 1 do 5) i planszy 5 × 5, 7 × 7 albo 9 × 9, lista gier i gra. Dziecko dotyka kart IDŹ, SKRĘĆ W PRAWO, SKRĘĆ W LEWO, OBRÓĆ SIĘ i SKOCZ, dokłada liczbę „ile razy” i naciska START. Program można poprawiać: dotknięcie karty w programie ją zaznacza, nowa karta wstawia się za zaznaczoną (▶ to początek), liczba zmienia się w zaznaczonej karcie, a ✕ ją usuwa. Robot idzie po planszy, a przy błędzie mówi, co się stało (lawa, kałuża, klocek, koniec planszy, skok bez kałuży). Za każdą rozwiązaną grę jest gwiazdka, zapamiętywana w przeglądarce. Karty można też czytać na głos.
+Otwórz [`index.html`](index.html) w przeglądarce (wystarczy podwójne kliknięcie, internet nie jest potrzebny). To strona startowa gry na ekranie: wybór poziomu (od 1 do 6) i planszy 5 × 5, 7 × 7 albo 9 × 9, lista gier i gra. Dziecko dotyka kart IDŹ, SKRĘĆ W PRAWO, SKRĘĆ W LEWO, OBRÓĆ SIĘ i SKOCZ, dokłada liczbę „ile razy” i naciska START. Program można poprawiać: dotknięcie karty w programie ją zaznacza, nowa karta wstawia się za zaznaczoną (▶ to początek), liczba zmienia się w zaznaczonej karcie, a ✕ ją usuwa. Robot idzie po planszy, a przy błędzie mówi, co się stało (lawa, kałuża, klocek, koniec planszy, skok bez kałuży). Za każdą rozwiązaną grę jest gwiazdka, zapamiętywana w przeglądarce. Karty można też czytać na głos.
 
 **Poziom 2** ma 26 gier na każdą planszę, w pięciu zestawach. Każdy zestaw uczy jednej nowej rzeczy, od najłatwiejszej gry:
 
@@ -19,6 +19,7 @@ Otwórz [`index.html`](index.html) w przeglądarce (wystarczy podwójne kliknię
 - **Poziom 3 (8 lat)**: pętla w pętli i pętla **DOPÓKI** z pytaniem (WOLNE?, NIE ŚCIANA?, NIE SKARB?, KAŁUŻA?). Pola ? zmieniają się co próbę, więc program musi działać zawsze.
 - **Poziom 4 (12 lat)**: **zmienna N**. Karty USTAW N, N +, N −, liczba N w okienku (IDŹ ×N, POWTÓRZ ×N) i pytania N > 0?, N = 0?. Spirale, coraz wyższe schody, liczenie kroków i skarbów, odliczanie.
 - **Poziom 5 (początkujący programista)**: pytania złożone (NIE, I, LUB), czujniki WOLNE W LEWO? i WOLNE W PRAWO?, przeszkody z przepisem A i labirynty ze ścianami, które za każdym razem stoją inaczej (algorytm ręki na ścianie). Gry generuje skrypt, a symulator sprawdza każdy wariant.
+- **Poziom 6 (średni programista)**: **przepis z parametrem**. ZRÓB A ×3 przekazuje do przepisu N = 3 (zmienna lokalna, po powrocie N wraca). Kwadraty i schody na zamówienie, wieże, diamenty, spirala z przepisu i parametr równy zmierzonej odległości.
 
 Tryb debug (krok po kroku, ✓ zostaw albo ✗ usuń kartę), czytanie kart na głos i rozwiązanie dla dorosłego po 2 nieudanych próbach działają na obu poziomach. ✕ przy karcie POWTÓRZ, JEŚLI, NIE albo KONIEC zdejmuje całą ramkę, a karty ze środka zostają.
 
@@ -76,6 +77,9 @@ Każdy plik ma źródło w Markdown w katalogu [`tresc/`](tresc/) i gotowy wydru
 | plansze-starsi-poziom-5-5x5 | gry 1–8, poziom 5 dla starszych (początkujący programista: pytania złożone, labirynty), plansza 5 × 5 | 2 | [md](tresc/plansze-starsi-poziom-5-5x5.md) | [PDF](druk/plansze-starsi-poziom-5-5x5.pdf) · [HTML](druk/plansze-starsi-poziom-5-5x5.html) |
 | plansze-starsi-poziom-5-7x7 | gry 1–8, poziom 5 dla starszych (początkujący programista: pytania złożone, labirynty), plansza 7 × 7 | 2 | [md](tresc/plansze-starsi-poziom-5-7x7.md) | [PDF](druk/plansze-starsi-poziom-5-7x7.pdf) · [HTML](druk/plansze-starsi-poziom-5-7x7.html) |
 | plansze-starsi-poziom-5-9x9 | gry 1–8, poziom 5 dla starszych (początkujący programista: pytania złożone, labirynty), plansza 9 × 9 | 2 | [md](tresc/plansze-starsi-poziom-5-9x9.md) | [PDF](druk/plansze-starsi-poziom-5-9x9.pdf) · [HTML](druk/plansze-starsi-poziom-5-9x9.html) |
+| plansze-starsi-poziom-6-5x5 | gry 1–8, poziom 6 dla starszych (średni programista: przepis z parametrem), plansza 5 × 5 | 2 | [md](tresc/plansze-starsi-poziom-6-5x5.md) | [PDF](druk/plansze-starsi-poziom-6-5x5.pdf) · [HTML](druk/plansze-starsi-poziom-6-5x5.html) |
+| plansze-starsi-poziom-6-7x7 | gry 1–8, poziom 6 dla starszych (średni programista: przepis z parametrem), plansza 7 × 7 | 2 | [md](tresc/plansze-starsi-poziom-6-7x7.md) | [PDF](druk/plansze-starsi-poziom-6-7x7.pdf) · [HTML](druk/plansze-starsi-poziom-6-7x7.html) |
+| plansze-starsi-poziom-6-9x9 | gry 1–8, poziom 6 dla starszych (średni programista: przepis z parametrem), plansza 9 × 9 | 2 | [md](tresc/plansze-starsi-poziom-6-9x9.md) | [PDF](druk/plansze-starsi-poziom-6-9x9.pdf) · [HTML](druk/plansze-starsi-poziom-6-9x9.html) |
 
 Pliki `plansze-starsi-*` to druk poziomów 3–7 dla starszych z gry online. Powstają same z `gra/poziom-<N>.md` (`python3 narzedzia/druk_starsi.py`, robi to też `make druk`), więc zmieniaj tamte pliki, a nie `tresc/plansze-starsi-*`. To inne poziomy niż poziomy 3 i 4 dla 6-latka.
 
