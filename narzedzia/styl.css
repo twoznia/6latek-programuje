@@ -93,3 +93,8 @@ code{background:#f1f3f5;padding:0 1mm;border-radius:1mm}
 .mis .two .given{padding:1mm 1.5mm}
 .cmd2 .slot .num2{background:#fff}
 .wciecia .mis .given .pl{margin-left:calc(var(--ind,0)*5mm)}
+.rozw pre.kod{font:700 7.5pt/1.25 "DejaVu Sans Mono",Menlo,Consolas,monospace;margin:1mm 0 0;white-space:pre-wrap;overflow-wrap:anywhere;color:#1d2a36;min-width:0}
+.wciecia .mis{min-width:0}
+.rozw pre.kod.dlugi{column-count:2;column-gap:4mm;font-size:7pt}
+.wciecia .mis:has(pre.kod) .plansza{width:42mm;height:42mm}
+.wciecia .mis:has(pre.kod.dlugi) .plansza{width:36mm;height:36mm}

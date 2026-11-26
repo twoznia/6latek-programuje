@@ -16,6 +16,9 @@ WSTEP = ("Kółko to START, a trójkąt pokazuje, gdzie Robot patrzy. Rozwiązan
          "Pola ?: dorosły przed każdą próbą kładzie na nich to, co podaje jeden z wariantów "
          "(pola ? czytamy jak książkę: od lewej do prawej, z góry na dół; S skarb, · puste, # klocek, L lawa, K kałuża). "
          "Program ma zadziałać w każdym wariancie.")
+WSTEP_KOD = ("Kółko to START, a trójkąt pokazuje, gdzie Robot patrzy. Rozwiązanie (na dole karty) jest zapisane tekstem: "
+             "wcięcie to wnętrze pętli, pytania albo przepisu. Pola ? i warianty: S skarb, · puste, # klocek, L lawa, K kałuża, "
+             "pola ? czytamy od lewej do prawej, z góry na dół. Program ma zadziałać w każdym wariancie.")
 
 
 def gry(path):
@@ -51,7 +54,7 @@ def main():
             for s in range(stron):
                 out.append(f"# Plansze {size} × {size} dla starszych, poziom {nr} ({DLA.get(nr, '')}) ({s + 1}/{stron})\n")
                 if s == 0:
-                    out.append(WSTEP + "\n")
+                    out.append((WSTEP_KOD if nr >= 5 else WSTEP) + "\n")
                 for _, num, title, desc, board, sol, ust in lista[s * 4:(s + 1) * 4]:
                     out.append(f"### {num}. {title}")
                     opis = desc
@@ -60,7 +63,7 @@ def main():
                         opis += " Warianty pól ?: " + "; ".join(f"{i + 1}) {x}" for i, x in enumerate(w)) + "."
                     out.append(opis)
                     out.append("```plansza\n" + board + "```")
-                    out.append("```rozwiazanie\n" + sol + "```\n")
+                    out.append(("```kod\n" if nr >= 5 else "```rozwiazanie\n") + sol + "```\n")
                 if s < stron - 1:
                     out.append("---\n")
             dst = os.path.join(ROOT, "tresc", f"plansze-starsi-poziom-{nr}-{size}x{size}.md")
