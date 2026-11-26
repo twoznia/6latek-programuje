@@ -26,13 +26,15 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # ------------------------------------------------------------------ karty i ikony
 COL = {"idz":"#2e9e4f","lewo":"#2b6fd6","prawo":"#f08a1c","obroc":"#8a4fd1","skocz":"#0c8599",
        "powtorz":"#d6336c","koniec":"#495057","jesli":"#b08900","stop":"#e03131","meta":"#212529",
-       "przepis_a":"#364fc7","zrob_a":"#364fc7","przepis_b":"#8d5524","zrob_b":"#8d5524"}
+       "przepis_a":"#364fc7","zrob_a":"#364fc7","przepis_b":"#8d5524","zrob_b":"#8d5524",
+       "dopoki":"#0b7285","ustawn":"#6741d9","nplus":"#6741d9","nminus":"#6741d9"}
 LABEL = {"idz":("IDŹ",""),"prawo":("SKRĘĆ","W PRAWO"),"lewo":("SKRĘĆ","W LEWO"),"obroc":("OBRÓĆ","SIĘ"),
          "skocz":("SKOCZ",""),"powtorz":("POWTÓRZ",""),"koniec":("KONIEC",""),"jesli":("JEŚLI",""),
          "stop":("STOP",""),"meta":("META",""),
-         "przepis_a":("PRZEPIS","A"),"zrob_a":("ZRÓB","A"),"przepis_b":("PRZEPIS","B"),"zrob_b":("ZRÓB","B")}
+         "przepis_a":("PRZEPIS","A"),"zrob_a":("ZRÓB","A"),"przepis_b":("PRZEPIS","B"),"zrob_b":("ZRÓB","B"),
+         "dopoki":("DOPÓKI",""),"ustawn":("USTAW","N"),"nplus":("N +",""),"nminus":("N −","")}
 CMD = {" ".join(x for x in v if x): k for k, v in LABEL.items()}
-SLOT = {"koniec":None, "stop":None, "meta":None, "jesli":"?", "przepis_a":None, "przepis_b":None}
+SLOT = {"koniec":None, "stop":None, "meta":None, "jesli":"?", "dopoki":"?", "przepis_a":None, "przepis_b":None}
 COND = {"lawa":("LAWA?","#e03131"),"kaluza":("KAŁUŻA?","#1c7ed6"),"skarb":("SKARB?","#b88f00"),"sciana":("ŚCIANA?","#a0522d")}
 COND_BY_NAME = {v[0]: k for k, v in COND.items()}
 
@@ -46,6 +48,10 @@ ICON = {
  "jesli":'<text x="50" y="84" text-anchor="middle" font-size="96" font-weight="800" font-family="Inter,DejaVu Sans,Arial" fill="currentColor">?</text>',
  "przepis":'<rect x="18" y="6" width="64" height="88" rx="9" fill="none" stroke="currentColor" stroke-width="9"/><path d="M33 30 H67 M33 48 H67 M33 66 H55" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>',
  "zrob":'<rect x="18" y="6" width="64" height="88" rx="9" fill="none" stroke="currentColor" stroke-width="9"/><polygon points="38,28 72,50 38,72" fill="currentColor"/>',
+ "dopoki":'<path d="M80 52 A30 30 0 1 1 66 26" stroke="currentColor" stroke-width="13" fill="none"/><path d="M52 6 L84 26 L54 44 Z" fill="currentColor"/><text x="50" y="66" text-anchor="middle" font-size="40" font-weight="800" font-family="Inter,DejaVu Sans,Arial" fill="currentColor">?</text>',
+ "ustawn":'<rect x="10" y="14" width="80" height="72" rx="14" fill="none" stroke="currentColor" stroke-width="9"/><text x="50" y="70" text-anchor="middle" font-size="54" font-weight="800" font-family="Inter,DejaVu Sans,Arial" fill="currentColor">N</text>',
+ "nplus":'<text x="34" y="70" text-anchor="middle" font-size="56" font-weight="800" font-family="Inter,DejaVu Sans,Arial" fill="currentColor">N</text><path d="M66 34 V72 M47 53 H85" stroke="currentColor" stroke-width="11"/>',
+ "nminus":'<text x="34" y="70" text-anchor="middle" font-size="56" font-weight="800" font-family="Inter,DejaVu Sans,Arial" fill="currentColor">N</text><path d="M47 53 H85" stroke="currentColor" stroke-width="11"/>',
  "stop":'<polygon points="30,6 70,6 94,30 94,70 70,94 30,94 6,70 6,30" fill="currentColor"/><rect x="24" y="44" width="52" height="12" rx="3" fill="#fff"/>',
  "meta":'<rect x="14" y="6" width="7" height="90" fill="currentColor"/>' + "".join(
      f'<rect x="{21+c*17}" y="{8+r*14}" width="17" height="14" fill="{"currentColor" if (r+c)%2==0 else "#fff"}" stroke="currentColor" stroke-width="1.5"/>'
@@ -73,7 +79,7 @@ def cmd_card(k):
 
 DOTS = {1:[(50,50)],2:[(28,28),(72,72)],3:[(25,25),(50,50),(75,75)],4:[(28,28),(72,28),(28,72),(72,72)],
         5:[(26,26),(74,26),(50,50),(26,74),(74,74)],6:[(28,22),(72,22),(28,50),(72,50),(28,78),(72,78)]}
-WORD = {1:"JEDEN",2:"DWA",3:"TRZY",4:"CZTERY",5:"PIĘĆ",6:"SZEŚĆ",7:"SIEDEM",8:"OSIEM",9:"DZIEWIĘĆ",10:"DZIESIĘĆ"}
+WORD = {0:"ZERO",1:"JEDEN",2:"DWA",3:"TRZY",4:"CZTERY",5:"PIĘĆ",6:"SZEŚĆ",7:"SIEDEM",8:"OSIEM",9:"DZIEWIĘĆ",10:"DZIESIĘĆ"}
 
 def small(inner, word, border="#444", top=""):
     wc = border if border != "#444" else "#222"
@@ -147,7 +153,7 @@ def big_tile(kind):
             f'<div class="lbl" style="color:{fg}">{word}</div></div>')
 
 # ------------------------------------------------------------------ bloki specjalne
-COUNT_RE = re.compile(r'^(.*?)\s*[×x]\s*(\d+|∞)\s*$')
+COUNT_RE = re.compile(r'^(.*?)\s*[×x]\s*(\d+|∞|N)\s*$')
 
 def split_count(t):
     m = COUNT_RE.match(t.strip())
@@ -171,6 +177,12 @@ def block_karty(lines):
             smalls += [cond_card(COND_BY_NAME[name])] * n
         elif name in ("TAK", "NIE"):
             smalls += [yesno_card(name == "TAK")] * n
+        elif name == "N":
+            smalls += [small("", "", border="#6741d9", top='<div class="big" style="color:#6741d9">N</div>')] * n
+        elif name in ("I", "LUB"):
+            smalls += [small("", "", border=QCOL, top=f'<div class="big" style="font-size:48pt;color:{QCOL}">{name}</div>')] * n
+        elif name.endswith("?"):
+            smalls += [small("", "", border=QCOL, top=f'<div class="big" style="font-size:{14 if len(name) > 7 else 19}pt;line-height:1.1;color:{QCOL};text-align:center">{html.escape(name)}</div>')] * n
         elif name in ("ZAWSZE", "∞"):
             smalls += [inf_card()] * n
         elif name in TILES:
@@ -230,10 +242,24 @@ def cchip(k):
     w, c = COND[k]
     return f'<span class="chip"><svg viewBox="0 0 100 100" width="6mm" height="6mm">{tile_svg(k)}</svg><span style="color:{c}">{w}</span></span>'
 
+QCOL = "#b08900"
+def qchip(q):
+    q = q.strip()
+    if q in COND_BY_NAME:
+        return cchip(COND_BY_NAME[q])
+    return f'<span class="chip"><span style="color:{QCOL}">{html.escape(q)}</span></span>'
+
+def nchip(k, n):
+    znak = {"ustawn": "=", "nplus": "+", "nminus": "−"}[k]
+    return f'<span class="chip">{icon(k,"6mm")}<span style="color:{COL[k]}">N {znak}</span><b class="n">{n}</b></span>'
+
 def ynchip(yes):
     return f'<span class="chip yn" style="color:{"#2e9e4f" if yes else "#e03131"}">{"✓ TAK" if yes else "✗ NIE"}</span>'
 
 def item_chip(t):
+    m = re.match(r'^N\s*([=+−-])\s*(\d+)$', t.strip())
+    if m:
+        return nchip({"=": "ustawn", "+": "nplus", "-": "nminus", "−": "nminus"}[m.group(1)], m.group(2))
     name, n = split_count(t)
     if name in CMD:
         return chip(CMD[name], n)
@@ -249,7 +275,11 @@ def block_program(lines, title=""):
         ind = (len(line) - len(line.lstrip(" "))) // 2
         t = line.strip()
         if t.startswith("JEŚLI "):
-            html_ = chip("jesli") + item_chip(t[6:])
+            html_ = chip("jesli") + qchip(t[6:])
+        elif t.startswith("DOPÓKI "):
+            html_ = chip("dopoki") + qchip(t[7:])
+        elif t == "NIE":
+            html_ = ynchip(False)
         elif t[:4] in ("TAK:", "NIE:"):
             html_ = ynchip(t.startswith("TAK")) + "".join(item_chip(x) for x in t[4:].split(",") if x.strip())
         else:
@@ -400,8 +430,10 @@ def convert(md_path):
     title = next((l[2:].strip() for l in text.splitlines() if l.startswith("# ")), "Robot i Programista")
     css = open(os.path.join(ROOT, "narzedzia", "styl.css"), encoding="utf-8").read()
     body = "".join(s for p in pages if any(l.strip() for l in p) for s in render_page(p))
+    # nowe plansze (poziomy 3-7 dla starszych): wcięcia pokazują, co jest w środku pętli i pytania
+    cls = ' class="wciecia"' if "starsi" in os.path.basename(md_path) else ""
     return (f'<!doctype html><html lang="pl"><head><meta charset="utf-8"><title>{html.escape(title)}</title>'
-            f'<style>{css}</style></head><body>{body}</body></html>')
+            f'<style>{css}</style></head><body{cls}>{body}</body></html>')
 
 def find_chrome():
     for name in ("google-chrome", "google-chrome-stable", "chromium", "chromium-browser", "msedge", "chrome"):

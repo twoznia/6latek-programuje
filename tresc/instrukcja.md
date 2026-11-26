@@ -237,3 +237,29 @@ ZRÓB A ×4
 - **Obroty.** POWTÓRZ ×4 (SKRĘĆ W PRAWO): gdzie patrzy robot na końcu? (Tam gdzie na początku, bo obrócił się dookoła.)
 
 - **Przepis i mnożenie.** Przepis A to IDŹ ×3, a program to ZRÓB A ×2. Ile kroków? (3 + 3 = 6)
+
+---
+
+# Dla starszych: poziomy 3–7
+
+Te same poziomy są w grze online. To inne poziomy niż poziomy 3 i 4 dla 6-latka opisane wyżej, dlatego pliki z planszami mają w nazwie „starsi”, np. `plansze-starsi-poziom-3-5x5`. Zasady ruchu są te same. Każda gra mówi, ile kart wolno użyć („Masz tylko 9 kart”). Liczymy wszystkie karty poleceń, także KONIEC i NIE, ale nie karty liczb. Na pola ? dorosły przed każdą próbą kładzie to, co podaje jeden z wariantów na karcie gry, i ten sam program musi zadziałać za każdym razem.
+
+## Poziom 3 dla 8-latka: pętla w pętli i DOPÓKI
+
+```legenda
+DOPÓKI: pytanie o pole przed robotem; dopóki odpowiedź to TAK, robot powtarza karty aż do KONIEC
+```
+
+- **Pętla w pętli.** POWTÓRZ może leżeć w środku innego POWTÓRZ. POWTÓRZ ×4 (POWTÓRZ ×2 (schodek), SKRĘĆ W PRAWO) to 4 × 2 = 8 schodków. Limit kart sprawia, że bez drugiej pętli się nie da.
+- **DOPÓKI.** W okienko kładziemy kartę pytania: WOLNE? (przed robotem można zrobić IDŹ), NIE ŚCIANA?, NIE SKARB? albo KAŁUŻA?. Robot pyta przed każdym obrotem pętli. Gdy odpowiedź to NIE, idzie za KONIEC.
+- **JEŚLI w pętli.** Karty między JEŚLI a NIE robot robi, gdy odpowiedź to TAK, a karty między NIE a KONIEC, gdy odpowiedź to NIE.
+
+```program
+DOPÓKI NIE ŚCIANA?
+  JEŚLI KAŁUŻA?
+    SKOCZ
+  NIE
+    IDŹ
+  KONIEC
+KONIEC
+```

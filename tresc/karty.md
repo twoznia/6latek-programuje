@@ -9,6 +9,7 @@ Wszystkie karty do gry w jednym pliku. Zasady są w instrukcji, a gry w plikach 
 - **Strony 9–12: pola na podłogę i plakietki.** START, SKARB ×5, LAWA ×4, KAŁUŻA ×4 oraz plakietki ROBOT i PROGRAMISTA (można je powiesić na szyi na sznurku albo przypiąć klamerką).
 - **Strony 13–15: poziomy 2 i 3.** POWTÓRZ ×3, KONIEC ×5, JEŚLI ×2, STOP i META.
 - **Strona 16: pytania i odpowiedzi poziomu 3.** LAWA?, KAŁUŻA?, SKARB?, ŚCIANA?, TAK, NIE i ∞ ZAWSZE.
+- **Na końcu: karty dla starszych (poziomy 3–7 z gry online).** DOPÓKI ×2 i pytania WOLNE?, NIE ŚCIANA?, NIE SKARB?.
 
 ## Jak drukować
 
@@ -62,4 +63,13 @@ PRZEPIS A ×1
 PRZEPIS B ×1
 ZRÓB A ×4
 ZRÓB B ×2
+```
+
+---
+
+```karty
+DOPÓKI ×2
+WOLNE? ×2
+NIE ŚCIANA? ×1
+NIE SKARB? ×1
 ```

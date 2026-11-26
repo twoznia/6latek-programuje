@@ -1,4 +1,5 @@
 druk: 
+	python3 narzedzia/druk_starsi.py
 	python3 narzedzia/drukuj.py
 
 html:
