@@ -263,3 +263,16 @@ DOPÓKI NIE ŚCIANA?
   KONIEC
 KONIEC
 ```
+
+## Poziom 4 dla 12-latka: zmienna N
+
+```legenda
+USTAW N: wpisz do pamięci robota liczbę z okienka (na starcie N = 0)
+N +: dodaj do N liczbę z okienka
+N −: odejmij od N liczbę z okienka
+```
+
+- **Pamięć robota.** Robot pamięta jedną liczbę N. Dorosły zapisuje ją na kartce obok planszy i poprawia przy każdej karcie USTAW N, N + i N −.
+- **Karta N w okienku.** IDŹ z kartą N w okienku to „idź tyle pól, ile jest teraz w N”. Tak samo POWTÓRZ ×N. Gdy N rośnie w pętli, każdy obrót jest dłuższy (spirala, coraz wyższe schody).
+- **Licznik.** DOPÓKI WOLNE? (IDŹ, N + 1) liczy kroki. Potem IDŹ ×N wraca dokładnie tyle samo. DOPÓKI N > 0? (…, N − 1) to odliczanie: pętla sama się kończy przy zerze.
+- **Większe liczby.** Karty liczb kończą się na 6, ale N może być większe: USTAW N 6, a potem N + 2 daje 8.
