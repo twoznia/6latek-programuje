@@ -27,7 +27,7 @@ def gry(path):
     for blok in re.split(r"^(?=#{2,4} )", text, flags=re.M):
         head = blok.splitlines()[0] if blok.strip() else ""
         if head.startswith("## "):
-            size = int(re.search(r"(\d)", head).group(1))
+            size = int(re.search(r"(\d+)", head).group(1))
         elif head.startswith("### "):
             zest = {k.strip(): v.strip() for k, v in (l.split(":", 1) for l in blok.splitlines()[1:] if ":" in l)}
         elif head.startswith("#### "):

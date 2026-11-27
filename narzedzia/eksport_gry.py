@@ -112,7 +112,7 @@ def poziom2():
     for blok in re.split(r"^(?=#{2,4} )", text, flags=re.M):
         head = blok.splitlines()[0] if blok.strip() else ""
         if head.startswith("## "):
-            size = int(re.search(r"(\d)", head).group(1))
+            size = int(re.search(r"(\d+)", head).group(1))
         elif head.startswith("### "):
             m = re.match(r"### Zestaw ([A-Z]): (.*)$", head)
             zestaw, nazwa = m.group(1), m.group(2).strip()
@@ -232,7 +232,7 @@ def poziom_wyzszy(nr):
     for blok in re.split(r"^(?=#{2,4} )", text, flags=re.M):
         head = blok.splitlines()[0] if blok.strip() else ""
         if head.startswith("## "):
-            size = int(re.search(r"(\d)", head).group(1))
+            size = int(re.search(r"(\d+)", head).group(1))
         elif head.startswith("### "):
             m = re.match(r"### Zestaw ([A-Z]): (.*)$", head)
             zestaw, nazwa = m.group(1), m.group(2).strip()
@@ -352,7 +352,7 @@ def main():
         json.dump(games, f, ensure_ascii=False, separators=(",", ":"))
         f.write(";\n")
     print(f"Zapisano {len(games)} gier do gra/gry.js: poziom 1 {len(g1)} (pominięto {skipped}), poziom 2 {len(g2)}.")
-    for s in (5, 7, 9):
+    for s in sorted({g["size"] for g in games}):
         print(f"  {s}x{s}: poziom 1 {sum(1 for g in g1 if g['size'] == s)}, poziom 2 {sum(1 for g in g2 if g['size'] == s)}"
               + "".join(f", poziom {p} {sum(1 for g in wyzsze if g['size'] == s and g['poziom'] == p)}" for p in sorted({g['poziom'] for g in wyzsze})))
 

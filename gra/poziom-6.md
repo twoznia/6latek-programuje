@@ -1357,3 +1357,592 @@ SKRĘĆ W PRAWO
 ZRÓB A ×N
 ```
 
+## Plansza 11 × 11
+
+### Zestaw A: Kształty na zamówienie
+karty: POWTÓRZ, DOPÓKI, JEŚLI, N =, N +, N −, ZRÓB A
+pytania: WOLNE?, NIE ŚCIANA?, NIE SKARB?, SKARB?, N > 0?, N = 0?
+parametr: tak
+
+#### 1. Cztery kwadraty
+Przepis A to kwadrat o boku N i skręt w prawo. Cztery kwadraty różnej wielkości wokół START, jak w oknie z poziomu 3. Wróć na START. Masz tylko 9 kart.
+```plansza
+L L L L L * . . . . *
+L L L L L . L L L L .
+L L * . . * L L L L .
+L L . L L . L L L L .
+L L . L L . L L L L .
+L * * . . ^ . * . . *
+L . L L L . L . L L L
+L . L L L * . * L L L
+L . L L L . L L L L L
+L * . . . * L L L L L
+L L L L L L L L L L L
+```
+```ustawienia
+limit: 9
+```
+```rozwiazanie
+PRZEPIS A
+  POWTÓRZ ×4
+    IDŹ ×N, SKRĘĆ W PRAWO
+  KONIEC
+  SKRĘĆ W PRAWO
+KONIEC
+ZRÓB A ×5
+ZRÓB A ×2
+ZRÓB A ×4
+ZRÓB A ×3
+```
+
+#### 2. Wykres słupkowy
+Przepis A to słupek o wysokości N i krok w prawo. Na szczycie każdego słupka leży skarb. Masz tylko 20 kart.
+```plansza
+L L L L L L L L L L L
+L L L * L L L L L L L
+L L L . L * L L L L L
+L * L . L . L L L L L
+L . L . L . L * L L L
+L . L . * . L . L L L
+L . L . . . L . L L L
+* . L . . . L . L L L
+. . * . . . L . L L L
+. . . . . . * . L L L
+> . . . . . . . . L L
+```
+```ustawienia
+limit: 20
+```
+```rozwiazanie
+PRZEPIS A
+  SKRĘĆ W LEWO, IDŹ ×N, OBRÓĆ SIĘ, IDŹ ×N, SKRĘĆ W LEWO, IDŹ
+KONIEC
+ZRÓB A ×3
+N = 6
+N + 1
+ZRÓB A ×N
+ZRÓB A ×2
+N = 6
+N + 3
+ZRÓB A ×N
+ZRÓB A ×5
+N = 6
+N + 2
+ZRÓB A ×N
+ZRÓB A ×1
+ZRÓB A ×6
+```
+
+#### 3. Grzebień z zębami
+Przepis A to ząb o wysokości N: w górę, krok w prawo, w dół i krok w prawo. Skarby na czubkach zębów. Masz tylko 17 kart.
+```plansza
+L L L L L L L L L L L
+L L L L * * L L L L L
+L L L L . . L L L L L
+* * L L . . L L L L L
+. . L L . . L L * * L
+. . L L . . L L . . L
+. . * * . . L L . . L
+. . . . . . L L . . L
+. . . . . . * * . . L
+. . . . . . . . . . L
+^ . . . . . . . . . .
+```
+```ustawienia
+limit: 17
+```
+```rozwiazanie
+PRZEPIS A
+  IDŹ ×N, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W PRAWO, IDŹ ×N, SKRĘĆ W LEWO, IDŹ, SKRĘĆ W LEWO
+KONIEC
+N = 6
+N + 1
+ZRÓB A ×N
+ZRÓB A ×4
+N = 6
+N + 3
+ZRÓB A ×N
+ZRÓB A ×2
+ZRÓB A ×6
+```
+
+#### 4. Ramki
+Przepis A rysuje ramkę o boku N i robi krok po skosie do środka. Każda następna ramka jest o 2 mniejsza. Masz tylko 17 kart.
+```plansza
+* . . . . . . . . . *
+. * . . . . . . . * .
+. . * . . . . . * . .
+. . . * . . . * . . .
+. . . . * . * . . . .
+. . . . * * . . . . .
+. . . * * . * . . . .
+. . * * . . . * . . .
+. * * . . . . . * . .
+* * . . . . . . . * .
+^ . . . . . . . . . *
+```
+```ustawienia
+limit: 17
+```
+```rozwiazanie
+PRZEPIS A
+  POWTÓRZ ×4
+    IDŹ ×N, SKRĘĆ W PRAWO
+  KONIEC
+  IDŹ, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO
+KONIEC
+N = 6
+N + 4
+ZRÓB A ×N
+N = 6
+N + 2
+ZRÓB A ×N
+ZRÓB A ×6
+ZRÓB A ×4
+ZRÓB A ×2
+```
+
+### Zestaw B: Zmierz i przekaż
+karty: POWTÓRZ, DOPÓKI, JEŚLI, N =, N +, N −, ZRÓB A
+pytania: WOLNE?, NIE ŚCIANA?, NIE SKARB?, SKARB?, N > 0?, N = 0?
+parametr: tak
+
+#### 5. Róg jak odległość
+Zmierz drogę do klocka. Obróć się i przekaż N do przepisu A: dwa boki po N pól. Masz tylko 10 kart.
+```plansza
+? . . . . . . . . . .
+. . . . . . . . . . .
+? . . . . . . . . . .
+. . . . . . . . . . .
+? . . . . . . . . . .
+. . . . . . . . . . .
+. . . . . . . . . . .
+. . . . . . . . . . .
+. . . . . . . . . . .
+. . . . . . . . . . .
+^ . . . . ? . ? . ? .
+```
+```ustawienia
+limit: 10
+warianty: ..#*.. #....* .#..*.
+```
+```rozwiazanie
+PRZEPIS A
+  POWTÓRZ ×2
+    IDŹ ×N, SKRĘĆ W LEWO
+  KONIEC
+KONIEC
+DOPÓKI WOLNE?
+  IDŹ, N + 1
+KONIEC
+OBRÓĆ SIĘ
+ZRÓB A ×N
+```
+
+#### 6. Schody jak odległość
+Idź do klocka i licz. Potem skręć w lewo i zrób tyle schodków, ile było kroków. Masz tylko 13 kart.
+```plansza
+. . . . . . . . . . .
+. . . . . . . . . . .
+. . . . . . . . . . .
+. . . . . . . . . . .
+. . . . . . . . . . .
+. . . . . . . . . . .
+. . . . . . . . . . .
+. . . . . . ? . . . .
+. . . . ? . . . . . .
+. . ? . . . . . . . .
+> . ? ? ? . . . . . .
+```
+```ustawienia
+limit: 13
+warianty: .*..#. *....# ..*#..
+```
+```rozwiazanie
+PRZEPIS A
+  DOPÓKI N > 0?
+    IDŹ, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO, N − 1
+  KONIEC
+KONIEC
+DOPÓKI WOLNE?
+  IDŹ, N + 1
+KONIEC
+SKRĘĆ W LEWO
+ZRÓB A ×N
+```
+
+#### 7. Ile skarbów, taki kwadrat
+Policz skarby w dolnym rzędzie. Potem obejdź kwadrat o boku N w lewo do góry. Ostatni skarb leży w lewym górnym rogu kwadratu. Masz tylko 13 kart.
+```plansza
+. . . . . . . . . . .
+. . . . . . . . . . .
+. . . . . . . . . . .
+. . . . . . . . . . .
+. . . . . . . . . . .
+. . . . . . . . . . .
+. . . . . . . . . . .
+. . . . . . . . . . .
+. . . . . . . . . . .
+. . . . . . . . . . .
+> . ? . ? . . ? ? * .
+```
+```ustawienia
+limit: 13
+warianty: *.** .*.. .*.*
+```
+```rozwiazanie
+PRZEPIS A
+  POWTÓRZ ×4
+    IDŹ ×N, SKRĘĆ W LEWO
+  KONIEC
+KONIEC
+DOPÓKI NIE ŚCIANA?
+  JEŚLI SKARB?
+    N + 1
+  NIE
+  KONIEC
+  IDŹ
+KONIEC
+SKRĘĆ W LEWO
+ZRÓB A ×N
+```
+
+#### 8. Ślimak jak odległość
+Zmierz drogę do klocka. Przepis A to ślimak: bok N, potem N − 1 i tak do zera. Masz tylko 11 kart.
+```plansza
+. . . . . . . . . . .
+? . . . . . . . . . .
+. . . . . . . . . . .
+. . . . . . . . . . .
+. . . . . . . . . . .
+. . . . . . . . . . .
+? . . . ? . . . . . .
+? . . . . . . . . . .
+. . . . . . . . . . .
+. . ? . . . . . . . .
+^ . . . . . . . . . .
+```
+```ustawienia
+limit: 11
+warianty: #.*.. .#..* ...#*
+```
+```rozwiazanie
+PRZEPIS A
+  DOPÓKI N > 0?
+    IDŹ ×N, SKRĘĆ W PRAWO, N − 1
+  KONIEC
+KONIEC
+DOPÓKI WOLNE?
+  IDŹ, N + 1
+KONIEC
+SKRĘĆ W PRAWO
+ZRÓB A ×N
+```
+
+
+## Plansza 13 × 13
+
+### Zestaw A: Kształty na zamówienie
+karty: POWTÓRZ, DOPÓKI, JEŚLI, N =, N +, N −, ZRÓB A
+pytania: WOLNE?, NIE ŚCIANA?, NIE SKARB?, SKARB?, N > 0?, N = 0?
+parametr: tak
+
+#### 1. Cztery kwadraty
+Przepis A to kwadrat o boku N i skręt w prawo. Cztery kwadraty różnej wielkości wokół START, jak w oknie z poziomu 3. Wróć na START. Masz tylko 9 kart.
+```plansza
+L L L L L L * . . . . . *
+L L L L L L . L L L L L .
+L L L L L L . L L L L L .
+L L L L L L . L L L L L .
+L L L L * . * L L L L L .
+L L L L . L . L L L L L .
+L * . . * . ^ . . * . . *
+L . L L L L . L L . L L L
+L . L L L L . L L . L L L
+L . L L L L * . . * L L L
+L . L L L L . L L L L L L
+L * . . . . * L L L L L L
+L L L L L L L L L L L L L
+```
+```ustawienia
+limit: 9
+```
+```rozwiazanie
+PRZEPIS A
+  POWTÓRZ ×4
+    IDŹ ×N, SKRĘĆ W PRAWO
+  KONIEC
+  SKRĘĆ W PRAWO
+KONIEC
+ZRÓB A ×6
+ZRÓB A ×3
+ZRÓB A ×5
+ZRÓB A ×2
+```
+
+#### 2. Wykres słupkowy
+Przepis A to słupek o wysokości N i krok w prawo. Na szczycie każdego słupka leży skarb. Masz tylko 22 kart.
+```plansza
+L L L L L L L L L L L L L
+L L L * L L L L L L L L L
+L L L . L * L L L L L L L
+L * L . L . L L L L L L L
+L . L . L . L L L L L L L
+L . L . L . L * L L L L L
+L . L . * . L . L L L L L
+L . L . . . L . L L L L L
+* . L . . . L . L L L L L
+. . L . . . * . L L L L L
+. . * . . . . . L L L L L
+. . . . . . . . L L L L L
+> . . . . . . . . L L L L
+```
+```ustawienia
+limit: 22
+```
+```rozwiazanie
+PRZEPIS A
+  SKRĘĆ W LEWO, IDŹ ×N, OBRÓĆ SIĘ, IDŹ ×N, SKRĘĆ W LEWO, IDŹ
+KONIEC
+ZRÓB A ×4
+N = 6
+N + 3
+ZRÓB A ×N
+ZRÓB A ×2
+N = 6
+N + 5
+ZRÓB A ×N
+ZRÓB A ×6
+N = 6
+N + 4
+ZRÓB A ×N
+ZRÓB A ×3
+N = 6
+N + 1
+ZRÓB A ×N
+```
+
+#### 3. Grzebień z zębami
+Przepis A to ząb o wysokości N: w górę, krok w prawo, w dół i krok w prawo. Skarby na czubkach zębów. Masz tylko 20 kart.
+```plansza
+L L L L L L L L L L L L L
+L L L L * * L L L L L L L
+L L L L . . L L * * L L L
+L L L L . . L L . . L L L
+* * L L . . L L . . L L L
+. . L L . . L L . . L L L
+. . L L . . L L . . * * L
+. . * * . . L L . . . . L
+. . . . . . L L . . . . L
+. . . . . . * * . . . . L
+. . . . . . . . . . . . L
+. . . . . . . . . . . . L
+^ . . . . . . . . . . . .
+```
+```ustawienia
+limit: 20
+```
+```rozwiazanie
+PRZEPIS A
+  IDŹ ×N, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W PRAWO, IDŹ ×N, SKRĘĆ W LEWO, IDŹ, SKRĘĆ W LEWO
+KONIEC
+N = 6
+N + 2
+ZRÓB A ×N
+ZRÓB A ×5
+N = 6
+N + 5
+ZRÓB A ×N
+ZRÓB A ×3
+N = 6
+N + 4
+ZRÓB A ×N
+ZRÓB A ×6
+```
+
+#### 4. Ramki
+Przepis A rysuje ramkę o boku N i robi krok po skosie do środka. Każda następna ramka jest o 2 mniejsza. Masz tylko 20 kart.
+```plansza
+* . . . . . . . . . . . *
+. * . . . . . . . . . * .
+. . * . . . . . . . * . .
+. . . * . . . . . * . . .
+. . . . * . . . * . . . .
+. . . . . * . * . . . . .
+. . . . . * * . . . . . .
+. . . . * * . * . . . . .
+. . . * * . . . * . . . .
+. . * * . . . . . * . . .
+. * * . . . . . . . * . .
+* * . . . . . . . . . * .
+^ . . . . . . . . . . . *
+```
+```ustawienia
+limit: 20
+```
+```rozwiazanie
+PRZEPIS A
+  POWTÓRZ ×4
+    IDŹ ×N, SKRĘĆ W PRAWO
+  KONIEC
+  IDŹ, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO
+KONIEC
+N = 6
+N + 6
+ZRÓB A ×N
+N = 6
+N + 4
+ZRÓB A ×N
+N = 6
+N + 2
+ZRÓB A ×N
+ZRÓB A ×6
+ZRÓB A ×4
+ZRÓB A ×2
+```
+
+### Zestaw B: Zmierz i przekaż
+karty: POWTÓRZ, DOPÓKI, JEŚLI, N =, N +, N −, ZRÓB A
+pytania: WOLNE?, NIE ŚCIANA?, NIE SKARB?, SKARB?, N > 0?, N = 0?
+parametr: tak
+
+#### 5. Róg jak odległość
+Zmierz drogę do klocka. Obróć się i przekaż N do przepisu A: dwa boki po N pól. Masz tylko 10 kart.
+```plansza
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+? . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+? . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+? . . . . . . . . . . . .
+. . . . . . . . . . . . .
+^ ? . . . ? . . ? . . . .
+```
+```ustawienia
+limit: 10
+warianty: .#..*. #....* ..#*..
+```
+```rozwiazanie
+PRZEPIS A
+  POWTÓRZ ×2
+    IDŹ ×N, SKRĘĆ W LEWO
+  KONIEC
+KONIEC
+DOPÓKI WOLNE?
+  IDŹ, N + 1
+KONIEC
+OBRÓĆ SIĘ
+ZRÓB A ×N
+```
+
+#### 6. Schody jak odległość
+Idź do klocka i licz. Potem skręć w lewo i zrób tyle schodków, ile było kroków. Masz tylko 13 kart.
+```plansza
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . ? . .
+. . . . . . . . ? . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . ? . . . . . . . . . .
+> . ? . . ? ? . . . . . .
+```
+```ustawienia
+limit: 13
+warianty: ..*#.. *....# .*..#.
+```
+```rozwiazanie
+PRZEPIS A
+  DOPÓKI N > 0?
+    IDŹ, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO, N − 1
+  KONIEC
+KONIEC
+DOPÓKI WOLNE?
+  IDŹ, N + 1
+KONIEC
+SKRĘĆ W LEWO
+ZRÓB A ×N
+```
+
+#### 7. Ile skarbów, taki kwadrat
+Policz skarby w dolnym rzędzie. Potem obejdź kwadrat o boku N w lewo do góry. Ostatni skarb leży w lewym górnym rogu kwadratu. Masz tylko 13 kart.
+```plansza
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+> . . . ? ? . ? ? ? ? ? .
+```
+```ustawienia
+limit: 13
+warianty: .****.. .....** **..*..
+```
+```rozwiazanie
+PRZEPIS A
+  POWTÓRZ ×4
+    IDŹ ×N, SKRĘĆ W LEWO
+  KONIEC
+KONIEC
+DOPÓKI NIE ŚCIANA?
+  JEŚLI SKARB?
+    N + 1
+  NIE
+  KONIEC
+  IDŹ
+KONIEC
+SKRĘĆ W LEWO
+ZRÓB A ×N
+```
+
+#### 8. Ślimak jak odległość
+Zmierz drogę do klocka. Przepis A to ślimak: bok N, potem N − 1 i tak do zera. Masz tylko 11 kart.
+```plansza
+? . . . . . . . . . . . .
+? . . . . . . . . . . . .
+. . . . . . . . . . . . .
+? . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . ? . . . . . .
+. . . . ? . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+. . . . . . . . . . . . .
+^ . . . . . . . . . . . .
+```
+```ustawienia
+limit: 11
+warianty: ..#.* #..*. .#.*.
+```
+```rozwiazanie
+PRZEPIS A
+  DOPÓKI N > 0?
+    IDŹ ×N, SKRĘĆ W PRAWO, N − 1
+  KONIEC
+KONIEC
+DOPÓKI WOLNE?
+  IDŹ, N + 1
+KONIEC
+SKRĘĆ W PRAWO
+ZRÓB A ×N
+```
+
