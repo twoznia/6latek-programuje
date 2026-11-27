@@ -214,6 +214,53 @@ footer{margin-top:28px;color:var(--muted);font-size:14px}
   .liczba{height:38px}
 }
 @media (prefers-reduced-motion:reduce){#robot,#robot.skok{transition:none}.potrzasnij{animation:none}}
+/* pomoc: opis kart z przykładami */
+.pomoc-btn{color:var(--accent)}
+dialog.pomoc{border:0;padding:0;background:transparent;max-width:none;max-height:none;width:100%;height:100%;margin:0}
+dialog.pomoc::backdrop{background:rgba(29,42,54,.55)}
+dialog.pomoc[open]{display:grid;place-items:center;padding:16px}
+.pomoc-okno{background:var(--bg);border-radius:24px;width:100%;max-width:880px;max-height:calc(100svh - 32px);display:flex;flex-direction:column;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.pomoc-gora{display:flex;align-items:center;gap:10px;padding:14px 16px 4px}
+.pomoc-gora h2{font-family:var(--display);font-size:clamp(22px,3.4vw,30px);margin:0;line-height:1.1;flex:1}
+.pomoc-taby{padding:4px 16px 10px;margin:0;flex:none}
+.pomoc-tresc{overflow:auto;padding:0 16px 20px;flex:1;min-height:0}
+.pk-wstep{margin:0 0 12px;font-size:18px}
+.pk{background:var(--panel);border-radius:18px;padding:12px 14px;margin-bottom:12px;box-shadow:0 0 0 1.5px var(--line) inset}
+.pk-glowa{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pk-glowa h4{margin:0;font-family:var(--display);font-size:22px;line-height:1.1}
+.pk>p{margin:8px 0 0;font-size:18px;max-width:65ch}
+.karta.mala{width:76px;padding:6px 2px 5px;font-size:11px;flex:none}
+.karta.mala svg{width:34px;height:34px}
+.liczba.mala{display:grid;place-items:center;width:44px;height:44px;font-size:24px;color:var(--num);box-shadow:0 0 0 2.5px var(--num) inset}
+.pole-ikona{display:inline-flex;flex:none}
+.pole-ikona svg{height:40px;width:auto;border-radius:6px;background:var(--floor)}
+.licznik-pomoc{background:var(--panel);border-radius:10px;padding:3px 10px;font-weight:800;box-shadow:0 0 0 1.5px var(--line) inset}
+.pk-przyklad{display:grid;grid-template-columns:150px minmax(0,1fr);gap:14px;align-items:start;margin-top:10px;padding-top:10px;border-top:1.5px dashed var(--line)}
+.pk-przyklad svg.mini{width:100%;height:auto;display:block}
+.pk-prog{display:flex;flex-direction:column;gap:6px;min-width:0}
+.pk-prog .rz{margin:0}
+.pk-wynik{margin:0;font-weight:700}
+.wyprobuj{align-self:flex-start;color:var(--ok)}
+.pk-dzial{font-family:var(--display);font-size:20px;margin:16px 0 8px}
+.pk-siatka{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.pk-maly{background:var(--panel);border-radius:16px;padding:10px 12px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;box-shadow:0 0 0 1.5px var(--line) inset}
+.pk-maly p{margin:0}
+.pk-lista{margin:0;padding-left:22px;background:var(--panel);border-radius:16px;padding:10px 14px 10px 32px;box-shadow:0 0 0 1.5px var(--line) inset}
+.pk-lista li{margin:4px 0}
+.pomoc .grupa{flex-wrap:wrap!important}
+.pomoc .rz>*{flex:none}
+.pomoc-taby{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin}
+.pomoc-taby .tab{flex:none}
+@media (max-width:560px){
+  dialog.pomoc[open]{padding:0}
+  .pk-przyklad{grid-template-columns:1fr!important}
+  .pk-przyklad svg.mini{max-width:150px}
+  .pomoc .chip{font-size:13px;padding:4px 8px 4px 4px}
+  .pomoc .chip svg{width:22px;height:22px}
+  .pomoc-okno{border-radius:0;max-height:100svh;height:100%}
+  .pk>p,.pk-wstep{font-size:16px}
+}
+
 </style>
 </head>
 <body>
@@ -222,6 +269,7 @@ footer{margin-top:28px;color:var(--muted);font-size:14px}
     <svg class="logo" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="#2b6fd6"/><polygon points="50,16 72,64 28,64" fill="#fff"/></svg>
     <h1>Robot i Programista</h1>
     <span class="spacer"></span>
+    <button class="btn ikonka pomoc-btn" id="pomocBtn" aria-label="Jak grać: karty i przykłady" title="Jak grać: karty i przykłady"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M9.2 9.3a2.9 2.9 0 1 1 4.3 2.6c-.9.5-1.5 1.1-1.5 2.1v.6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="17.6" r="1.4" fill="currentColor"/></svg><span class="txt">Jak grać?</span></button>
     <button class="btn" id="doListy" hidden>Wszystkie gry</button>
   </header>
 
@@ -229,7 +277,7 @@ footer{margin-top:28px;color:var(--muted);font-size:14px}
     <div class="hero">
       <div>
         <h2>Ułóż program. Robot pójdzie po skarb.</h2>
-        <p>Dotykaj kart: IDŹ, SKRĘĆ, OBRÓĆ SIĘ, SKOCZ. Liczba mówi, ile razy. Potem naciśnij START i patrz, czy robot dojdzie do gwiazdki. Na lawę nie wolno wejść, a kałużę trzeba przeskoczyć. Na poziomie 2 czekają pętla, klucze i drzwi, monety do liczenia, pytanie JEŚLI i przepis, a na poziomach 3–7 coraz trudniejsze zadania dla starszych dzieci i początkujących programistów.</p>
+        <p>Dotykaj kart: IDŹ, SKRĘĆ, OBRÓĆ SIĘ, SKOCZ. Liczba mówi, ile razy. Potem naciśnij START i patrz, czy robot dojdzie do gwiazdki. Na lawę nie wolno wejść, a kałużę trzeba przeskoczyć. Na poziomie 2 czekają pętla, klucze i drzwi, monety do liczenia, pytanie JEŚLI i przepis, a na poziomach 3–7 coraz trudniejsze zadania dla starszych dzieci i początkujących programistów. Co robi każda karta, pokazuje przycisk „Jak grać?” na górze.</p>
         <button class="btn go" id="grajTeraz">Graj!</button>
       </div>
       <div class="demo" id="demo" aria-hidden="true"></div>
@@ -311,7 +359,19 @@ footer{margin-top:28px;color:var(--muted);font-size:14px}
   </div>
 </div>
 
+<dialog class="pomoc" id="pomoc" aria-labelledby="pomocTytul">
+  <div class="pomoc-okno">
+    <div class="pomoc-gora">
+      <h2 id="pomocTytul">Jak grać: karty i przykłady</h2>
+      <button class="btn ikonka" id="pomocZamknij" aria-label="Zamknij pomoc" title="Zamknij"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="tabs pomoc-taby" role="tablist" aria-label="Poziom pomocy" id="pomocTaby"></div>
+    <div class="pomoc-tresc" id="pomocTresc"></div>
+  </div>
+</dialog>
+
 <script src="gra/gry.js"></script>
+<script src="gra/pomoc.js"></script>
 <script src="gra/gra.js"></script>
 </body>
 </html>

@@ -24,6 +24,20 @@ const path = require("path");
     await page.evaluate(() => { document.getElementById("brawo").hidden = true; });
   }
   console.log(`OK ${ok} z ${gry.length}`);
+  // przykłady z pomocy (gra/pomoc.js): „Wypróbuj” wkłada gotowy program, START musi dać BRAWO
+  const przyklady = await page.evaluate(() => window.RobotGra.przyklady());
+  let okP = 0;
+  for (const id of przyklady) {
+    await page.evaluate((id) => { location.hash = "przyklad-" + id; }, id);
+    await page.waitForFunction((id) => window.RobotGra.stan.gra && window.RobotGra.stan.gra.id === "przyklad-" + id, id);
+    await page.click("#start");
+    await page.waitForFunction(() => !document.getElementById("brawo").hidden || !window.RobotGra.stan.biegnie, null, { timeout: 20000 });
+    await page.waitForTimeout(5);
+    const wynik = await page.evaluate(() => ({ brawo: !document.getElementById("brawo").hidden, k: document.getElementById("komunikat").textContent }));
+    if (wynik.brawo) okP++; else bledy.push(`przykład ${id}: ${wynik.k}`);
+    await page.evaluate(() => { document.getElementById("brawo").hidden = true; });
+  }
+  console.log(`Przykłady w pomocy: OK ${okP} z ${przyklady.length}`);
   if (bledy.length) { console.log(bledy.join("\n")); process.exitCode = 1; }
   await browser.close();
 })();

@@ -26,6 +26,8 @@ Tryb debug (krok po kroku, ✓ zostaw albo ✗ usuń kartę), czytanie kart na g
 
 Gry poziomu 1 pochodzą z plików `tresc/plansze-poziom-1-*.md`, a gry poziomu 2 z pliku [`gra/poziom-2.md`](gra/poziom-2.md) (opis formatu jest na jego początku). Po zmianie uruchom `make online` (albo `python3 narzedzia/eksport_gry.py`), żeby odświeżyć `gra/gry.js`. Skrypt pomija gry poziomu 1, których nie da się zagrać na ekranie (pola „?”, program podany z góry), a każde rozwiązanie sprawdza symulatorem, przy polach ? na każdym wariancie. `make test-online` (Node i Playwright) gra każde rozwiązanie w prawdziwej grze i sprawdza, czy kończy się BRAWO.
 
+**Pomoc w grze:** przycisk „Jak grać?” (znak zapytania na górze, na liście gier i w czasie gry) otwiera opis każdej karty, pytania i pola, osobno dla poziomów 1–7, z przykładami. Przycisk „Wypróbuj” przy przykładzie otwiera go jako małą grę z gotowym programem; „Wróć do pomocy” przywraca grę i program, które dziecko układało. Treść pomocy i przykłady są w [`gra/pomoc.js`](gra/pomoc.js) (pisane ręcznie), a `make test-online` sprawdza, że każdy przykład kończy się BRAWO.
+
 Gry poziomów 3–7 są w `gra/poziom-<N>.md`, po 16 na planszę. Poziom 3 jest pisany ręcznie, a poziomy 4–7 robią skrypty `narzedzia/generatory/poziom<N>.py` (gry 1–8). Gry 9–16 (zestawy C i D) dopisuje do wszystkich tych plików `narzedzia/generatory/druga.py`, więc uruchamiaj go po generatorze poziomu.
 
 ## Pliki
