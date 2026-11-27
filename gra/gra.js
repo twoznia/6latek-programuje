@@ -106,7 +106,7 @@
     if (c.k === "N +") return "N plus " + c.n;
     if (c.k === "N −") return "N minus " + c.n;
     if (c.k === "META") return "meta";
-    if (c.k === "ZRÓB A" && stan.gra && stan.gra.parametr) return "zrób przepis A, N równa się " + slowoLiczby(c.n);
+    if (c.k === "ZRÓB A" && maParametr()) return "zrób przepis A, N równa się " + slowoLiczby(c.n);
     if (c.k === "ZRÓB A") return "zrób przepis A" + (c.n !== 1 ? " " + slowoLiczby(c.n) + " razy" : "");
     if (c.k === "NIE" || c.k === "KONIEC") return c.k;
     return c.k + (c.n !== 1 ? " " + slowoLiczby(c.n) + " razy" : "");
@@ -232,12 +232,22 @@
     var gra = GRY.filter(function (g) { return g.id === id; })[0];
     if (!gra) { pokazStart(); return; }
     if (!dozwolony(gra.size)) { stan.poziom = gra.poziom; location.hash = ""; pokazStart(); return; }
+    otworzGre(gra);
+    // powrót z przykładu w pomocy: program, który dziecko układało, wraca na miejsce
+    var s = stan.schowek;
+    if (s && s.id === gra.id) {
+      stan.obszary = s.obszary; stan.wybrana = s.wybrana; stan.obszar = s.obszar; stan.schowek = null;
+      rysujProgram(); naStart();
+      if (s.pomoc) otworzPomoc(s.poziom);
+    }
+  }
+  function otworzGre(gra) {
     przerwij();
     stan.gra = gra; stan.obszary = { program: [], przepis: [] }; stan.obszar = "program"; stan.wybrana = { program: -1, przepis: -1 };
-    stan.poziom = gra.poziom; stan.rozmiar = gra.size;
+    if (!gra.przyklad) { stan.poziom = gra.poziom; stan.rozmiar = gra.size; }
     $("ekranStart").hidden = true; $("ekranGra").hidden = false; $("doListy").hidden = false; document.body.classList.add("w-grze");
     stan.N = 0;
-    $("graTytul").textContent = (gra.poziom > 1 ? "Poziom " + gra.poziom + ", gra " : "Gra ") + gra.nr + ": " + gra.tytul + " (" + gra.size + " × " + gra.size + ")";
+    $("graTytul").textContent = gra.przyklad ? "Przykład: " + gra.tytul : (gra.poziom > 1 ? "Poziom " + gra.poziom + ", gra " : "Gra ") + gra.nr + ": " + gra.tytul + " (" + gra.size + " × " + gra.size + ")";
     $("graOpis").textContent = gra.opis;
     $("rozw").hidden = true;
     stan.nieudane = 0; $("pokazRozw").hidden = true;
@@ -299,7 +309,7 @@
     if (c.k === "JEŚLI" || c.k === "DOPÓKI") tresc = ikona(c.k) + "<span>" + c.k + "</span>" + pytanieIkona(c.q) + '<span class="q">' + c.q + "</span>";
     else if (ZMIENNA[c.k]) tresc = ikona(c.k) + "<span>" + c.k + '</span><b class="n">' + c.n + "</b>";
     else if (c.k === "META") tresc = ikona("META") + "<span>META</span>";
-    else if (c.k === "ZRÓB A" && stan.gra && stan.gra.parametr) tresc = ikona(c.k) + "<span>ZRÓB A</span>" + '<b class="n">N=' + c.n + "</b>";
+    else if (c.k === "ZRÓB A" && maParametr()) tresc = ikona(c.k) + "<span>ZRÓB A</span>" + '<b class="n">N=' + c.n + "</b>";
     else if (c.k === "NIE") tresc = ikona("NIE") + "<span>NIE</span>";
     else if (c.k === "KONIEC") tresc = ikona("KONIEC") + "<span>KONIEC</span>";
     else tresc = ikona(c.k) + "<span>" + c.k + "</span>" + (c.n !== 1 || c.k === "POWTÓRZ" ? '<b class="n">×' + c.n + "</b>" : "");
@@ -307,6 +317,9 @@
     return '<button class="chip' + (wybrana ? " wybrana" : "") + '" data-id="' + c.id + '"' + (aktywny ? ' data-a="' + obszar + '" aria-pressed="' + !!wybrana + '"' : ' tabindex="-1"') +
            ' style="color:' + kolor + '">' + tresc + "</button>";
   }
+  // Pomoc rysuje przykłady z parametrem (poziom 6) także wtedy, gdy otwarta gra go nie ma.
+  var parametrWidoku = null;
+  function maParametr() { return parametrWidoku !== null ? parametrWidoku : !!(stan.gra && stan.gra.parametr); }
   function pytanieIkona(q) {
     var t = PYTANIE[q];
     if (q === "KLOCEK?") t = "#";
@@ -734,35 +747,151 @@
   }
   function sukces() {
     var g = stan.gra;
-    zapiszGw(g.id);
+    if (!g.przyklad) zapiszGw(g.id);
     komunikat("Brawo! Robot ma skarb!", "dobrze");
     powiedz("brawo");
     var n = ileKart();
     var karty = n === 1 ? "kartę" : slowoKarty(n);
     var co = g.suma ? "Robot zebrał monety: razem " + g.suma + "." : "Robot zebrał skarb.";
     if (g.warianty) co = "Program zadziałał za każdym razem!";
-    $("brawoTekst").textContent = co + " Twój program ma " + n + " " + karty + ".";
+    $("brawoTekst").textContent = g.przyklad ? g.wynik : co + " Twój program ma " + n + " " + karty + ".";
+    $("nastepna").textContent = g.przyklad ? "Wróć do pomocy" : "Następna gra";
     $("brawo").hidden = false;
     $("nastepna").focus();
   }
   function slowoKarty(n) { return n === 1 ? "karta" : (n % 10 >= 2 && n % 10 <= 4 && (n < 10 || n > 20) ? "karty" : "kart"); }
   function nastepna() {
     $("brawo").hidden = true;
+    if (stan.gra.przyklad) { wrocZPrzykladu(); return; }
     var i = GRY.indexOf(stan.gra), nast = GRY[i + 1];
     if (nast && nast.size === stan.gra.size && nast.poziom === stan.gra.poziom) location.hash = "gra-" + nast.id;
     else location.hash = "";
   }
 
+  // ---------- pomoc: jak działa każda karta, z przykładami (dane w gra/pomoc.js) ----------
+  var POMOC = window.POMOC || [], PRZYKLADY = {};
+  POMOC.forEach(function (poz) {
+    poz.rzeczy.forEach(function (r) {
+      var p = r.przyklad; if (!p) return;
+      PRZYKLADY[p.id] = {
+        id: "przyklad-" + p.id, przyklad: true, poziom: poz.poziom, size: p.plansza.length, nr: 0, tytul: p.tytul,
+        opis: r.tekst + " Naciśnij START i patrz!", wynik: p.wynik, plansza: p.plansza, karty: p.karty,
+        rozwiazanie: { program: p.program, przepis: p.przepis }, pytania: p.pytania, warianty: p.warianty,
+        suma: p.suma, parametr: !!p.parametr, rekurencja: !!p.rekurencja, wymagaj: p.wymagaj, powrot: !!p.powrot
+      };
+      if (!p.przepis) delete PRZYKLADY[p.id].rozwiazanie.przepis;
+    });
+  });
+  var NAZWA_POLA = { "@": "klucz", "D": "drzwi", "?": "niespodzianka" };
+  function ikonaPola(t) {
+    if (KIER.indexOf(t) >= 0) return '<svg viewBox="0 0 20 20" aria-hidden="true"><g transform="translate(10,10)"><circle r="7.6" fill="#2b6fd6"/><polygon points="0,-5.7 3.8,2.7 -3.8,2.7" fill="#fff"/></g></svg>';
+    if (t === "@") return '<svg viewBox="0 0 40 20" aria-hidden="true">' + klucz(0, 0) + rysujPole("D", 20, 0) + "</svg>";
+    return '<svg viewBox="0 0 20 20" aria-hidden="true">' + rysujPole(t, 0, 0) + "</svg>";
+  }
+  // ikona pytania złożonego: obrazek ostatniej części, bez słowa NIE
+  function ikonaPytania(q) { return pytanieIkona(q.split(/ I | LUB /).pop().replace(/^NIE /, "")); }
+  function kartaPomocy(k) {
+    return '<span class="karta mala" style="color:' + KOLOR[k] + '">' + ikona(k) + "<span>" + NAPIS[k].join("<br>") + "</span></span>";
+  }
+  function znakRzeczy(r) {
+    if (r.karta) return (r.karty || [r.karta]).map(kartaPomocy).join("");
+    if (r.liczba) return '<span class="liczba mala">' + (r.liczba === "N" ? "N" : "3") + "</span>";
+    if (r.pytanie) return '<span class="pytanie">' + ikonaPytania(r.pytanie) + "<span>" + r.pytanie + "</span></span>";
+    if (r.pole) return '<span class="pole-ikona">' + ikonaPola(r.pole) + "</span>";
+    if (r.limit) return '<span class="licznik-pomoc">Karty: 4 z 6</span>';
+    return "";
+  }
+  function przykladHTML(p, poziom) {
+    var tok = function (c) { return tokenZDanych(c); };
+    parametrWidoku = !!p.parametr;
+    var prog = (p.przepis ? '<div class="rz"><b>Przepis A:</b> ' + rysujKarty(p.przepis.map(tok), "x") + "</div>" : "") +
+      '<div class="rz">' + (p.przepis ? "<b>Program:</b> " : "") + rysujKarty(p.program.map(tok), "x") + "</div>";
+    parametrWidoku = null;
+    return '<div class="pk-przyklad"><svg class="mini" data-przyklad="' + p.id + '" role="img" aria-label="Plansza przykładu"></svg>' +
+      '<div class="pk-prog"><div class="male">Przykład: ' + p.tytul + (p.warianty ? " (pole ? za każdym razem inne)" : "") + "</div>" + prog +
+      '<p class="pk-wynik">' + p.wynik + "</p>" +
+      '<button class="btn wyprobuj" data-przyklad="' + p.id + '" data-poziom="' + poziom + '">▶ Wypróbuj</button></div></div>';
+  }
+  function rysujPomoc(poziom) {
+    var poz = POMOC.filter(function (x) { return x.poziom === poziom; })[0] || POMOC[0];
+    if (!poz) return;
+    stan.poziomPomocy = poz.poziom;
+    $("pomocTaby").innerHTML = POMOC.map(function (x) {
+      return '<button class="tab" role="tab" data-poziom="' + x.poziom + '" aria-selected="' + (x.poziom === poz.poziom) + '">Poziom ' + x.poziom + "</button>";
+    }).join("");
+    var h = '<p class="pk-wstep">' + (poz.dla ? "<b>Poziom " + poz.poziom + ", " + poz.dla + ".</b> " : "") + poz.wstep + "</p>";
+    poz.rzeczy.forEach(function (r) {
+      h += '<article class="pk"><div class="pk-glowa">' + znakRzeczy(r) + "<h4>" + (r.nazwa || r.karta) + "</h4></div>" +
+        "<p>" + r.tekst + "</p>" + (r.przyklad ? przykladHTML(r.przyklad, poz.poziom) : "") + "</article>";
+    });
+    if (poz.pytania) {
+      h += '<h3 class="pk-dzial">Pytania</h3><div class="pk-siatka">' + poz.pytania.map(function (q) {
+        return '<div class="pk-maly"><span class="pytanie">' + ikonaPytania(q.q) + "<span>" + q.q + "</span></span><p>" + q.tekst + "</p></div>";
+      }).join("") + "</div>";
+    }
+    if (poz.pola) {
+      h += '<h3 class="pk-dzial">Pola na planszy</h3><div class="pk-siatka">' + poz.pola.map(function (f) {
+        return '<div class="pk-maly"><span class="pole-ikona">' + ikonaPola(f.pole) + "</span><p><b>" + f.nazwa + ".</b> " + f.tekst + "</p></div>";
+      }).join("") + "</div>";
+    }
+    if (poz.przyciski) {
+      h += '<h3 class="pk-dzial">Układanie programu</h3><ul class="pk-lista">' +
+        "<li>Dotknij karty w programie, żeby ją wybrać. Nowa karta stanie zaraz za nią. Liczba zmienia wybraną kartę.</li>" +
+        "<li>Czerwony ✕ przy wybranej karcie usuwa ją. Przycisk ▶ na początku wstawia kartę na sam początek.</li>" +
+        "<li><b>START</b> uruchamia robota. <b>Na start</b> stawia go z powrotem. <b>Wyczyść</b> zabiera wszystkie karty.</li>" +
+        "<li><b>Czytaj</b>: robot czyta karty na głos. <b>Debug</b>: robot idzie karta po karcie, a ty mówisz ✓ zostaw albo ✗ usuń.</li>" +
+        "<li>Po dwóch nieudanych próbach pojawia się żarówka z rozwiązaniem dla dorosłego.</li></ul>";
+    }
+    $("pomocTresc").innerHTML = h;
+    $("pomocTresc").querySelectorAll("svg.mini").forEach(function (svg) {
+      var g = PRZYKLADY[svg.dataset.przyklad];
+      rysujPlansze(svg, plansza(g), false);
+    });
+    $("pomocTresc").scrollTop = 0;
+  }
+  function otworzPomoc(poziom) {
+    if (stan.odpowiedz || stan.biegnie) przerwij();
+    rysujPomoc(poziom || (stan.gra ? stan.gra.poziom : stan.poziom));
+    var d = $("pomoc");
+    if (d.showModal) { if (!d.open) d.showModal(); } else d.setAttribute("open", "");
+  }
+  function zamknijPomoc() { var d = $("pomoc"); if (d.close) d.close(); else d.removeAttribute("open"); }
+  function otworzPrzyklad(g) {
+    otworzGre(g);
+    stan.obszary = { program: g.rozwiazanie.program.map(tokenZDanych), przepis: (g.rozwiazanie.przepis || []).map(tokenZDanych) };
+    stan.wybrana = { program: stan.obszary.program.length - 1, przepis: -1 }; stan.obszar = "program";
+    rysujProgram(); naStart();
+    komunikat("Program jest gotowy. Naciśnij START!", "");
+  }
+  function wyprobuj(id, poziom) {
+    var g = stan.gra && !stan.gra.przyklad ? stan.gra : null;
+    if (!stan.gra || !stan.gra.przyklad) {
+      stan.schowek = g ? { id: g.id, obszary: stan.obszary, wybrana: stan.wybrana, obszar: stan.obszar, hash: "gra-" + g.id, poziom: poziom, pomoc: false }
+                       : { id: null, hash: "", poziom: poziom, pomoc: false };
+    } else if (stan.schowek) stan.schowek.poziom = poziom;
+    zamknijPomoc();
+    if (location.hash === "#przyklad-" + id) otworzPrzyklad(PRZYKLADY[id]);
+    else location.hash = "przyklad-" + id;
+  }
+  function wrocZPrzykladu() {
+    var s = stan.schowek;
+    if (!s) { location.hash = ""; return; }
+    s.pomoc = true;
+    location.hash = s.hash;
+  }
+
   // ---------- ekrany i nawigacja ----------
   function pokazStart() {
+    przerwij(); stan.gra = null;
     $("ekranStart").hidden = false; $("ekranGra").hidden = true; $("doListy").hidden = true; document.body.classList.remove("w-grze"); $("brawo").hidden = true;
     rysujListe();
   }
   function trasa() {
     var h = location.hash.replace("#", "");
-    var m = h.match(/^gra-(\d+-\d+(?:-\d+)?)$/);
+    var m = h.match(/^gra-(\d+-\d+(?:-\d+)?)$/), p = h.match(/^przyklad-([a-z0-9-]+)$/);
     if (m) { otworz(m[1]); if (stan.gra) zapiszWybor(); }
-    else pokazStart();
+    else if (p && PRZYKLADY[p[1]]) otworzPrzyklad(PRZYKLADY[p[1]]);
+    else { pokazStart(); if (stan.schowek && stan.schowek.id === null && stan.schowek.pomoc) { var poz = stan.schowek.poziom; stan.schowek = null; otworzPomoc(poz); } }
   }
   function rysujPaleteKart() {
     var karty = stan.gra ? stan.gra.karty : RUCH;
@@ -811,6 +940,13 @@
       location.hash = "gra-" + pierwsza.id;
     });
     $("nastepna").addEventListener("click", nastepna);
+    $("pomocBtn").addEventListener("click", function () { otworzPomoc(); });
+    $("pomocZamknij").addEventListener("click", zamknijPomoc);
+    $("pomoc").addEventListener("click", function (e) {
+      if (e.target === $("pomoc")) { zamknijPomoc(); return; }
+      var t = e.target.closest(".tab[data-poziom]"); if (t) { rysujPomoc(+t.dataset.poziom); return; }
+      var w = e.target.closest(".wyprobuj"); if (w) wyprobuj(w.dataset.przyklad, +w.dataset.poziom);
+    });
     $("jeszczeRaz").addEventListener("click", function () { $("brawo").hidden = true; naStart(); });
     window.addEventListener("hashchange", trasa);
     function zmianaEkranu() {
@@ -836,6 +972,8 @@
       stan.wybrana = { program: stan.obszary.program.length - 1, przepis: -1 }; stan.obszar = "program";
       rysujProgram(); naStart();
     },
-    stan: stan
+    stan: stan,
+    przyklady: function () { return Object.keys(PRZYKLADY); },
+    pomoc: otworzPomoc
   };
 })();
