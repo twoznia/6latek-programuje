@@ -193,7 +193,8 @@ IDŹ"""
 
 
 def poziom5(n):
-    cfg = {5: dict(dl=12, war=2, drzwi=2), 7: dict(dl=21, war=3, drzwi=3), 9: dict(dl=33, war=3, drzwi=4)}[n]
+    cfg = {5: dict(dl=12, war=2, drzwi=2), 7: dict(dl=21, war=3, drzwi=3), 9: dict(dl=33, war=3, drzwi=4),
+           11: dict(dl=45, war=3, drzwi=5), 13: dict(dl=58, war=3, drzwi=6)}[n]
     out = [f"### Zestaw C: Ścieżki i przeszkody\nkarty: POWTÓRZ, DOPÓKI, JEŚLI, ZRÓB A\n{P5.PYT}\n"]
     g, w = P5.korytarz(n, n * 10 + 51, cfg["dl"])
     out.append(P5.blok(9, "Długa kręta ścieżka", "Nowa ścieżka, ten sam pomysł: jeśli przed tobą zamknięte I w lewo wolne, skręć w lewo. Tak samo w prawo.", g, P5.KRETY, w))
@@ -232,15 +233,16 @@ KART6 = "karty: POWTÓRZ, DOPÓKI, JEŚLI, N =, N +, N −, ZRÓB A\npytania: WO
 def poziom6(n):
     c = n // 2
     out = [f"### Zestaw C: Kształty na zamówienie\n{KART6}"]
-    boki = {5: [2, 1, 1, 2], 7: [3, 2, 1, 3], 9: [4, 2, 3, 1]}[n]
+    boki = {5: [2, 1, 1, 2], 7: [3, 2, 1, 3], 9: [4, 2, 3, 1], 11: [5, 2, 4, 3], 13: [6, 3, 5, 2]}[n]
     p = "PRZEPIS A\n  POWTÓRZ ×4\n    IDŹ ×N, SKRĘĆ W PRAWO\n  KONIEC\n  SKRĘĆ W PRAWO\nKONIEC\n" + "\n".join(liczba(k) for k in boki)
     out.append(stala(9, "Cztery kwadraty", "Przepis A to kwadrat o boku N i skręt w prawo. Cztery kwadraty różnej wielkości wokół START, jak w oknie z poziomu 3. Wróć na START.", n, c, c, "^", p,
                      lawa=1.0, param=True))
-    slupki = {5: [2, 4, 1, 3], 7: [3, 5, 2, 6, 1, 4], 9: [4, 6, 2, 5, 3, 6, 1, 4]}[n]
+    slupki = {5: [2, 4, 1, 3], 7: [3, 5, 2, 6, 1, 4], 9: [4, 6, 2, 5, 3, 6, 1, 4],
+              11: [3, 7, 2, 9, 5, 8, 1, 6], 13: [4, 9, 2, 11, 6, 10, 3, 7]}[n]
     p = "PRZEPIS A\n  SKRĘĆ W LEWO, IDŹ ×N, OBRÓĆ SIĘ, IDŹ ×N, SKRĘĆ W LEWO, IDŹ\nKONIEC\n" + "\n".join(liczba(k) for k in slupki)
     out.append(stala(10, "Wykres słupkowy", "Przepis A to słupek o wysokości N i krok w prawo. Na szczycie każdego słupka leży skarb.", n, n - 1, 0, ">", p,
                      gwiazdy=[(n - 1 - h, i) for i, h in enumerate(slupki)], lawa=1.0, param=True))
-    zeby = {5: [3, 1], 7: [2, 5, 3], 9: [6, 3, 8, 5]}[n]
+    zeby = {5: [3, 1], 7: [2, 5, 3], 9: [6, 3, 8, 5], 11: [7, 4, 9, 2, 6], 13: [8, 5, 11, 3, 10, 6]}[n]
     p = "PRZEPIS A\n  IDŹ ×N, SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W PRAWO, IDŹ ×N, SKRĘĆ W LEWO, IDŹ, SKRĘĆ W LEWO\nKONIEC\n" + "\n".join(liczba(k) for k in zeby)
     out.append(stala(11, "Grzebień z zębami", "Przepis A to ząb o wysokości N: w górę, krok w prawo, w dół i krok w prawo. Skarby na czubkach zębów.", n, n - 1, 0, "^", p,
                      gwiazdy=sledz(pusta(n, n - 1, 0, "^"), p, True)[1] if n < 9 else [(n - 1 - h, 2 * i) for i, h in enumerate(zeby)] + [(n - 1 - h, 2 * i + 1) for i, h in enumerate(zeby)], lawa=1.0, seed=n, param=True))
@@ -326,10 +328,10 @@ def poziom7(n):
     out = [f"### Zestaw C: Rekurencja rysuje\n{KC}"]
     p = "PRZEPIS A\n  JEŚLI N > 0?\n    IDŹ ×N, SKRĘĆ W PRAWO, N − 1, ZRÓB A ×N\n  NIE\n  KONIEC\nKONIEC\n" + liczba(n - 1)
     out.append(stala(9, "Ślimak z rekurencji", "Bok o długości N, skręt i wywołanie z N − 1. Kończy się, gdy N = 0.", n, n - 1, 0, "^", p, param=True, rek=True))
-    ramie = "IDŹ" if n < 9 else "IDŹ ×2"
+    ramie = "IDŹ" if n < 9 else "IDŹ ×2" if n < 13 else "IDŹ ×3"
     p = ("PRZEPIS A\n  JEŚLI N > 0?\n    POWTÓRZ ×4\n      " + ramie + ", N − 1, ZRÓB A ×N, N + 1, OBRÓĆ SIĘ, " + ramie + ", SKRĘĆ W LEWO\n    KONIEC\n  NIE\n  KONIEC\nKONIEC\nZRÓB A ×2")
     out.append(stala(10, "Płatek śniegu", "Plus, a na końcu każdego ramienia mniejszy plus. Robot wraca do środka. Wróć na START.", n, c, c, "^", p, gwiazdy="zakrety", lawa=1.0, param=True, rek=True))
-    k = {5: 3, 7: 3, 9: 4}[n]
+    k = {5: 3, 7: 3, 9: 4, 11: 6, 13: 8}[n]
     p = ("PRZEPIS A\n  JEŚLI N > 0?\n    N − 1, ZRÓB A ×N, N + 1\n    IDŹ ×N, OBRÓĆ SIĘ, IDŹ ×N, SKRĘĆ W LEWO, IDŹ, SKRĘĆ W LEWO\n  NIE\n  KONIEC\nKONIEC\n"
          "SKRĘĆ W PRAWO, IDŹ, SKRĘĆ W LEWO\n" + liczba(k)) if False else \
         ("PRZEPIS A\n  JEŚLI N > 0?\n    N − 1, ZRÓB A ×N, N + 1\n    SKRĘĆ W LEWO, IDŹ ×N, OBRÓĆ SIĘ, IDŹ ×N, SKRĘĆ W LEWO, IDŹ\n  NIE\n  KONIEC\nKONIEC\n" + liczba(k))
@@ -363,7 +365,10 @@ def wstaw(nr):
     czesci = re.split(r"^(?=## Plansza)", text, flags=re.M)
     nowe = [czesci[0]]
     for cz in czesci[1:]:
-        n = int(re.match(r"## Plansza (\d)", cz).group(1))
+        n = int(re.match(r"## Plansza (\d+)", cz).group(1))
+        if n > 9:  # plansze 11 × 11 i 13 × 13 robi duze.py
+            nowe.append(cz)
+            continue
         cz = re.split(r"^### Zestaw C:", cz, flags=re.M)[0].rstrip("\n") + "\n\n"
         nowe.append(cz + "\n".join(POZIOMY[nr](n)) + "\n")
     open(path, "w", encoding="utf-8").write("".join(nowe))

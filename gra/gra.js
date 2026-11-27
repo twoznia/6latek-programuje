@@ -68,9 +68,14 @@
     var g = wczytajGw(); if (g.indexOf(id) < 0) g.push(id);
     try { localStorage.setItem("rip-gwiazdki", JSON.stringify(g)); } catch (e) { /* bez zapisu */ }
   }
+  // ---------- rozmiary plansz (11 × 11 i 13 × 13 tylko na komputerze: szeroki ekran i mysz) ----------
+  var ROZMIARY = [5, 7, 9, 11, 13], DUZE = [11, 13];
+  var KOMPUTER = window.matchMedia ? window.matchMedia("(min-width: 900px) and (pointer: fine)") : { matches: true };
+  function dozwolony(r) { return DUZE.indexOf(r) < 0 || KOMPUTER.matches; }
+  function maGry(r) { return GRY.some(function (g) { return g.size === r && g.poziom === stan.poziom; }); }
   function zapiszWybor() { try { localStorage.setItem("rip-wybor", JSON.stringify({ p: stan.poziom, r: stan.rozmiar })); } catch (e) { /* bez zapisu */ } }
   function wczytajWybor() {
-    try { var w = JSON.parse(localStorage.getItem("rip-wybor") || "null"); if (w) { stan.poziom = poziomy().indexOf(w.p) >= 0 ? w.p : 1; stan.rozmiar = [5, 7, 9].indexOf(w.r) >= 0 ? w.r : 5; } } catch (e) { /* domyślnie */ }
+    try { var w = JSON.parse(localStorage.getItem("rip-wybor") || "null"); if (w) { stan.poziom = poziomy().indexOf(w.p) >= 0 ? w.p : 1; stan.rozmiar = ROZMIARY.indexOf(w.r) >= 0 ? w.r : 5; } } catch (e) { /* domyślnie */ }
   }
 
   // ---------- mowa ----------
@@ -190,6 +195,7 @@
   // ---------- lista gier ----------
   function rysujListe() {
     var gw = wczytajGw();
+    if (DUZE.indexOf(stan.rozmiar) >= 0 && (!dozwolony(stan.rozmiar) || !maGry(stan.rozmiar))) stan.rozmiar = 5;
     var gry = GRY.filter(function (g) { return g.size === stan.rozmiar && g.poziom === stan.poziom; });
     var zest = {}, nazwy = {};
     gry.forEach(function (g) { (zest[g.zestaw] = zest[g.zestaw] || []).push(g); if (g.zestawNazwa) nazwy[g.zestaw] = g.zestawNazwa; });
@@ -206,7 +212,11 @@
     $("lista").innerHTML = html;
     var wszystkie = gry.length, zrobione = gry.filter(function (g) { return gw.indexOf(g.id) >= 0; }).length;
     $("postep").textContent = "Gwiazdki: " + zrobione + " z " + wszystkie;
-    [5, 7, 9].forEach(function (r) { $("tab" + r).setAttribute("aria-selected", stan.rozmiar === r); });
+    ROZMIARY.forEach(function (r) {
+      $("tab" + r).setAttribute("aria-selected", stan.rozmiar === r);
+      if (DUZE.indexOf(r) >= 0) $("tab" + r).hidden = !dozwolony(r) || !maGry(r);
+    });
+    $("tylkoKomputer").hidden = KOMPUTER.matches || !DUZE.some(maGry);
     document.querySelectorAll(".tab[data-poziom]").forEach(function (b) { b.setAttribute("aria-selected", stan.poziom === +b.dataset.poziom); });
     $("opisPoziomu").textContent = OPIS_POZIOMU[stan.poziom] || "";
   }
@@ -221,6 +231,7 @@
   function otworz(id) {
     var gra = GRY.filter(function (g) { return g.id === id; })[0];
     if (!gra) { pokazStart(); return; }
+    if (!dozwolony(gra.size)) { stan.poziom = gra.poziom; location.hash = ""; pokazStart(); return; }
     przerwij();
     stan.gra = gra; stan.obszary = { program: [], przepis: [] }; stan.obszar = "program"; stan.wybrana = { program: -1, przepis: -1 };
     stan.poziom = gra.poziom; stan.rozmiar = gra.size;
@@ -790,7 +801,7 @@
     });
     $("pokazRozw").addEventListener("click", function () { $("rozw").hidden = !$("rozw").hidden; });
     $("lista").addEventListener("click", function (e) { var b = e.target.closest(".kafel"); if (b) location.hash = "gra-" + b.dataset.id; });
-    [5, 7, 9].forEach(function (r) { $("tab" + r).addEventListener("click", function () { stan.rozmiar = r; zapiszWybor(); rysujListe(); }); });
+    ROZMIARY.forEach(function (r) { $("tab" + r).addEventListener("click", function () { stan.rozmiar = r; zapiszWybor(); rysujListe(); }); });
     $("poziomyTaby").addEventListener("click", function (e) { var b = e.target.closest(".tab[data-poziom]"); if (b) { stan.poziom = +b.dataset.poziom; zapiszWybor(); rysujListe(); } });
     $("doListy").addEventListener("click", function () { location.hash = ""; });
     $("grajTeraz").addEventListener("click", function () {
@@ -802,6 +813,12 @@
     $("nastepna").addEventListener("click", nastepna);
     $("jeszczeRaz").addEventListener("click", function () { $("brawo").hidden = true; naStart(); });
     window.addEventListener("hashchange", trasa);
+    function zmianaEkranu() {
+      if (stan.gra && !$("ekranGra").hidden && !dozwolony(stan.gra.size)) location.hash = "";
+      else if (!$("ekranStart").hidden) rysujListe();
+    }
+    if (KOMPUTER.addEventListener) KOMPUTER.addEventListener("change", zmianaEkranu);
+    else if (KOMPUTER.addListener) KOMPUTER.addListener(zmianaEkranu);
     // podgląd na stronie startowej
     var demo = GRY.filter(function (g) { return g.id === "5-21"; })[0] || GRY[0];
     if (demo) {
