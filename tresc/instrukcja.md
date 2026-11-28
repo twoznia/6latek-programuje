@@ -242,7 +242,7 @@ ZRÓB A ×4
 
 # Słowa i liczby na trasie
 
-Dwa zestawy gier poziomu 1, w których robot przy okazji czyta i liczy. Są na planszach 5 × 5 i 7 × 7, po 16 gier: pliki *plansze-poziom-1-5x5-slowa*, *plansze-poziom-1-5x5-liczby*, *plansze-poziom-1-7x7-slowa* i *plansze-poziom-1-7x7-liczby*. Te same gry są w grze online, na końcu listy poziomu 1. Litery i monety do położenia na podłodze są na ostatnich stronach pliku z kartami (można je też napisać na karteczkach).
+Dwa zestawy gier poziomu 1, w których robot przy okazji czyta i liczy. Są na planszach 5 × 5, 7 × 7 i 9 × 9 (po 16 gier) oraz 11 × 11 i 13 × 13 (po 8 gier, dłuższe słowa i większe sumy): pliki *plansze-poziom-1-…-slowa* i *plansze-poziom-1-…-liczby*. Te same gry są w grze online, na końcu listy poziomu 1 (11 × 11 i 13 × 13 tylko na komputerze). Litery i monety do położenia na podłodze są na ostatnich stronach pliku z kartami (można je też napisać na karteczkach).
 
 ## Słowa z liter
 
@@ -256,7 +256,7 @@ Dwa zestawy gier poziomu 1, w których robot przy okazji czyta i liczy. Są na p
 
 - Robot **zbiera monetę**, gdy na niej stanie. Dziecko dodaje liczby z zebranych monet.
 - Razem ma być **dokładnie** tyle, ile mówi zadanie. Za mało albo za dużo to błąd, więc czasem trzeba ominąć monetę.
-- Na 5 × 5 sumy są do 10. Na 7 × 7 pierwsze gry mają sumy do 10, a ostatnie (dla starszych) do 20.
+- Na 5 × 5 sumy są do 10. Na 7 × 7 pierwsze gry mają sumy do 10, a ostatnie (dla starszych) do 20. Na 9 × 9 sumy są do 20, na 11 × 11 do 30, a na 13 × 13 do 40.
 - Na dole karty gry jest działanie, na przykład „Monety: 3 + 4 = 7”. Można je napisać na kartce po grze.
 
 > **Najpierw palcem.** Przed ułożeniem programu dziecko pokazuje palcem drogę na karcie gry i czyta po kolei litery albo dodaje liczby. Dopiero potem układa karty.

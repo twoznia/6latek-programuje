@@ -74,7 +74,7 @@ TEMATY = {"SLOWA": ("G", "Słowa z liter"), "LICZBY": ("H", "Liczenie na trasie"
 def poziom1():
     games, skipped = [], 0
     for path in sorted(glob.glob(os.path.join(ROOT, "tresc", "plansze-poziom-1-*.md"))):
-        m = re.search(r"plansze-poziom-1-(\d)x\d(?:-([a-z]+))?\.md$", path)
+        m = re.search(r"plansze-poziom-1-(\d+)x\d+(?:-([a-z]+))?\.md$", path)
         size, zestaw = int(m.group(1)), (m.group(2) or "").upper()
         nazwa = None
         if zestaw in TEMATY:
@@ -84,7 +84,7 @@ def poziom1():
             head = sec.splitlines()[0].strip()
             num, title = re.match(r"^(\d+)\.\s*(.*)$", head).groups()
             board = re.search(r"```plansza\n(.*?)```", sec, re.S)
-            sol = re.search(r"```rozwiazanie\n(.*?)```", sec, re.S)
+            sol = re.search(r"```rozwiazanie[^\n]*\n(.*?)```", sec, re.S)
             if not board or not sol or "```program" in sec:
                 skipped += 1; continue
             rows = [l.split() for l in board.group(1).splitlines() if l.strip()]

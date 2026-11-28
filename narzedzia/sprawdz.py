@@ -148,7 +148,7 @@ def games(path):
     for sec in re.split(r"^### ", text, flags=re.M)[1:]:
         title = sec.splitlines()[0]
         board = re.search(r"```plansza\n(.*?)```", sec, re.S)
-        sol = re.search(r"```rozwiazanie\n(.*?)```", sec, re.S)
+        sol = re.search(r"```rozwiazanie[^\n]*\n(.*?)```", sec, re.S)
         yield title, board and board.group(1).splitlines(), sol and sol.group(1).splitlines(), ustawienia(sec)
 
 def ustawienia(sec):
