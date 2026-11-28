@@ -10,6 +10,7 @@ Wszystkie karty do gry w jednym pliku. Zasady są w instrukcji, a gry w plikach 
 - **Strony 13–15: poziomy 2 i 3.** POWTÓRZ ×3, KONIEC ×5, JEŚLI ×2, STOP i META.
 - **Strona 16: pytania i odpowiedzi poziomu 3.** LAWA?, KAŁUŻA?, SKARB?, ŚCIANA?, TAK, NIE i ∞ ZAWSZE.
 - **Na końcu: karty dla starszych (poziomy 3–7 z gry online).** DOPÓKI ×2 i pytania WOLNE?, NIE ŚCIANA?, NIE SKARB? (poziom 3), a do poziomu 4 zmienna N: USTAW N, N + ×2, N −, karty N i 0 do okienek oraz pytania N > 0? i N = 0?, a do poziomu 5 czujniki WOLNE W LEWO?, WOLNE W PRAWO?, KLOCEK? i karty I, LUB, NIE do składania pytań.
+- **Ostatnie 5 stron: litery i monety** do gier „Słowa z liter” i „Liczenie na trasie”. 36 liter (A i O po 3, K, T, L, M, E, S, I, R, D, N, U, Y, B po 2 albo 1) i 24 monety od 1 do 9. Kładzie się je na polach planszy jak SKARB.
 
 ## Jak drukować
 
@@ -95,4 +96,14 @@ KLOCEK? ×1
 I ×2
 LUB ×1
 NIE ×2
+```
+
+---
+
+```karty
+LITERY A A A O O O K K T T L L M M E E S S I I R R D D N N U U Y Y B G P W Z C
+MONETY 1-9 ×2
+MONETY 2-2 ×2
+MONETY 3-5 ×1
+MONETY 5-5 ×1
 ```

@@ -31,7 +31,13 @@
             plansza: [". ^ .", ". . .", ". * ."], program: [["OBRÓĆ SIĘ", 1], ["IDŹ", 2]] } },
         { karta: "SKOCZ", tekst: "Robot skacze nad kałużą. Ląduje dwa pola dalej. Skacze tylko nad kałużą!",
           przyklad: { id: "skocz", tytul: "Hop nad kałużą", wynik: "Hop! Robot jest za kałużą.", karty: R,
-            plansza: [". * .", ". K .", ". ^ ."], program: [["SKOCZ", 1]] } }
+            plansza: [". * .", ". K .", ". ^ ."], program: [["SKOCZ", 1]] } },
+        { pole: "k", nazwa: "Litery", tekst: "Robot zbiera literę, gdy na niej stanie. Litery trzeba zbierać po kolei, tak jak w słowie. Na literę, która teraz nie pasuje, nie wolno wejść. Nad planszą widać, ile liter już jest.",
+          przyklad: { id: "litery", tytul: "Słowo KOT", wynik: "K, O, T: robot ułożył słowo KOT!", karty: R, slowo: "KOT",
+            plansza: [". . . .", ". o t .", ". k . .", ". ^ . ."], program: [["IDŹ", 2], ["SKRĘĆ W PRAWO", 1], ["IDŹ", 1]] } },
+        { pole: "3", nazwa: "Monety", tekst: "Robot zbiera monetę, gdy na niej stanie. Dodaj liczby z monet. Razem ma być dokładnie tyle, ile mówi zadanie. Nad planszą widać sumę.",
+          przyklad: { id: "monety1", tytul: "Razem 7", wynik: "3 + 4 = 7. Moneta 5 dałaby za dużo!", karty: R, suma: 7,
+            plansza: [". 4 5 .", ". . . .", ". 3 . .", ". ^ . ."], program: [["IDŹ", 3]] } }
       ],
       pola: [
         { pole: "^", nazwa: "Robot", tekst: "Tu robot zaczyna. Trójkąt pokazuje, gdzie patrzy." },

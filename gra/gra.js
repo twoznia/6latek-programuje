@@ -47,7 +47,7 @@
   var ZMIENNA = { "N =": 1, "N +": 1, "N −": 1 };
   var NIE_WOLNO = { "L": 1, "K": 1, "#": 1, "SCIANA": 1, "D": 1 };
   var OPIS_POZIOMU = {
-    1: "Karty IDŹ, SKRĘĆ, OBRÓĆ SIĘ i SKOCZ. Liczba mówi, ile razy.",
+    1: "Karty IDŹ, SKRĘĆ, OBRÓĆ SIĘ i SKOCZ. Liczba mówi, ile razy. Na końcu listy są gry z literami (robot układa słowo) i z monetami (robot liczy).",
     2: "Nowe karty i pola: pętla POWTÓRZ, klucz i drzwi, monety do liczenia, pytanie JEŚLI i przepis A. W każdym zestawie gry idą od najłatwiejszej.",
     3: "Dla 8-latka: pętla w pętli i nowa pętla DOPÓKI, która kręci się tak długo, jak odpowiedź brzmi TAK.",
     4: "Dla 12-latka: zmienna N. Robot pamięta liczbę N, może ją zmieniać i używać w okienku karty (IDŹ ×N).",
@@ -139,9 +139,11 @@
     if (t === "@") return klucz(px, py);
     if (t === "D") return '<rect x="' + (px + 3) + '" y="' + (py + 1.5) + '" width="' + (S - 6) + '" height="' + (S - 3) + '" rx="2" fill="#8d5524" stroke="#5c3613" stroke-width="1"/>' +
       '<circle cx="' + (px + 10) + '" cy="' + (py + 9) + '" r="1.9" fill="#ffd43b"/><path d="M' + (px + 10) + " " + (py + 10) + ' v3.5" stroke="#ffd43b" stroke-width="1.6"/>';
-    if (t === "o") return '<rect x="' + (px + 3) + '" y="' + (py + 1.5) + '" width="' + (S - 6) + '" height="' + (S - 3) + '" rx="2" fill="none" stroke="#8d5524" stroke-width="1" stroke-dasharray="2 1.5"/>';
+    if (t === "_") return '<rect x="' + (px + 3) + '" y="' + (py + 1.5) + '" width="' + (S - 6) + '" height="' + (S - 3) + '" rx="2" fill="none" stroke="#8d5524" stroke-width="1" stroke-dasharray="2 1.5"/>';
     if (t === "?") return '<rect x="' + (px + 1.5) + '" y="' + (py + 1.5) + '" width="' + (S - 3) + '" height="' + (S - 3) + '" rx="4" fill="#e5dbff" stroke="#7048e8" stroke-width="1"/>' +
       '<text x="' + (px + S / 2) + '" y="' + (py + 15) + '" text-anchor="middle" font-size="14" font-weight="800" font-family="Arial,sans-serif" fill="#7048e8">?</text>';
+    if (/^[a-z]$/.test(t)) return '<rect x="' + (px + 2) + '" y="' + (py + 2) + '" width="' + (S - 4) + '" height="' + (S - 4) + '" rx="3" fill="#fff" stroke="#2f9e44" stroke-width="1.3"/>' +
+      '<text x="' + (px + S / 2) + '" y="' + (py + 14.6) + '" text-anchor="middle" font-size="12.5" font-weight="800" font-family="Arial,sans-serif" fill="#1b5e20">' + t.toUpperCase() + "</text>";
     if (/^[1-9]$/.test(t)) return '<circle cx="' + (px + S / 2) + '" cy="' + (py + S / 2) + '" r="8.2" fill="#ffd43b" stroke="#e8a400" stroke-width="1.3"/>' +
       '<text x="' + (px + S / 2) + '" y="' + (py + 14.2) + '" text-anchor="middle" font-size="11.5" font-weight="800" font-family="Arial,sans-serif" fill="#5c3d00">' + t + "</text>";
     return "";
@@ -274,7 +276,7 @@
   // robot na START, plansza bez zmian (pola ? jeszcze nieodkryte)
   function naStart(w) {
     stan.pola = wariantPlanszy(w);
-    stan.zebrane = {}; stan.klucze = 0; stan.suma = 0; stan.kroki = 0; stan.N = 0; stan.glebokosc = 0;
+    stan.zebrane = {}; stan.klucze = 0; stan.suma = 0; stan.litery = ""; stan.kroki = 0; stan.N = 0; stan.glebokosc = 0;
     var info = rysujPlansze($("plansza"), stan.pola, true, stan.zebrane);
     stan.info = info;
     stan.robot = { y: info.start.y, x: info.start.x, d: info.start.d, kat: KIER.indexOf(info.start.d) * 90 };
@@ -288,6 +290,7 @@
     if (g.limit) h.push('<span class="' + (ileKart() > g.limit ? "zle" : "") + '">Karty: ' + ileKart() + " z " + g.limit + "</span>");
     if (g.plansza.some(function (r) { return r.indexOf("@") >= 0; })) h.push('<span><svg viewBox="0 0 20 20" aria-hidden="true">' + klucz(0, 0) + "</svg> " + stan.klucze + "</span>");
     if (g.suma) h.push("<span>Suma: " + stan.suma + " z " + g.suma + "</span>");
+    if (g.slowo) h.push('<span class="slowo">Słowo: ' + g.slowo.split("").map(function (l, i) { return i < stan.litery.length ? "<b>" + l + "</b>" : "_"; }).join(" ") + "</span>");
     if (ma("N =") || ma("N +") || g.parametr) h.push('<span class="zm">N = ' + stan.N + "</span>");
     $("licznik").innerHTML = h.join("");
     $("licznik").hidden = !h.length;
@@ -492,12 +495,12 @@
     if (tak) pokazWProgramie(el.closest(".program"), el);
   }
   function stanRobota() {
-    return { robot: Object.assign({}, stan.robot), zebrane: Object.assign({}, stan.zebrane), pola: stan.pola.map(function (r) { return r.slice(); }), klucze: stan.klucze, suma: stan.suma, N: stan.N };
+    return { robot: Object.assign({}, stan.robot), zebrane: Object.assign({}, stan.zebrane), pola: stan.pola.map(function (r) { return r.slice(); }), klucze: stan.klucze, suma: stan.suma, litery: stan.litery, N: stan.N };
   }
   // robot wraca do stanu sprzed usuniętej karty (tryb debug)
   // (pozycja, kierunek, skarby, klucze, drzwi i monety). Robot widocznie cofa się na stare miejsce.
   function cofnij(przed) {
-    stan.zebrane = przed.zebrane; stan.pola = przed.pola; stan.klucze = przed.klucze; stan.suma = przed.suma; stan.N = przed.N;
+    stan.zebrane = przed.zebrane; stan.pola = przed.pola; stan.klucze = przed.klucze; stan.suma = przed.suma; stan.litery = przed.litery; stan.N = przed.N;
     rysujPlansze($("plansza"), stan.pola, true, stan.zebrane);
     robotBezAnimacji();          // nowy rysunek: robot najpierw stoi tam, gdzie skończył
     stan.robot = przed.robot;
@@ -687,6 +690,8 @@
     var mam = Object.keys(stan.zebrane).length;
     var naStarcie = stan.robot.y === stan.info.start.y && stan.robot.x === stan.info.start.x;
     if (mam < gw) return mam ? "Jest " + mam + " z " + gw + " skarbów. Robot musi iść dalej!" : "Robot stanął, ale skarb jest dalej.";
+    if (g.slowo && stan.litery.length < g.slowo.length)
+      return stan.litery ? "Masz " + stan.litery + ". Brakuje jeszcze " + (g.slowo.length - stan.litery.length === 1 ? "jednej litery." : "liter.") : "Robot nie zebrał żadnej litery.";
     if (g.suma && stan.suma < g.suma) return "Masz " + stan.suma + ", a trzeba " + g.suma + ". Zbierz więcej!";
     if (g.suma && stan.suma > g.suma) return "Masz " + stan.suma + ", a trzeba " + g.suma + ". To za dużo!";
     if (g.powrot && !naStarcie) return "Masz skarb! Teraz wróć na START.";
@@ -724,14 +729,21 @@
     }
     var y = r.y + ile * d[0], x = r.x + ile * d[1], t = pole(y, x);
     if (BLAD[t]) return BLAD[t];
+    if (/^[a-z]$/.test(t) && stan.gra.slowo) {
+      var L = t.toUpperCase(), trzeba = stan.gra.slowo.charAt(stan.litery.length);
+      if (!trzeba) return "Słowo " + stan.gra.slowo + " jest już gotowe. Litery " + L + " nie bierz.";
+      if (L !== trzeba) return stan.gra.ukryte ? "Litera " + L + " teraz nie pasuje do słowa." : "To litera " + L + ", a teraz trzeba litery " + trzeba + ".";
+    }
     if (t === "D") {
       if (!stan.klucze) return "Drzwi są zamknięte. Najpierw weź klucz!";
-      stan.klucze--; stan.pola[y][x] = "o"; odswiezPole(y, x);
+      stan.klucze--; stan.pola[y][x] = "_"; odswiezPole(y, x);
     }
     r.y = y; r.x = x; ustawRobota(ile === 2);
     if (t === "*") { stan.zebrane[y + "-" + x] = true; odswiezPole(y, x); }
     else if (t === "@") { stan.klucze++; zniknij(y, x); }
     else if (/^[1-9]$/.test(t)) { stan.suma += +t; zniknij(y, x); }
+    else if (/^[a-z]$/.test(t) && stan.gra.slowo) { stan.litery += t.toUpperCase(); zniknij(y, x); }
+    if (/^[1-9a-z]$/.test(t)) rysujLicznik();
     return null;
   }
   function zniknij(y, x) {
@@ -749,10 +761,11 @@
     var g = stan.gra;
     if (!g.przyklad) zapiszGw(g.id);
     komunikat("Brawo! Robot ma skarb!", "dobrze");
-    powiedz("brawo");
+    powiedz(g.slowo ? "brawo! " + g.slowo : "brawo");
     var n = ileKart();
     var karty = n === 1 ? "kartę" : slowoKarty(n);
     var co = g.suma ? "Robot zebrał monety: razem " + g.suma + "." : "Robot zebrał skarb.";
+    if (g.slowo) co = "Robot ułożył słowo " + g.slowo + "!";
     if (g.warianty) co = "Program zadziałał za każdym razem!";
     $("brawoTekst").textContent = g.przyklad ? g.wynik : co + " Twój program ma " + n + " " + karty + ".";
     $("nastepna").textContent = g.przyklad ? "Wróć do pomocy" : "Następna gra";
@@ -777,7 +790,7 @@
         id: "przyklad-" + p.id, przyklad: true, poziom: poz.poziom, size: p.plansza.length, nr: 0, tytul: p.tytul,
         opis: r.tekst + " Naciśnij START i patrz!", wynik: p.wynik, plansza: p.plansza, karty: p.karty,
         rozwiazanie: { program: p.program, przepis: p.przepis }, pytania: p.pytania, warianty: p.warianty,
-        suma: p.suma, parametr: !!p.parametr, rekurencja: !!p.rekurencja, wymagaj: p.wymagaj, powrot: !!p.powrot
+        suma: p.suma, slowo: p.slowo, ukryte: !!p.ukryte, parametr: !!p.parametr, rekurencja: !!p.rekurencja, wymagaj: p.wymagaj, powrot: !!p.powrot
       };
       if (!p.przepis) delete PRZYKLADY[p.id].rozwiazanie.przepis;
     });

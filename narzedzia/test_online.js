@@ -38,6 +38,25 @@ const path = require("path");
     await page.evaluate(() => { document.getElementById("brawo").hidden = true; });
   }
   console.log(`Przykłady w pomocy: OK ${okP} z ${przyklady.length}`);
+  // złe programy w grach z literami i monetami: gra ma powiedzieć, co jest nie tak (bez BRAWO)
+  const zle = [
+    { id: "5-97", program: [["IDŹ", 3]], tekst: "Masz KO" },
+    { id: "5-101", program: [["IDŹ", 1], ["SKRĘĆ W PRAWO", 1], ["IDŹ", 1], ["SKRĘĆ W LEWO", 1], ["IDŹ", 1]], tekst: "To litera K, a teraz trzeba litery S" },
+    { id: "5-107", program: [["IDŹ", 2], ["SKRĘĆ W PRAWO", 1], ["IDŹ", 2]], tekst: "Litera T teraz nie pasuje" },
+    { id: "5-113", program: [["IDŹ", 2]], tekst: "Masz 2, a trzeba 5" },
+  ];
+  for (const z of zle) {
+    await page.evaluate((id) => { location.hash = "gra-" + id; }, z.id);
+    await page.waitForFunction((id) => window.RobotGra.stan.gra && window.RobotGra.stan.gra.id === id, z.id);
+    await page.evaluate((p) => window.RobotGra.ustawProgram({ program: p }), z.program);
+    await page.click("#start");
+    await page.waitForFunction(() => !document.getElementById("brawo").hidden || !window.RobotGra.stan.biegnie, null, { timeout: 20000 });
+    await page.waitForTimeout(5);
+    const w = await page.evaluate(() => ({ brawo: !document.getElementById("brawo").hidden, k: document.getElementById("komunikat").textContent }));
+    if (w.brawo || w.k.indexOf(z.tekst) < 0) bledy.push(`zły program ${z.id}: ${w.brawo ? "BRAWO" : w.k}`);
+    await page.evaluate(() => { document.getElementById("brawo").hidden = true; });
+  }
+  console.log(`Złe programy (litery i monety): sprawdzone ${zle.length}`);
   if (bledy.length) { console.log(bledy.join("\n")); process.exitCode = 1; }
   await browser.close();
 })();
