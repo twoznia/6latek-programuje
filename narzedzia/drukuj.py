@@ -17,7 +17,7 @@ Specjalne bloki w plikach .md (w ```):
                małe litery a-z (bez v) to litery do zebrania, cyfry 1-9 to monety
     ustawienia ustawienia gry (slowo: KOT, suma: 7, ukryte: tak) - nie drukuje się, czyta je sprawdz.py i gra online
     program    program; wcięcie 2 spacje = wnętrze POWTÓRZ/JEŚLI; "A, B, C" w jednej linii = karty w rzędzie
-    rozwiazanie  jak program, ale rysowane na dole karty gry jako rozwiązanie
+    rozwiazanie  jak program, ale rysowane na dole karty gry jako rozwiązanie ("```rozwiazanie tekst": tekstem)
 Linia "---" zaczyna nową stronę. Strona z tytułem "Plansze..." (albo "Misje...") układa sekcje ### w karty gier.
 Na karcie gry wszystko od bloku "rozwiazanie" albo akapitu "**Rozwiązanie:** ..." trafia na dół karty.
 """
@@ -345,6 +345,9 @@ def render_blocks(lines):
                 out.append(("plansza", block_plansza(body)))
             elif kind == "program":
                 out.append(("program", block_program(body, arg)))
+            elif kind == "rozwiazanie" and arg == "tekst":
+                # długi program w jednym rzędzie (duże plansze): tekst zajmuje mniej miejsca niż karty
+                out.append(("rozw", f'<p class="tekst">{html.escape(" ".join(l.strip() for l in body if l.strip()))}</p>'))
             elif kind == "rozwiazanie":
                 out.append(("rozw", block_program(body, arg)))
             elif kind == "ustawienia":

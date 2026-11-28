@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""Gry „Słowa z liter” i „Liczenie na trasie” (poziom 1, plansze 5 × 5 i 7 × 7).
+"""Gry „Słowa z liter” i „Liczenie na trasie” (poziom 1, plansze 5 × 5 do 13 × 13).
 
 Robi pliki tresc/plansze-poziom-1-<S>x<S>-slowa.md i tresc/plansze-poziom-1-<S>x<S>-liczby.md
-(po 16 gier, 4 strony). Plansze są wpisane niżej ręcznie, a rozwiązanie (najkrótszy program z kart
+(5x5, 7x7 i 9x9 po 16 gier na 4 strony, 11x11 i 13x13 po 8 gier na 2 strony). Plansze 5x5 i 7x7
+są wpisane niżej ręcznie, a 9x9, 11x11 i 13x13 losuje funkcja losuj() ze stałym ziarnem (z listy słów
+i sum, z lawą i kałużami; zostają plansze z programem o długości z zakresu DLUGOSC). Rozwiązanie (najkrótszy program z kart
 poziomu 1) znajduje przeszukiwanie wszerz. Potem: make sprawdz, make online, make druk.
 
     python3 narzedzia/generatory/slowa_liczby.py
@@ -11,16 +13,17 @@ Pola: małe litery (bez v, bo v to robot) to litery do zebrania, cyfry 1-9 to mo
 Ustawienia gry: slowo (litery trzeba zebrać po kolei, inna litera to błąd), ukryte (słowo jest
 zagadką, nie ma go w opisie), suma (monety mają dać dokładnie tyle).
 """
-import os, sys
+import os, random, sys
 from collections import deque
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
 KIER = "^>v<"
 DXY = {"^": (-1, 0), ">": (0, 1), "v": (1, 0), "<": (0, -1)}
-LIMIT = {5: 8, 7: 11}
+LIMIT = {5: 8, 7: 11, 9: 14, 11: 17, 13: 20}
+DLUGOSC = {9: (5, 14), 11: (7, 17), 13: (8, 20)}
 
 
-def rozwiaz(rows, slowo=None, suma=None, powrot=False):
+def rozwiaz(rows, slowo=None, suma=None, powrot=False, maks=None):
     """Najmniej kart IDŹ/SKRĘĆ/OBRÓĆ/SKOCZ (liczby 1-6). Zwraca (lista kart, droga zebranych pól)."""
     n = len(rows)
     zb = [(y, x) for y in range(n) for x in range(n) if rows[y][x] == "*" or rows[y][x].isdigit()
@@ -50,6 +53,7 @@ def rozwiaz(rows, slowo=None, suma=None, powrot=False):
 
     start = (sy, sx, sd, 0, 0, 0)
     prev = {start: None}
+    glebokosc = {start: 0}
     q = deque([start])
     while q:
         st = q.popleft()
@@ -61,6 +65,8 @@ def rozwiaz(rows, slowo=None, suma=None, powrot=False):
                 st, karta = prev[st]
                 prog.append(karta)
             return prog[::-1]
+        if maks is not None and glebokosc[st] >= maks:
+            continue
         ruchy = []
         dy, dx = DXY[d]
         cy, cx, cm, cl, cs = y, x, m, lit, s
@@ -86,6 +92,7 @@ def rozwiaz(rows, slowo=None, suma=None, powrot=False):
         for s2, karta in ruchy:
             if s2 not in prev:
                 prev[s2] = (st, karta)
+                glebokosc[s2] = glebokosc[st] + 1
                 q.append(s2)
     return None
 
@@ -576,6 +583,135 @@ LICZBY_7 = [
 . . . ^ . . .""", {"przyklad": {"suma": 7}}),
 ]
 
+# ------------------------------------------------------------------ duże plansze (losowane)
+# słowo albo (słowo, zagadka); zagadka = słowo ukryte, bez liter-pułapek
+SLOWA_9 = ["ROBOT", "BALON", "ZEGAR", ("ZEBRA", "Koń w czarno-białe paski.", "paski"), "BANAN", "PIRAT",
+           ("PAPUGA", "Kolorowy ptak, który powtarza słowa.", "gadający ptak"), "KAKTUS", "TULIPAN",
+           ("MARCHEW", "Pomarańczowa, rośnie w ziemi i lubi ją królik.", "obiad królika"), "POMIDOR", "TRAKTOR",
+           ("PINGWIN", "Czarno-biały ptak. Nie lata, ale świetnie pływa.", "ptak na lodzie"), "SAMOLOT",
+           ("KROKODYL", "Jest zielony, ma dużo zębów i pływa w rzece.", "zęby w rzece")]
+SLOWA_11 = ["KANAPKA", "DINOZAUR", ("PARASOL", "Chroni przed deszczem.", "deszcz"), "MOTOCYKL",
+            ("BIEDRONKA", "Czerwona z czarnymi kropkami. Siada na listkach.", "kropki"), "HELIKOPTER",
+            ("TRUSKAWKA", "Czerwony owoc z pestkami na zewnątrz.", "czerwony owoc")]
+SLOWA_13 = ["KOMPUTER", ("KANGUR", "Skacze i nosi dziecko w torbie.", "torba"), "KALKULATOR",
+            ("TELEFON", "Dzwoni, a przez niego można rozmawiać z babcią.", "dzwoni"), "ASTRONAUTA",
+            ("BIBLIOTEKA", "Tu pożycza się książki.", "książki"), "PROGRAMISTA"]
+SUMY_9 = [9, 10, 12, 11, 13, 14, 15, 12, 16, 17, 18, 15, 19, 20, 20]
+SUMY_11 = [14, 16, 18, 20, 22, 25, 30]
+SUMY_13 = [18, 20, 24, 26, 30, 35, 40]
+INNE = "abdeiklmnoprstuyz"
+
+
+def sciezka(rnd, g, znaki, size):
+    """Kładzie znaki po kolei, każdy 1-3 pola od poprzedniego (prosto w jedną stronę), żeby droga nie była za długa."""
+    for _ in range(50):
+        zajete = []
+        y, x = rnd.randrange(size - 2), rnd.randrange(size)
+        if g[y][x] != ".":
+            continue
+        zajete.append((y, x))
+        ok = True
+        for _ in znaki[1:]:
+            for _ in range(30):
+                dy, dx = rnd.choice(list(DXY.values()))
+                k = rnd.randint(1, 3)
+                ny, nx = y + dy * k, x + dx * k
+                if 0 <= ny < size - 1 and 0 <= nx < size and g[ny][nx] == "." and (ny, nx) not in zajete:
+                    y, x = ny, nx; zajete.append((y, x)); break
+            else:
+                ok = False; break
+        if ok:
+            for (y, x), z in zip(zajete, znaki):
+                g[y][x] = z
+            return True
+    return False
+
+
+def losuj(size, rodzaj, lista):
+    """Losowe plansze z listy słów albo sum. Ostatnia gra to gra do wymyślenia."""
+    rnd = random.Random(f"{size}-{rodzaj}")
+    lo, hi = DLUGOSC[size]
+    gry = []
+    for nr, co in enumerate(lista):
+        trudnosc = nr / max(1, len(lista) - 1)  # od 0 (łatwa) do 1 (trudna)
+        for proba in range(150):
+            g = [["."] * size for _ in range(size)]
+            sx = rnd.randrange(size)
+            sd = "^" if trudnosc < 0.3 or rnd.random() < 0.6 else rnd.choice("><")
+            g[size - 1][sx] = sd
+            wolne = [(y, x) for y in range(size) for x in range(size) if g[y][x] == "."]
+            rnd.shuffle(wolne)
+            lawa = int(size * size * (0.04 + 0.08 * trudnosc))
+            kaluze = rnd.randint(0, 1 + int(3 * trudnosc))
+            for _ in range(lawa):
+                y, x = wolne.pop(); g[y][x] = "L"
+            for _ in range(kaluze):
+                y, x = wolne.pop(); g[y][x] = "K"
+            ust = {}
+            if rodzaj == "slowa":
+                slowo, zagadka = (co, None) if isinstance(co, str) else co[:2]
+                if not sciezka(rnd, g, slowo.lower(), size):
+                    continue
+                wolne = [p for p in wolne if g[p[0]][p[1]] == "."]
+                pulapki = 0 if zagadka else rnd.randint(1, 2 + int(2 * trudnosc))
+                for _ in range(pulapki):
+                    y, x = wolne.pop(); g[y][x] = rnd.choice(INNE if rnd.random() < 0.5 else slowo.lower())
+                ust = {"slowo": slowo, "ukryte": "tak"} if zagadka else {"slowo": slowo}
+            else:
+                cel = co
+                ile = rnd.randint(2, 3) if cel <= 12 else rnd.randint(3, 5)
+                ile = max(ile, -(-cel // 7))  # średnio najwyżej 7 na monetę, żeby dało się dobrać
+                while True:
+                    wybrane = [rnd.randint(1, 9) for _ in range(ile - 1)]
+                    reszta = cel - sum(wybrane)
+                    if 1 <= reszta <= 9:
+                        wybrane.append(reszta); break
+                dodatkowe = [rnd.randint(1, 9) for _ in range(rnd.randint(2, 3))]
+                if not sciezka(rnd, g, "".join(map(str, wybrane)), size):
+                    continue
+                wolne = [p for p in wolne if g[p[0]][p[1]] == "."]
+                for v in dodatkowe:
+                    y, x = wolne.pop(); g[y][x] = str(v)
+                ust = {"suma": cel}
+            rows = [r[:] for r in g]
+            prog = rozwiaz(rows, ust.get("slowo"), ust.get("suma"), maks=hi)
+            if prog is None or not (lo + int((hi - lo) * 0.4 * trudnosc) <= len(prog) <= hi):
+                continue
+            break
+        else:
+            sys.exit(f"{size}x{size} {rodzaj} {co}: nie udało się wylosować planszy")
+        print(f"  losuję {size}x{size} {co}: próba {proba + 1}, {len(prog)} kart", flush=True)
+        plansza = "\n".join(" ".join(r) for r in rows)
+        przeszkody = []
+        if any("L" in r for r in rows): przeszkody.append("Obejdź lawę")
+        if any("K" in r for r in rows): przeszkody.append("przeskocz kałuże" if przeszkody else "Przeskocz kałuże")
+        p = (" i ".join(przeszkody) + ".") if przeszkody else ""
+        if rodzaj == "slowa":
+            if "ukryte" in ust:
+                gry.append((f"Zagadka: {co[2]}", f"Zagadka! {co[1]} Zbierz litery po kolei. {p}".strip(), plansza, ust))
+            else:
+                gry.append((co.capitalize(), f"Ułóż słowo {co}. Nie każda litera pasuje. {p}".strip(), plansza, ust))
+        else:
+            gry.append((f"Razem {co}", f"Razem ma być {co}. Nie wszystkie monety pasują. {p}".strip(), plansza, ust))
+    # gra do wymyślenia: litery albo monety bez przeszkód
+    g = [["."] * size for _ in range(size)]
+    g[size - 1][size // 2] = "^"
+    miejsca = [(y, x) for y in range(1, size - 1, 2) for x in range(1, size, 2)]
+    rnd.shuffle(miejsca)
+    if rodzaj == "slowa":
+        for (y, x), l in zip(miejsca, "kotdomlasmapa"):
+            g[y][x] = l
+        gry.append(("Twoje słowo", "Ułóż z tych liter słowo, jakie chcesz: KOT, DOM, LAS, MAPA, LAMPA albo SOK. Powiedz je Programiście, a on niech ułoży program.",
+                    "\n".join(" ".join(r) for r in g), {"przyklad": {"slowo": "LAMPA"}}))
+    else:
+        for (y, x), v in zip(miejsca, "253948176"):
+            g[y][x] = v
+        cel = {9: 15, 11: 20, 13: 25}[size]
+        gry.append(("Twoja suma", f"Wymyśl liczbę od 10 do {cel + 10} i powiedz ją Programiście. On ułoży program, który zbierze dokładnie tyle.",
+                    "\n".join(" ".join(r) for r in g), {"przyklad": {"suma": cel}}))
+    return gry
+
+
 WSTEP_SLOWA = ("Kółko to START, a trójkąt pokazuje, gdzie Robot patrzy. Robot zbiera literę, gdy na niej stanie. "
                "Litery trzeba zbierać po kolei, tak jak w słowie. Na literę, która teraz nie pasuje, nie wolno wejść. "
                "Rozwiązanie na dole karty można przed grą zagiąć.")
@@ -587,8 +723,9 @@ WSTEP_LICZBY = ("Kółko to START, a trójkąt pokazuje, gdzie Robot patrzy. Rob
 def plik(size, rodzaj, gry, pierwszy):
     nazwa = {"slowa": "słowa", "liczby": "liczby"}[rodzaj]
     out, bledy = [], []
-    for s in range(4):
-        out.append(f"# Plansze {size} × {size}, poziom 1: {nazwa} ({s + 1}/4)\n")
+    stron = len(gry) // 4
+    for s in range(stron):
+        out.append(f"# Plansze {size} × {size}, poziom 1: {nazwa} ({s + 1}/{stron})\n")
         if s == 0:
             out.append((WSTEP_SLOWA if rodzaj == "slowa" else WSTEP_LICZBY) + "\n")
         for i, (tytul, opis, plansza, ust) in enumerate(gry[s * 4:(s + 1) * 4]):
@@ -614,7 +751,7 @@ def plik(size, rodzaj, gry, pierwszy):
                 bledy.append(f"{size}x{size} {nr} {tytul}: rozwiązanie ma {len(prog)} kart (najwyżej {LIMIT[size]})")
             u = "\n".join(f"{k}: {v}" for k, v in ust.items())
             out.append("```ustawienia\n" + u + "\n```")
-            out.append("```rozwiazanie\n" + tekst(prog) + "\n```")
+            out.append(("```rozwiazanie tekst\n" if size >= 11 else "```rozwiazanie\n") + tekst(prog) + "\n```")
             if "suma" in ust:
                 m = monety_po_drodze(rows, prog)
                 out.append(f"Monety: {' + '.join(m)} = {ust['suma']}." + "\n")
@@ -623,7 +760,7 @@ def plik(size, rodzaj, gry, pierwszy):
             else:
                 out.append("")
             print(f"  {size}x{size} {nr:3d} {tytul:24s} {len(prog):2d} kart: {tekst(prog)}")
-        if s < 3:
+        if s < stron - 1:
             out.append("---\n")
     dst = os.path.join(ROOT, "tresc", f"plansze-poziom-1-{size}x{size}-{rodzaj}.md")
     with open(dst, "w", encoding="utf-8") as f:
@@ -637,6 +774,12 @@ def main():
     bledy += plik(5, "liczby", LICZBY_5, 113)
     bledy += plik(7, "slowa", SLOWA_7, 97)
     bledy += plik(7, "liczby", LICZBY_7, 113)
+    bledy += plik(9, "slowa", losuj(9, "slowa", SLOWA_9), 65)
+    bledy += plik(9, "liczby", losuj(9, "liczby", SUMY_9), 81)
+    bledy += plik(11, "slowa", losuj(11, "slowa", SLOWA_11), 1)
+    bledy += plik(11, "liczby", losuj(11, "liczby", SUMY_11), 9)
+    bledy += plik(13, "slowa", losuj(13, "slowa", SLOWA_13), 1)
+    bledy += plik(13, "liczby", losuj(13, "liczby", SUMY_13), 9)
     if bledy:
         sys.exit("BŁĘDY:\n" + "\n".join(bledy))
 
