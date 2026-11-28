@@ -2,6 +2,7 @@
 """Symulator robota: sprawdza, czy rozwiązania z plików tresc/*.md dochodzą do skarbów.
 Obsługuje poziomy 1-4: polecenia, POWTÓRZ, JEŚLI, STOP, META oraz PRZEPIS X / ZRÓB X (META w przepisie = powrót z przepisu).
 Gra online ma też klucze (@), drzwi (D, wejście zabiera jeden klucz) i monety z liczbami 1-6 (suma w info["suma"]).
+Litery (małe a-z bez v) robot zbiera po kolei: z ustawieniem slowo każda litera musi być następną literą słowa (info["litery"]).
 Użycie: python3 narzedzia/sprawdz.py tresc/plansze-*.md   (albo: make sprawdz)
 Pomija gry bez rozwiązania w bloku rozwiazanie i plansze z polami "?" - te sprawdź ręcznie."""
 import re, sys
@@ -57,9 +58,9 @@ def cmds(text):
         out.append(("cmd", m.group(1), int(m.group(2))) if m else ("cmd", part, 1))
     return out
 
-def run(board, prog, skarby=True, info=None):
+def run(board, prog, skarby=True, info=None, slowo=None):
     g = [r.split() for r in board]
-    keys, suma = 0, 0
+    keys, suma, litery = 0, 0, ""
     h, w = len(g), len(g[0])
     (r, c), d = next(((y, x), g[y][x]) for y in range(h) for x in range(w) if g[y][x] in DIRS)
     stars = {(y, x) for y in range(h) for x in range(w) if g[y][x] == "*"}
@@ -67,7 +68,7 @@ def run(board, prog, skarby=True, info=None):
     def cell(y, x):
         return "WALL" if not (0 <= y < h and 0 <= x < w) else g[y][x]
     def step(k):
-        nonlocal r, c, keys, suma
+        nonlocal r, c, keys, suma, litery
         dy, dx = DIRS[d]
         if k == 2:
             mid = cell(r + dy, c + dx)
@@ -80,8 +81,12 @@ def run(board, prog, skarby=True, info=None):
             keys -= 1; g[y][x] = "."
         elif t == "@":
             keys += 1; g[y][x] = "."
-        elif t in "123456":
+        elif len(t) == 1 and t in "123456789":
             suma += int(t); g[y][x] = "."
+        elif slowo is not None and len(t) == 1 and "a" <= t <= "z":
+            if len(litery) >= len(slowo): raise Fail(f"litera {t.upper()} w {(y+1, x+1)}, a słowo {slowo} jest już gotowe")
+            if t.upper() != slowo[len(litery)]: raise Fail(f"litera {t.upper()} w {(y+1, x+1)}, a trzeba {slowo[len(litery)]}")
+            litery += t.upper(); g[y][x] = "."
         r, c = y, x
         if (r, c) in stars: got.add((r, c))
     defs = {nd[1]: nd[2] for nd in prog if nd[0] == "def"}
@@ -131,7 +136,9 @@ def run(board, prog, skarby=True, info=None):
     except Meta:
         pass
     if info is not None:
-        info.update(suma=suma, klucze=keys)
+        info.update(suma=suma, klucze=keys, litery=litery)
+    if slowo is not None and litery != slowo:
+        raise Fail(f"zebrane litery {litery!r}, a słowo to {slowo}; koniec w {(r+1, c+1)}")
     if skarby and stars - got:
         raise Fail(f"nie zebrano skarbów {sorted((y+1, x+1) for y, x in stars - got)}; koniec w {(r+1, c+1)}")
     return (r + 1, c + 1), d
@@ -142,18 +149,28 @@ def games(path):
         title = sec.splitlines()[0]
         board = re.search(r"```plansza\n(.*?)```", sec, re.S)
         sol = re.search(r"```rozwiazanie\n(.*?)```", sec, re.S)
-        yield title, board and board.group(1).splitlines(), sol and sol.group(1).splitlines()
+        yield title, board and board.group(1).splitlines(), sol and sol.group(1).splitlines(), ustawienia(sec)
+
+def ustawienia(sec):
+    """Blok ```ustawienia (slowo: KOT, suma: 7) -> słownik."""
+    u = re.search(r"```ustawienia\n(.*?)```", sec, re.S)
+    if not u:
+        return {}
+    return {a.strip(): b.strip() for a, b in (l.split(":", 1) for l in u.group(1).splitlines() if ":" in l)}
 
 if __name__ == "__main__":
     bad = 0
     for path in sys.argv[1:]:
         if "starsi" in path:
             print(f"  pomijam   {path}: sprawdza make online (narzedzia/symulator.py)"); continue
-        for title, board, sol in games(path):
+        for title, board, sol, ust in games(path):
             if not board or not sol or any("?" in l for l in board):
                 print(f"  pomijam   {path}: {title}"); continue
             try:
-                end = run([l for l in board if l.strip()], parse_program(sol))
+                info = {}
+                end = run([l for l in board if l.strip()], parse_program(sol), info=info, slowo=ust.get("slowo"))
+                if "suma" in ust and info["suma"] != int(ust["suma"]):
+                    raise Fail(f"suma {info['suma']}, a ma być {ust['suma']}")
                 print(f"  OK        {path}: {title} -> koniec {end}")
             except Fail as e:
                 bad += 1; print(f"  BŁĄD      {path}: {title}: {e}")

@@ -43,7 +43,7 @@ class Blad(Exception):
 BLEDY = []
 
 
-def sprawdz_gre(where, plansza, prog, warianty, suma, powrot):
+def sprawdz_gre(where, plansza, prog, warianty, suma, powrot, slowo=None):
     """Uruchamia rozwiązanie na każdym wariancie planszy. Kończy skrypt przy błędzie."""
     pyt = [(y, x) for y, r in enumerate(plansza) for x, t in enumerate(r.split()) if t == "?"]
     if pyt and not warianty:
@@ -57,7 +57,7 @@ def sprawdz_gre(where, plansza, prog, warianty, suma, powrot):
         board = [" ".join(r) for r in rows]
         info = {}
         try:
-            end, _ = sprawdz.run(board, prog, info=info)
+            end, _ = sprawdz.run(board, prog, info=info, slowo=slowo, skarby=True)
         except sprawdz.Fail as e:
             raise Blad(f"{where}: wariant {w!r}: {e}")
         if suma is not None and info["suma"] != suma:
@@ -67,11 +67,18 @@ def sprawdz_gre(where, plansza, prog, warianty, suma, powrot):
             raise Blad(f"{where}: rozwiązanie nie wraca na START")
 
 
+# pliki z tematem zamiast litery zestawu: plansze-poziom-1-5x5-slowa.md -> zestaw G w grze online
+TEMATY = {"SLOWA": ("G", "Słowa z liter"), "LICZBY": ("H", "Liczenie na trasie")}
+
+
 def poziom1():
     games, skipped = [], 0
     for path in sorted(glob.glob(os.path.join(ROOT, "tresc", "plansze-poziom-1-*.md"))):
-        m = re.search(r"plansze-poziom-1-(\d)x\d(?:-([a-z]))?\.md$", path)
+        m = re.search(r"plansze-poziom-1-(\d)x\d(?:-([a-z]+))?\.md$", path)
         size, zestaw = int(m.group(1)), (m.group(2) or "").upper()
+        nazwa = None
+        if zestaw in TEMATY:
+            zestaw, nazwa = TEMATY[zestaw]
         text = open(path, encoding="utf-8").read()
         for sec in re.split(r"^### ", text, flags=re.M)[1:]:
             head = sec.splitlines()[0].strip()
@@ -82,24 +89,32 @@ def poziom1():
                 skipped += 1; continue
             rows = [l.split() for l in board.group(1).splitlines() if l.strip()]
             flat = [t for r in rows for t in r]
-            if "?" in flat or "*" not in flat or not any(t in "^>v<" for t in flat):
+            ust = sprawdz.ustawienia(sec)
+            slowo, suma = ust.get("slowo"), int(ust["suma"]) if "suma" in ust else None
+            if "?" in flat or ("*" not in flat and not slowo and suma is None) or not any(t in "^>v<" for t in flat):
                 skipped += 1; continue
             desc = " ".join(l.strip() for l in sec.split("```plansza")[0].splitlines()[1:] if l.strip())
+            desc = re.sub(r"\s*\*\*Rozwiązanie:\*\*.*$", "", desc)
             back = "wróć na start" in desc.lower()
             prog = sprawdz.parse_program([l for l in sol.group(1).splitlines() if l.strip()])
             if any(n[0] != "cmd" for n in prog):
                 skipped += 1; continue
             plansza = [" ".join(r) for r in rows]
             try:
-                sprawdz_gre(f"{path}: {head}", plansza, prog, None, None, back)
+                sprawdz_gre(f"{path}: {head}", plansza, prog, None, suma, back, slowo)
             except Blad as e:
                 BLEDY.append(str(e))
-            games.append({
+            g = {
                 "id": f"{size}-{int(num)}", "poziom": 1, "size": size, "zestaw": zestaw, "nr": int(num),
                 "tytul": title, "opis": desc, "plansza": plansza, "powrot": back,
                 "karty": PODSTAWOWE,
                 "rozwiazanie": {"program": tokeny(prog)},
-            })
+            }
+            if nazwa: g["zestawNazwa"] = nazwa
+            if slowo: g["slowo"] = slowo
+            if ust.get("ukryte") == "tak": g["ukryte"] = True
+            if suma is not None: g["suma"] = suma
+            games.append(g)
     return games, skipped
 
 

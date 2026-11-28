@@ -240,6 +240,29 @@ ZRÓB A ×4
 
 ---
 
+# Słowa i liczby na trasie
+
+Dwa zestawy gier poziomu 1, w których robot przy okazji czyta i liczy. Są na planszach 5 × 5 i 7 × 7, po 16 gier: pliki *plansze-poziom-1-5x5-slowa*, *plansze-poziom-1-5x5-liczby*, *plansze-poziom-1-7x7-slowa* i *plansze-poziom-1-7x7-liczby*. Te same gry są w grze online, na końcu listy poziomu 1. Litery i monety do położenia na podłodze są na ostatnich stronach pliku z kartami (można je też napisać na karteczkach).
+
+## Słowa z liter
+
+- Robot **zbiera literę**, gdy na niej stanie. Literę zdejmujemy z planszy i kładziemy w rzędzie obok, żeby było widać, jakie słowo powstaje.
+- Litery trzeba zbierać **po kolei**, tak jak w słowie: przy KOT najpierw K, potem O, na końcu T.
+- Na literę, która teraz nie pasuje, **nie wolno wejść**. To błąd, tak jak lawa. Trzeba ją obejść.
+- **Zagadki.** Niektóre gry nie mówią, jakie to słowo. Dorosły czyta zagadkę („mruczy i mówi miau”), dziecko zgaduje słowo i dopiero wtedy układa program.
+- Na końcu każdego zestawu jest gra do wymyślenia: dziecko wybiera słowo z liter na planszy, a Programista układa program.
+
+## Liczenie na trasie
+
+- Robot **zbiera monetę**, gdy na niej stanie. Dziecko dodaje liczby z zebranych monet.
+- Razem ma być **dokładnie** tyle, ile mówi zadanie. Za mało albo za dużo to błąd, więc czasem trzeba ominąć monetę.
+- Na 5 × 5 sumy są do 10. Na 7 × 7 pierwsze gry mają sumy do 10, a ostatnie (dla starszych) do 20.
+- Na dole karty gry jest działanie, na przykład „Monety: 3 + 4 = 7”. Można je napisać na kartce po grze.
+
+> **Najpierw palcem.** Przed ułożeniem programu dziecko pokazuje palcem drogę na karcie gry i czyta po kolei litery albo dodaje liczby. Dopiero potem układa karty.
+
+---
+
 # Dla starszych: poziomy 3–7
 
 Te same poziomy są w grze online. To inne poziomy niż poziomy 3 i 4 dla 6-latka opisane wyżej, dlatego pliki z planszami mają w nazwie „starsi”, np. `plansze-starsi-poziom-3-5x5`. Zasady ruchu są te same. Każda gra mówi, ile kart wolno użyć („Masz tylko 9 kart”). Liczymy wszystkie karty poleceń, także KONIEC i NIE, ale nie karty liczb. Na pola ? dorosły przed każdą próbą kładzie to, co podaje jeden z wariantów na karcie gry, i ten sam program musi zadziałać za każdym razem.

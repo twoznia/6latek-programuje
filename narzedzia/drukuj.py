@@ -13,7 +13,9 @@ jest Chrome, Chromium albo Edge. Wyniki trafiają do katalogu druk/.
 Specjalne bloki w plikach .md (w ```):
     karty      lista kart do wycięcia, np. "IDŹ ×6", "LICZBY 1-6 ×2", "LAWA ×4"
     legenda    "NAZWA: opis" - legenda poleceń z ikonami
-    plansza    siatka pól: . puste, ^ > v < robot, * skarb, # klocek, L lawa, K kałuża, ? niewiadoma
+    plansza    siatka pól: . puste, ^ > v < robot, * skarb, # klocek, L lawa, K kałuża, ? niewiadoma,
+               małe litery a-z (bez v) to litery do zebrania, cyfry 1-9 to monety
+    ustawienia ustawienia gry (slowo: KOT, suma: 7, ukryte: tak) - nie drukuje się, czyta je sprawdz.py i gra online
     program    program; wcięcie 2 spacje = wnętrze POWTÓRZ/JEŚLI; "A, B, C" w jednej linii = karty w rzędzie
     rozwiazanie  jak program, ale rysowane na dole karty gry jako rozwiązanie
 Linia "---" zaczyna nową stronę. Strona z tytułem "Plansze..." (albo "Misje...") układa sekcje ### w karty gier.
@@ -93,11 +95,21 @@ def num_card(n):
         inner = ''
     return small(inner, WORD.get(n, ""), top=f'<div class="big">{n}</div>')
 
+def coin_card(n):
+    return small(f'<svg viewBox="0 0 100 100" width="34mm" height="34mm">{coin(50, 50, 44, n)}</svg>', "", border="#e8a400")
+
+def letter_card(l):
+    return small("", "", border="#2f9e44", top=f'<div class="big" style="font-size:80pt;color:#1b5e20">{l}</div>')
+
 def inf_card():
     return small('', "ZAWSZE", top='<div class="big" style="font-size:64pt">∞</div>')
 
 def waves(color, ys, sw=5):
     return "".join(f'<path d="M8 {y} q10 -8 20 0 t20 0 t20 0 t20 0" stroke="{color}" stroke-width="{sw}" fill="none"/>' for y in ys)
+
+def coin(cx, cy, r, n):
+    return (f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="#ffd43b" stroke="#e8a400" stroke-width="{r*0.16:.2f}"/>'
+            f'<text x="{cx}" y="{cy+r*0.5:.1f}" text-anchor="middle" font-size="{r*1.4:.1f}" font-weight="800" font-family="Inter,DejaVu Sans,Arial" fill="#5c3d00">{n}</text>')
 
 def star(cx, cy, r):
     pts = " ".join(f"{cx+(r if i%2==0 else r*0.45)*math.sin(i*math.pi/5):.1f},{cy-(r if i%2==0 else r*0.45)*math.cos(i*math.pi/5):.1f}" for i in range(10))
@@ -169,7 +181,13 @@ def block_karty(lines):
         name, n = split_count(line)
         n = int(n) if n and n != "∞" else 1
         m = re.match(r'^LICZBY\s+(\d+)\s*-\s*(\d+)$', name)
-        if m:
+        mm = re.match(r'^MONETY\s+(\d+)\s*-\s*(\d+)$', name)
+        ml = re.match(r'^LITERY\s+([A-ZĄĆĘŁŃÓŚŹŻ ]+)$', name)
+        if mm:
+            smalls += [coin_card(i) for i in range(int(mm.group(1)), int(mm.group(2)) + 1)] * n
+        elif ml:
+            smalls += [letter_card(l) for l in ml.group(1).split()] * n
+        elif m:
             smalls += [num_card(i) for i in range(int(m.group(1)), int(m.group(2)) + 1)] * n
         elif name in CMD:
             cmds += [cmd_card(CMD[name])] * n
@@ -229,6 +247,11 @@ def block_plansza(lines):
                 out.append(star(x+s/2, y+s/2, 8))
             elif t in "^><v":
                 out.append(robot(x+s/2, y+s/2, 7.5, t))
+            elif len(t) == 1 and "a" <= t <= "z":
+                out.append(f'<rect x="{x+2}" y="{y+2}" width="{s-4}" height="{s-4}" rx="3" fill="#fff" stroke="#2f9e44" stroke-width="1.4"/>'
+                           f'<text x="{x+s/2}" y="{y+s/2+4.6}" text-anchor="middle" font-size="13" font-weight="800" font-family="Inter,DejaVu Sans,Arial" fill="#1b5e20">{t.upper()}</text>')
+            elif t in "123456789":
+                out.append(coin(x+s/2, y+s/2, 8.2, t))
     out.append('</svg>')
     return "".join(out)
 
@@ -324,6 +347,8 @@ def render_blocks(lines):
                 out.append(("program", block_program(body, arg)))
             elif kind == "rozwiazanie":
                 out.append(("rozw", block_program(body, arg)))
+            elif kind == "ustawienia":
+                pass
             elif kind == "kod":
                 # rozwiązanie jako tekst (poziomy dla programistów): zwięźlej niż karty
                 txt = html.escape("\n".join(l.rstrip() for l in body if l.strip()))
